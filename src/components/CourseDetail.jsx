@@ -184,82 +184,15 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
               <Star size={16} /> Enroll in this Module
             </button>
           </div>
-        <div className="course-detail-media batch-wrapper">
-          <div className="batch-card">
-            <div className="batch-card-header">
-              <div className="batch-badge">
-                <span className="live-dot"></span> ENROLLMENT
-              </div>
-              <h3>Batch Details</h3>
-              <p>Limited to 10 seats per batch.</p>
-              
-              <div className="batch-stats">
-                <div className="batch-stat-box">
-                  <span className="stat-value">2</span>
-                  <span className="stat-label">MONTHS</span>
-                </div>
-                <div className="batch-stat-box">
-                  <span className="stat-value">80+</span>
-                  <span className="stat-label">HOURS</span>
-                </div>
-                <div className="batch-stat-box">
-                  <span className="stat-value">12</span>
-                  <span className="stat-label">STUDENTS</span>
-                </div>
-              </div>
-            </div>
-            
-            <div className="batch-card-body">
-              <div className="info-row">
-                <div className="info-icon"><MapPin size={18} /></div>
-                <div className="info-content">
-                  <span className="info-label">CENTERS</span>
-                  <span className="info-value">Andheri & Borivali</span>
-                </div>
-              </div>
-              <div className="info-row">
-                <div className="info-icon"><Calendar size={18} /></div>
-                <div className="info-content">
-                  <span className="info-label">BATCHES</span>
-                  <span className="info-value">Weekdays & Weekends</span>
-                </div>
-              </div>
-              <div className="info-row">
-                <div className="info-icon"><Users size={18} /></div>
-                <div className="info-content">
-                  <span className="info-label">BATCH SIZE</span>
-                  <span className="info-value">Max 12 Students</span>
-                </div>
-              </div>
-              
-              <div className="batch-checklist">
-                <div className="check-item">
-                  <CheckCircle2 size={16} className="check-icon" />
-                  <span>Hands-on with 50+ premium tools</span>
-                </div>
-                <div className="check-item">
-                  <CheckCircle2 size={16} className="check-icon" />
-                  <span>Real ad budget campaigns included</span>
-                </div>
-                <div className="check-item">
-                  <CheckCircle2 size={16} className="check-icon" />
-                  <span>Diploma Certificate upon completion</span>
-                </div>
-                <div className="check-item">
-                  <CheckCircle2 size={16} className="check-icon" />
-                  <span>Job placement & interview prep</span>
-                </div>
-              </div>
-              
-              <button className="btn btn-primary demo-btn" onClick={onOpenEnrollModal}>
-                Book Free Demo Class <ArrowUpRight size={18} />
-              </button>
-            </div>
-          </div>
+        <div className="course-detail-media">
+          <img src={module.image} alt={module.title} loading="lazy" decoding="async" />
         </div>
         </div>
 
-        {/* Weekly Modules Section */}
+        {/* Main Course Content & Sidebar Grid */}
+        <div className="course-main-layout">
+          <div className="course-main-content">
+            {/* Weekly Modules Section */}
         {module.weeklyModules && (
           <div className="course-detail-section" style={{ marginTop: '4rem' }}>
             <h2 className="section-title">Weekly Modules</h2>
@@ -350,6 +283,83 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
               <p>250+ hiring partners across agencies, brands and startups — ready to hire you</p>
             </div>
           </div>
+        </div>
+          
+        <div className="course-sidebar">
+          <div className="batch-card" style={{ position: 'sticky', top: '100px' }}>
+            <div className="batch-card-header">
+              <div className="batch-badge">
+                <span className="live-dot"></span> ENROLLMENT
+              </div>
+              <h3>Batch Details</h3>
+              <p>Limited to 10 seats per batch.</p>
+              
+              <div className="batch-stats">
+                <div className="batch-stat-box">
+                  <span className="stat-value">2</span>
+                  <span className="stat-label">MONTHS</span>
+                </div>
+                <div className="batch-stat-box">
+                  <span className="stat-value">80+</span>
+                  <span className="stat-label">HOURS</span>
+                </div>
+                <div className="batch-stat-box">
+                  <span className="stat-value">12</span>
+                  <span className="stat-label">STUDENTS</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="batch-card-body">
+              <div className="info-row">
+                <div className="info-icon"><MapPin size={18} /></div>
+                <div className="info-content">
+                  <span className="info-label">CENTERS</span>
+                  <span className="info-value">Andheri & Borivali</span>
+                </div>
+              </div>
+              <div className="info-row">
+                <div className="info-icon"><Calendar size={18} /></div>
+                <div className="info-content">
+                  <span className="info-label">BATCHES</span>
+                  <span className="info-value">Weekdays & Weekends</span>
+                </div>
+              </div>
+              <div className="info-row">
+                <div className="info-icon"><Users size={18} /></div>
+                <div className="info-content">
+                  <span className="info-label">BATCH SIZE</span>
+                  <span className="info-value">Max 12 Students</span>
+                </div>
+              </div>
+              
+              <div className="batch-checklist">
+                <div className="check-item">
+                  <CheckCircle2 size={16} className="check-icon" />
+                  <span>Hands-on with 50+ premium tools</span>
+                </div>
+                <div className="check-item">
+                  <CheckCircle2 size={16} className="check-icon" />
+                  <span>Real ad budget campaigns included</span>
+                </div>
+                <div className="check-item">
+                  <CheckCircle2 size={16} className="check-icon" />
+                  <span>Diploma Certificate upon completion</span>
+                </div>
+                <div className="check-item">
+                  <CheckCircle2 size={16} className="check-icon" />
+                  <span>Job placement & interview prep</span>
+                </div>
+              </div>
+              
+              <button className="btn btn-primary demo-btn" onClick={onOpenEnrollModal}>
+                Book Free Demo Class <ArrowUpRight size={18} />
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
         </div>
 
         {/* Academy Content Section (from PDF) */}
