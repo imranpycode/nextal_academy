@@ -429,13 +429,15 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
   ];
 
   return (
-    <div className="course-detail-page premium-background">
+    <div className="course-detail-page">
       
       {/* Premium Background Blobs */}
-      <div className="particles-layer"></div>
-      <div className="blob blob-1"></div>
-      <div className="blob blob-2"></div>
-      <div className="blob blob-3"></div>
+      <div className="premium-background">
+        <div className="particles-layer"></div>
+        <div className="blob blob-1"></div>
+        <div className="blob blob-2"></div>
+        <div className="blob blob-3"></div>
+      </div>
 
       {/* Scroll Progress Bar */}
       <div className="scroll-progress-container">
