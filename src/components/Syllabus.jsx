@@ -264,81 +264,92 @@ export default function Syllabus() {
   };
 
   return (
-    <section id="syllabus" className="section section-alt">
-      <div className="container">
-        <div className="text-center mx-auto anim-text delay-2" style={{ marginBottom: '3rem' }}>
-          <h2 className="section-title animated-heading-shimmer">What You Will Learn</h2>
+    <section id="syllabus" className="section section-alt" style={{ padding: '5rem 0', position: 'relative' }}>
+      <div className="text-center mx-auto anim-text delay-2" style={{ marginBottom: '3rem' }}>
+        <h2 className="section-title animated-heading-shimmer">What You Will Learn</h2>
+      </div>
+
+      <div className="syllabus-grid-wrapper">
+        {/* Left Noticeboard Column */}
+        <div className="noticeboard-column anim-image delay-4">
+          <div className="noteboard-card">
+            <div className="noteboard-clip"></div>
+            <img src="/noteboard.png" alt="Noticeboard" className="noteboard-img" loading="lazy" decoding="async" />
+          </div>
         </div>
-
-        <div 
-          className="premium-slider-container anim-image delay-4"
-        >
-          {/* Left Noteboard Area */}
-          <div 
-            className="noteboard-wrapper anim-image delay-2"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            <div className="noteboard-card">
-              <div className="noteboard-clip"></div>
-              <img src="/noteboard.png" alt="Noteboard" className="noteboard-img" loading="eager" decoding="async" />
-            </div>
-          </div>
-
-          {/* Right Content Area */}
-          <div className="slider-content-area">
-            {modules.map((m, idx) => (
-              <div 
-                key={m.id} 
-                className={`slider-content-slide ${idx === currentIndex ? 'active' : ''}`}
-              >
-                <div>
-                  <div className="slide-badge">
-                    {m.icon} {m.tabLabel}
+        
+        {/* Slider Column */}
+        <div className="slider-column">
+          <div className="premium-slider-container anim-image delay-4">
+            {/* Left Content Area */}
+            <div className="slider-content-area">
+              {modules.map((m, idx) => (
+                <div 
+                  key={m.id} 
+                  className={`slider-content-slide ${idx === currentIndex ? 'active' : ''}`}
+                >
+                  <div>
+                    <div className="slide-badge">
+                      {m.icon} {m.tabLabel}
+                    </div>
+                    <h3 className="slide-title">{m.title}</h3>
+                    <p className="slide-desc">{m.desc}</p>
+                    
+                    <div className="slide-highlights">
+                      {m.highlights.map((h, i) => (
+                        <div className="slide-highlight-item" key={i}>
+                          <CheckCircle2 size={18} style={{ color: 'var(--accent-coral)' }} /> {h}
+                        </div>
+                      ))}
+                    </div>
                   </div>
-                  <h3 className="slide-title">{m.title}</h3>
-                  <p className="slide-desc">{m.desc}</p>
-                  
-                  <div className="slide-highlights">
-                    {m.highlights.map((h, i) => (
-                      <div className="slide-highlight-item" key={i}>
-                        <CheckCircle2 size={18} style={{ color: 'var(--accent-coral)' }} /> {h}
-                      </div>
-                    ))}
+
+                  <a href={`/course/${m.id}`} className="btn btn-primary slide-cta">
+                    Explore Module <ArrowRight size={16} />
+                  </a>
+                </div>
+              ))}
+              
+              {/* Navigation Controls */}
+              <div className="slider-navigation">
+                <div className="slider-progress-wrapper">
+                  <span className="slider-counter">
+                    {String(currentIndex + 1).padStart(2, '0')} / {String(modules.length).padStart(2, '0')}
+                  </span>
+                  <div className="slider-progress-track">
+                    <div 
+                      className="slider-progress-fill" 
+                      style={{ width: `${progress}%` }}
+                    />
                   </div>
                 </div>
-
-                <a href={`/course/${m.id}`} className="btn btn-primary slide-cta">
-                  Explore Module <ArrowRight size={16} />
-                </a>
-              </div>
-            ))}
-            
-            {/* Navigation Controls */}
-            <div className="slider-navigation">
-              <div className="slider-progress-wrapper">
-                <span className="slider-counter">
-                  {String(currentIndex + 1).padStart(2, '0')} / {String(modules.length).padStart(2, '0')}
-                </span>
-                <div className="slider-progress-track">
-                  <div 
-                    className="slider-progress-fill" 
-                    style={{ width: `${progress}%` }}
-                  />
+                <div className="slider-arrows">
+                  <button className="slider-arrow" onClick={handlePrev} aria-label="Previous Module">
+                    <ChevronLeft size={20} />
+                  </button>
+                  <button className="slider-arrow" onClick={handleNext} aria-label="Next Module">
+                    <ChevronRight size={20} />
+                  </button>
                 </div>
               </div>
-              <div className="slider-arrows">
-                <button className="slider-arrow" onClick={handlePrev} aria-label="Previous Module">
-                  <ChevronLeft size={20} />
-                </button>
-                <button className="slider-arrow" onClick={handleNext} aria-label="Next Module">
-                  <ChevronRight size={20} />
-                </button>
-              </div>
+            </div>
+
+            {/* Right Image Area */}
+            <div 
+              className="slider-media-area"
+              onMouseEnter={() => setIsHovered(true)}
+              onMouseLeave={() => setIsHovered(false)}
+            >
+              {modules.map((m, idx) => (
+                <div 
+                  key={m.id} 
+                  className={`slider-media-slide ${idx === currentIndex ? 'active' : ''}`}
+                >
+                  <img src={m.image} alt={m.title} loading={idx === 0 ? "eager" : "lazy"} decoding="async" />
+                </div>
+              ))}
             </div>
           </div>
-
-
         </div>
       </div>
     </section>

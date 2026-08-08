@@ -634,71 +634,6 @@ img {
   border: 2px solid rgba(255, 255, 255, 0.8);
 }
 
-  /* Noteboard Styles */
-  .noteboard-wrapper {
-    perspective: 1000px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: transparent;
-    border: none;
-    box-shadow: none;
-    width: 100%;
-    padding: 1rem;
-  }
-  
-  .noteboard-card {
-    position: relative;
-    width: 100%;
-    max-width: 450px;
-    background: #fdfaf6;
-    border-radius: 8px;
-    padding: 1.25rem 1.25rem 2rem 1.25rem;
-    box-shadow: 
-      0 20px 40px rgba(0,0,0,0.15),
-      inset 0 0 40px rgba(0,0,0,0.02);
-    transform: rotate(-2deg);
-    transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    border: 1px solid #e2d9c8;
-  }
-  
-  .noteboard-card:hover {
-    transform: rotate(0deg) scale(1.02);
-  }
-  
-  .noteboard-clip {
-    position: absolute;
-    top: -12px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70px;
-    height: 25px;
-    background: linear-gradient(to bottom, #f0f0f0, #a3a3a3);
-    border-radius: 4px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-    z-index: 10;
-    border: 1px solid #888;
-  }
-  .noteboard-clip::after {
-    content: '';
-    position: absolute;
-    bottom: 4px;
-    left: 10px;
-    right: 10px;
-    height: 2px;
-    background: rgba(0,0,0,0.3);
-    border-radius: 1px;
-  }
-  
-  .noteboard-img {
-    width: 100%;
-    height: auto;
-    border-radius: 4px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-    display: block;
-    object-fit: cover;
-  }
-
 .slider-media-slide {
   position: absolute;
   top: 0;
@@ -2062,3 +1997,102 @@ html[data-low-performance="true"] .center-card-energy-halo {
     scroll-behavior: auto !important;
   }
 }
+
+/* Syllabus Custom Grid Layout */
+.syllabus-grid-wrapper {
+  display: grid;
+  grid-template-columns: 1fr minmax(auto, 1200px) 1fr;
+  align-items: center;
+  row-gap: 3rem;
+}
+
+.noticeboard-column {
+  grid-column: 1 / 2;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  position: relative;
+  z-index: 10;
+}
+
+.slider-column {
+  grid-column: 2 / 3;
+  width: 100%;
+}
+
+.noteboard-card {
+  position: relative;
+  width: 100%;
+  min-width: 250px;
+  max-width: 350px;
+  background: #fdfaf6;
+  border-radius: 0 16px 16px 0;
+  padding: 1rem 1rem 1.5rem 1rem;
+  box-shadow: 15px 15px 35px rgba(0,0,0,0.15);
+  border: 1px solid #e2d9c8;
+  border-left: none;
+  transform: rotate(2deg);
+  transform-origin: left center;
+  transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.noteboard-card:hover {
+  transform: rotate(0deg) scale(1.02);
+}
+
+.noteboard-clip {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 20px;
+  background: linear-gradient(to bottom, #f0f0f0, #a3a3a3);
+  border-radius: 4px;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+  z-index: 10;
+  border: 1px solid #888;
+}
+
+.noteboard-clip::after {
+  content: '';
+  position: absolute;
+  bottom: 4px;
+  left: 10px;
+  right: 10px;
+  height: 2px;
+  background: rgba(0,0,0,0.3);
+  border-radius: 1px;
+}
+
+.noteboard-img {
+  width: 100%;
+  height: auto;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  display: block;
+  object-fit: cover;
+}
+
+@media (max-width: 1500px) {
+  .syllabus-grid-wrapper {
+    grid-template-columns: 1fr;
+    padding: 0 1.5rem;
+  }
+  .noticeboard-column {
+    grid-column: 1 / -1;
+    justify-content: center;
+    margin-bottom: 2rem;
+  }
+  .noteboard-card {
+    border-radius: 12px;
+    border-left: 1px solid #e2d9c8;
+    transform: rotate(-1deg);
+    transform-origin: center;
+    max-width: 400px;
+  }
+  .slider-column {
+    grid-column: 1 / -1;
+  }
+}
+
