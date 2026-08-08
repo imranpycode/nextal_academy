@@ -6,7 +6,7 @@ import {
   PlaySquare, Layout, Instagram, Facebook, Youtube, Smartphone, Linkedin, 
   BadgePercent, Megaphone, Captions, Zap, Headphones, Music, Clock, 
   Gauge, VolumeX, Subtitles, Image, Scissors, Repeat, AlignLeft, Cpu, Star, Film,
-  Brain, Database, Code, Terminal, Server, Users, Flag, Mail, MapPin, Calendar, Trophy, ArrowUpRight
+  Brain, Database, Code, Terminal, Server, Users, Flag, Mail, MapPin, Calendar, Trophy, ArrowUpRight, Monitor, Shield
 } from 'lucide-react';
 import '../course-premium.css';
 
