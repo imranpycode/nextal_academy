@@ -188,7 +188,18 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
       title: 'Graphic Design',
       image: '/Video Editing Fundamentals.webp',
       desc: 'Learn industry-standard graphic design tools and techniques to create stunning visual content for brands.',
-      topics: [],
+      topics: [
+        { label: 'Module 1: Introduction to Graphic Design', icon: <BookOpen size={16} /> },
+        { label: 'Module 2: Adobe Photoshop', icon: <Image size={16} /> },
+        { label: 'Module 3: Adobe Illustrator', icon: <Palette size={16} /> },
+        { label: 'Module 4: Adobe InDesign', icon: <Layout size={16} /> },
+        { label: 'Module 5: Branding & Identity Design', icon: <Star size={16} /> },
+        { label: 'Module 6: Social Media & Digital Creatives', icon: <Share size={16} /> },
+        { label: 'Module 7: Print Media Design', icon: <Folder size={16} /> },
+        { label: 'Module 8: UI Graphics & Web Design Basics', icon: <Smartphone size={16} /> },
+        { label: 'Module 9: Motion Graphics Basics', icon: <Film size={16} /> },
+        { label: 'Module 10: AI Tools for Graphic Design', icon: <Sparkles size={16} /> }
+      ],
       salaryInsights: [
         { experience: 'Fresher', salary: '\u20B92.0L - \u20B93.5L' },
         { experience: '1-3 Years', salary: '\u20B93.5L - \u20B96.0L' },
