@@ -341,10 +341,22 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     },
     {
       id: 'basic-video-editing',
-      title: 'Basic Video Editing',
+      title: 'Video Editing Mastery',
       image: '/Video Editing Fundamentals.webp',
-      desc: 'Learn the fundamentals of video editing to create engaging content for YouTube, Instagram Reels, and corporate videos.',
-      topics: [],
+      desc: 'Learn the fundamentals of video editing to create engaging content for YouTube, Instagram Reels, and corporate videos with a complete 3-month curriculum.',
+      topics: [
+        { label: 'Module 1: Video Editing Fundamentals', icon: <Film size={16} /> },
+        { label: 'Module 2: Adobe Premiere Pro Essentials', icon: <Scissors size={16} /> },
+        { label: 'Module 3: Professional Editing Techniques', icon: <Layout size={16} /> },
+        { label: 'Module 4: Audio Editing & Sound Design', icon: <Volume2 size={16} /> },
+        { label: 'Module 5: Motion Graphics & Titles', icon: <Type size={16} /> },
+        { label: 'Module 6: Adobe After Effects Basics', icon: <Sparkles size={16} /> },
+        { label: 'Module 7: Color Correction & Color Grading', icon: <Palette size={16} /> },
+        { label: 'Module 8: Visual Effects & Green Screen', icon: <Wand2 size={16} /> },
+        { label: 'Module 9: Social Media Video Production', icon: <Share size={16} /> },
+        { label: 'Module 10: AI-Powered Video Editing', icon: <Brain size={16} /> },
+        { label: 'Module 11: Exporting & Client Delivery', icon: <Folder size={16} /> }
+      ],
       salaryInsights: [
         { experience: 'Fresher', salary: '\u20B92.5L - \u20B94.0L' },
         { experience: '1-3 Years', salary: '\u20B94.0L - \u20B97.0L' },
