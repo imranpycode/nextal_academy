@@ -1812,7 +1812,7 @@ html[data-low-performance="true"] .center-card-energy-halo {
   color: white;
   display: flex;
   align-items: center;
-  justifyContent: center;
+  justify-content: center;
   font-weight: 700;
   font-size: 1.2rem;
   flex-shrink: 0;
