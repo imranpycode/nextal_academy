@@ -49,6 +49,15 @@ export default function RobotCat(props) {
 
   // ── Speech bubble ────────────────────────────────────────────
   const [speechStep, setSpeechStep] = useState(0)
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768)
+    handleResize()
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   useEffect(() => {
     const interval = setInterval(() => {
       setSpeechStep(1)
@@ -164,7 +173,7 @@ export default function RobotCat(props) {
             <group ref={rightArmRef} position={[-19.116, -18.008, 20.126]} rotation={[-0.578, Math.PI / 2, 0]}>
               <mesh geometry={nodes.Cube_5.geometry} material={customMaterial} position={[0, 0, 0]} rotation={[0, 0, 0]} />
               <Html
-                position={[20, 20, 0]}
+                position={isMobile ? [15, 15, 0] : [20, 20, 0]}
                 center
                 style={{
                   opacity: speechStep > 0 ? 1 : 0,
@@ -176,13 +185,18 @@ export default function RobotCat(props) {
               >
                 <div style={{
                   background: 'rgba(255, 255, 255, 0.95)',
-                  padding: '12px 24px',
+                  padding: isMobile ? '8px 16px' : '12px 24px',
                   borderRadius: '20px',
                   boxShadow: '0 10px 30px rgba(230,0,103,0.3)',
                   border: '1px solid rgba(255,255,255,0.4)',
                   backdropFilter: 'blur(10px)',
                 }}>
-                  <span style={{ fontSize: '1.25rem', fontWeight: 700, color: '#4B1D95', whiteSpace: 'nowrap' }}>
+                  <span style={{ 
+                    fontSize: isMobile ? '1rem' : '1.25rem', 
+                    fontWeight: 700, 
+                    color: '#4B1D95', 
+                    whiteSpace: 'nowrap' 
+                  }}>
                     {speechStep === 1 ? 'Hi!!' : 'Welcome To Nextal'}
                   </span>
                 </div>

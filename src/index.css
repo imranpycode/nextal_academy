@@ -1695,6 +1695,14 @@ html[data-low-performance="true"] .center-card-energy-halo {
   border: 1px solid rgba(246, 36, 119, 0.15);
   border-radius: var(--radius-xl);
   box-shadow: 0 20px 60px rgba(34, 0, 102, 0.08);
+  max-width: 90vw;
+}
+
+@media (max-width: 480px) {
+  .glass-loading-panel {
+    padding: 2rem 1.5rem;
+    gap: 1rem;
+  }
 }
 
 .loading-logo {
