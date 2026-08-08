@@ -279,10 +279,21 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     },
     {
       id: 'app-development',
-      title: 'App Development',
+      title: 'Full Stack Mobile App Development',
       image: '/Video Editing Fundamentals.webp',
-      desc: 'Build cross-platform mobile applications for iOS and Android using modern frameworks like React Native or Flutter.',
-      topics: [],
+      desc: 'Master full stack cross-platform mobile app development with Flutter, Firebase, and AI integration for iOS and Android.',
+      topics: [
+        { label: 'Module 1: Programming Fundamentals', icon: <Terminal size={16} /> },
+        { label: 'Module 2: Flutter Fundamentals', icon: <Smartphone size={16} /> },
+        { label: 'Module 3: Advanced Flutter Development', icon: <Code size={16} /> },
+        { label: 'Module 4: UI/UX for Mobile Apps', icon: <Layout size={16} /> },
+        { label: 'Module 5: Firebase Integration', icon: <Database size={16} /> },
+        { label: 'Module 6: API Integration & Backend Basics', icon: <Server size={16} /> },
+        { label: 'Module 7: State Management & App Architecture', icon: <Workflow size={16} /> },
+        { label: 'Module 8: Advanced Mobile Features', icon: <Zap size={16} /> },
+        { label: 'Module 9: AI-Powered App Development', icon: <Brain size={16} /> },
+        { label: 'Module 10: App Testing & Deployment', icon: <Target size={16} /> }
+      ],
       salaryInsights: [
         { experience: 'Fresher', salary: '\u20B94.0L - \u20B97.0L' },
         { experience: '1-3 Years', salary: '\u20B97.0L - \u20B914.0L' },
