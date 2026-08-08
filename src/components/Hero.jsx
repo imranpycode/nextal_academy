@@ -104,7 +104,7 @@ export default function Hero({ onOpenEnrollModal }) {
 
   return (
     <section id="home" className="hero-section">
-      <div style={{ padding: '0 clamp(1rem, 5vw, 2rem)', width: '100%', maxWidth: '1280px', margin: '0 auto' }}>
+      <div style={{ padding: '0 clamp(1rem, 5vw, 2rem)', width: '100%', margin: '0' }}>
         <div className="hero-grid">
           <div className="hero-content">
             <div className="hero-badge-list anim-badge delay-1">
