@@ -274,10 +274,21 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     },
     {
       id: 'web-development',
-      title: 'Web Development',
+      title: 'Full Stack Web Development',
       image: '/Video Editing Fundamentals.webp',
-      desc: 'Become a full-stack web developer. Master front-end and back-end technologies to build scalable, responsive web applications.',
-      topics: [],
+      desc: 'Become a full-stack developer by mastering frontend and backend technologies like React, Node.js, and databases with a 6-month mastery plan.',
+      topics: [
+        { label: 'Module 1: Programming Fundamentals', icon: <Code size={16} /> },
+        { label: 'Module 2: Frontend Web Development', icon: <Layout size={16} /> },
+        { label: 'Module 3: JavaScript (Advanced)', icon: <Activity size={16} /> },
+        { label: 'Module 4: React.js Development', icon: <Monitor size={16} /> },
+        { label: 'Module 5: Backend Development with Node.js & Express.js', icon: <Server size={16} /> },
+        { label: 'Module 6: Database Management', icon: <Database size={16} /> },
+        { label: 'Module 7: API Development & Authentication', icon: <Shield size={16} /> },
+        { label: 'Module 8: Advanced Full Stack Concepts', icon: <Workflow size={16} /> },
+        { label: 'Module 9: Git, Deployment & DevOps Basics', icon: <Folder size={16} /> },
+        { label: 'Module 10: AI-Powered Full Stack Development', icon: <Brain size={16} /> }
+      ],
       salaryInsights: [
         { experience: 'Fresher', salary: '\u20B93.5L - \u20B96.0L' },
         { experience: '1-3 Years', salary: '\u20B96.0L - \u20B912.0L' },
