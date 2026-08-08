@@ -70,9 +70,18 @@ const AnimatedCounter = ({ target, suffix, delay }) => {
 };
 
 export default function Hero({ onOpenEnrollModal }) {
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  React.useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
+    handleResize(); // Initial check
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
+
   return (
     <section id="home" className="hero-section">
-      <div style={{ padding: '0 2rem', width: '100%', margin: '0' }}>
+      <div style={{ padding: '0 clamp(1rem, 5vw, 2rem)', width: '100%', maxWidth: '1280px', margin: '0 auto' }}>
         <div className="hero-grid">
           <div className="hero-content">
             <div className="hero-badge-list anim-badge delay-1">
@@ -126,7 +135,11 @@ export default function Hero({ onOpenEnrollModal }) {
                 <spotLight position={[-5, 5, -5]} intensity={4} color="#ffffff" />
                 <spotLight position={[0, -5, 2]} intensity={3} color="#00C896" angle={0.5} penumbra={1} />
                 <Environment preset="city" />
-                <RobotCat position={[-1.0, -2.3, 0]} scale={2.0} rotation={[0, -Math.PI / 2, 0]} />
+                <RobotCat 
+                  position={isMobile ? [0, -2.5, 0] : [-1.0, -2.3, 0]} 
+                  scale={isMobile ? 1.6 : 2.0} 
+                  rotation={[0, -Math.PI / 2, 0]} 
+                />
               </Canvas>
             </div>
           </div>
