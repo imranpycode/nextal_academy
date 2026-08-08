@@ -485,7 +485,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
         {module.salaryInsights && (
           <div className="salary-insights-section" style={{ marginTop: '4rem', marginBottom: '4rem' }}>
             <h2 className="section-title">Salary Insights (India)</h2>
-            <p style={{ color: 'var(--text-secondary)', marginBottom: '2rem' }}>Estimated market compensation based on current industry data.</p>
+            <p style={{ color: '#64748b', marginBottom: '2rem' }}>Estimated market compensation based on current industry data.</p>
             <div className="salary-table-wrapper">
               <table className="salary-table">
                 <thead>
