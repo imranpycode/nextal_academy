@@ -1,0 +1,174 @@
+import React, { useState, useEffect, Suspense } from 'react';
+import Header from './components/Header';
+import Hero from './components/Hero';
+import useFPSMonitor from './hooks/useFPSMonitor';
+import LoadingScreen from './components/LoadingScreen';
+
+// ── Lazy load below-fold & route-only components ──────────────────────────
+const WhyUs       = React.lazy(() => import('./components/WhyUs'));
+const Syllabus    = React.lazy(() => import('./components/Syllabus'));
+const Highlights  = React.lazy(() => import('./components/Highlights'));
+const Faq         = React.lazy(() => import('./components/Faq'));
+const CtaBanner   = React.lazy(() => import('./components/CtaBanner'));
+const Footer      = React.lazy(() => import('./components/Footer'));
+const EnrollModal = React.lazy(() => import('./components/EnrollModal'));
+const ServiceDetail = React.lazy(() => import('./components/ServiceDetail'));
+const CourseDetail  = React.lazy(() => import('./components/CourseDetail'));
+const Blogs         = React.lazy(() => import('./components/Blogs'));
+const Placement     = React.lazy(() => import('./components/Placement'));
+
+// Minimal inline fallback — no extra render cost
+// Premium Fallback
+const PageFallback = () => <LoadingScreen isFadingOut={false} />;
+
+export default function App() {
+  const [modalOpen, setModalOpen] = useState(false);
+  const [currentPath, setCurrentPath] = useState(window.location.pathname);
+  const [initialLoading, setInitialLoading] = useState(true);
+  const [isFadingOut, setIsFadingOut] = useState(false);
+  
+  // Start FPS Monitor
+  useFPSMonitor();
+
+  useEffect(() => {
+    let timeoutMs = 800; // Standard connection
+    if (navigator.connection) {
+      const { effectiveType, downlink } = navigator.connection;
+      if (effectiveType === 'slow-2g' || effectiveType === '2g' || effectiveType === '3g' || downlink < 1.5) {
+        timeoutMs = 2500;
+        document.documentElement.setAttribute('data-low-performance', 'true'); // Pre-emptive low-perf mode for slow nets
+      }
+    }
+
+    const fadeTimer = setTimeout(() => {
+      setIsFadingOut(true);
+      setTimeout(() => setInitialLoading(false), 600); // 600ms fade transition
+    }, timeoutMs);
+
+    return () => {
+      clearTimeout(fadeTimer);
+    };
+  }, []);
+
+  useEffect(() => {
+    const handlePopState = () => setCurrentPath(window.location.pathname);
+    window.addEventListener('popstate', handlePopState);
+    return () => window.removeEventListener('popstate', handlePopState);
+  }, []);
+
+  // Scroll reveal — runs after paint and watches for lazy-loaded DOM elements
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('premium-revealed');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+
+    const observeNewElements = () => {
+      const sections = document.querySelectorAll('section:not(.reveal-observed), .hero-section:not(.reveal-observed), .site-footer:not(.reveal-observed)');
+      sections.forEach(sec => {
+        sec.classList.add('reveal-observed');
+        observer.observe(sec);
+      });
+    };
+
+    // Initial check
+    observeNewElements();
+
+    // Watch for lazy-loaded components entering the DOM
+    const mutationObserver = new MutationObserver(() => {
+      observeNewElements();
+    });
+
+    mutationObserver.observe(document.body, { childList: true, subtree: true });
+
+    return () => {
+      observer.disconnect();
+      mutationObserver.disconnect();
+    };
+  }, []);
+
+  // Global anchor interceptor
+  useEffect(() => {
+    const handleGlobalClick = (e) => {
+      const a = e.target.closest('a');
+      if (!a) return;
+      const href = a.getAttribute('href');
+      if (!href) return;
+
+      if (href.startsWith('/services/') || href.startsWith('/course/') || href === '/blogs' || href === '/placement') {
+        e.preventDefault();
+        window.history.pushState({}, '', href);
+        window.dispatchEvent(new Event('popstate'));
+        window.scrollTo({ top: 0, behavior: 'instant' }); // instant so new page doesn't scroll-animate in from bottom
+        return;
+      }
+
+      if (window.location.pathname !== '/' && href.startsWith('#')) {
+        e.preventDefault();
+        window.history.pushState({}, '', '/');
+        window.dispatchEvent(new Event('popstate'));
+        setTimeout(() => {
+          const el = document.querySelector(href);
+          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 150);
+        return;
+      }
+    };
+
+    document.addEventListener('click', handleGlobalClick);
+    return () => document.removeEventListener('click', handleGlobalClick);
+  }, []);
+
+  const handleSelectService = (slug) => {
+    window.history.pushState({}, '', `/services/${slug}`);
+    window.dispatchEvent(new Event('popstate'));
+  };
+
+  const handleBackToHome = () => {
+    window.history.pushState({}, '', '/');
+    window.dispatchEvent(new Event('popstate'));
+  };
+
+  const isServiceRoute  = currentPath.startsWith('/services/');
+  const serviceSlug     = isServiceRoute ? currentPath.replace('/services/', '') : '';
+  const isCourseRoute   = currentPath.startsWith('/course/');
+  const courseSlug      = isCourseRoute ? currentPath.replace('/course/', '') : '';
+  const isBlogsRoute    = currentPath === '/blogs';
+  const isPlacementRoute = currentPath === '/placement';
+
+  return (
+    <div className="app">
+      <Header onOpenEnrollModal={() => setModalOpen(true)} />
+
+      <Suspense fallback={<PageFallback />}>
+        {isServiceRoute ? (
+          <ServiceDetail slug={serviceSlug} onBack={handleBackToHome} onOpenEnrollModal={() => setModalOpen(true)} />
+        ) : isCourseRoute ? (
+          <CourseDetail slug={courseSlug} onBack={handleBackToHome} onOpenEnrollModal={() => setModalOpen(true)} />
+        ) : isBlogsRoute ? (
+          <Blogs onBack={handleBackToHome} />
+        ) : isPlacementRoute ? (
+          <Placement onBack={handleBackToHome} />
+        ) : (
+          <main>
+            <Hero onOpenEnrollModal={() => setModalOpen(true)} />
+            <WhyUs onSelectService={handleSelectService} />
+            <Syllabus />
+            <Highlights />
+            <Faq />
+            <CtaBanner onOpenEnrollModal={() => setModalOpen(true)} />
+          </main>
+        )}
+
+        <Footer />
+        <EnrollModal isOpen={modalOpen} onClose={() => setModalOpen(false)} />
+      </Suspense>
+
+      {initialLoading && <LoadingScreen isFadingOut={isFadingOut} />}
+    </div>
+  );
+}
