@@ -122,8 +122,8 @@ export default function Syllabus() {
       tabLabel: '3. UI/UX',
       image: '/Video Editing Fundamentals.webp',
       icon: <Palette size={18} />,
-      desc: 'Course content coming soon...',
-      highlights: ['Syllabus coming soon'],
+      desc: 'A comprehensive Six-Month Mastery Course covering everything from Graphic Design fundamentals to advanced UI/UX, Prototyping, and AI tools.',
+      highlights: ['6-Month Mastery', 'Figma & Prototyping', 'AI Tools Integration'],
       topics: []
     },
     {
@@ -132,8 +132,8 @@ export default function Syllabus() {
       tabLabel: '4. Graphics',
       image: '/Video Editing Fundamentals.webp',
       icon: <Image size={18} />,
-      desc: 'Course content coming soon...',
-      highlights: ['Syllabus coming soon'],
+      desc: 'Learn industry-standard graphic design tools and techniques to create stunning visual content for brands.',
+      highlights: ['Adobe Creative Suite', 'Branding & Identity', '3-Month Plan'],
       topics: []
     },
     {
@@ -152,8 +152,8 @@ export default function Syllabus() {
       tabLabel: '6. Web Dev',
       image: '/Video Editing Fundamentals.webp',
       icon: <Code size={18} />,
-      desc: 'Course content coming soon...',
-      highlights: ['Syllabus coming soon'],
+      desc: 'Become a full-stack developer by mastering frontend and backend technologies like React, Node.js, and databases with a 6-month mastery plan.',
+      highlights: ['React & Node.js', 'Database Management', 'AI-Powered Development'],
       topics: []
     },
     {
@@ -162,8 +162,8 @@ export default function Syllabus() {
       tabLabel: '7. App Dev',
       image: '/Video Editing Fundamentals.webp',
       icon: <Smartphone size={18} />,
-      desc: 'Course content coming soon...',
-      highlights: ['Syllabus coming soon'],
+      desc: 'Master full stack cross-platform mobile app development with Flutter, Firebase, and AI integration for iOS and Android.',
+      highlights: ['Flutter & Firebase', 'State Management', 'App Deployment'],
       topics: []
     },
     {
@@ -172,8 +172,8 @@ export default function Syllabus() {
       tabLabel: '8. Video Basics',
       image: '/Video Editing Fundamentals.webp',
       icon: <Film size={18} />,
-      desc: 'Course content coming soon...',
-      highlights: ['Syllabus coming soon'],
+      desc: 'Learn the fundamentals of video editing to create engaging content for YouTube, Instagram Reels, and corporate videos with a complete 3-month curriculum.',
+      highlights: ['Premiere & After Effects', 'Audio & Color Grading', 'AI-Powered Editing'],
       topics: []
     },
     {
@@ -182,8 +182,8 @@ export default function Syllabus() {
       tabLabel: '9. Motion VFX',
       image: '/Video Editing Fundamentals.webp',
       icon: <Scissors size={18} />,
-      desc: 'Course content coming soon...',
-      highlights: ['Syllabus coming soon'],
+      desc: 'A complete six-month mastery course to learn After Effects, VFX, 3D integration, and professional motion graphics from beginner to advanced level.',
+      highlights: ['VFX & 3D Integration', 'Professional Color Grading', 'Animation Workflow'],
       topics: []
     },
     {
