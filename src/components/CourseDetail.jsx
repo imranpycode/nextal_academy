@@ -6,7 +6,7 @@ import {
   PlaySquare, Layout, Instagram, Facebook, Youtube, Smartphone, Linkedin, 
   BadgePercent, Megaphone, Captions, Zap, Headphones, Music, Clock, 
   Gauge, VolumeX, Subtitles, Image, Scissors, Repeat, AlignLeft, Cpu, Star, Film,
-  Brain, Database, Code, Terminal, Server, Users, Flag, Mail
+  Brain, Database, Code, Terminal, Server, Users, Flag, Mail, MapPin, Calendar, Trophy, ArrowUpRight
 } from 'lucide-react';
 
 export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
@@ -184,9 +184,79 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
               <Star size={16} /> Enroll in this Module
             </button>
           </div>
-          <div className="course-detail-media">
-            <img src={module.image} alt={module.title} loading="lazy" decoding="async" />
+        <div className="course-detail-media batch-wrapper">
+          <div className="batch-card">
+            <div className="batch-card-header">
+              <div className="batch-badge">
+                <span className="live-dot"></span> ENROLLMENT
+              </div>
+              <h3>Batch Details</h3>
+              <p>Limited to 10 seats per batch.</p>
+              
+              <div className="batch-stats">
+                <div className="batch-stat-box">
+                  <span className="stat-value">2</span>
+                  <span className="stat-label">MONTHS</span>
+                </div>
+                <div className="batch-stat-box">
+                  <span className="stat-value">80+</span>
+                  <span className="stat-label">HOURS</span>
+                </div>
+                <div className="batch-stat-box">
+                  <span className="stat-value">12</span>
+                  <span className="stat-label">STUDENTS</span>
+                </div>
+              </div>
+            </div>
+            
+            <div className="batch-card-body">
+              <div className="info-row">
+                <div className="info-icon"><MapPin size={18} /></div>
+                <div className="info-content">
+                  <span className="info-label">CENTERS</span>
+                  <span className="info-value">Andheri & Borivali</span>
+                </div>
+              </div>
+              <div className="info-row">
+                <div className="info-icon"><Calendar size={18} /></div>
+                <div className="info-content">
+                  <span className="info-label">BATCHES</span>
+                  <span className="info-value">Weekdays & Weekends</span>
+                </div>
+              </div>
+              <div className="info-row">
+                <div className="info-icon"><Users size={18} /></div>
+                <div className="info-content">
+                  <span className="info-label">BATCH SIZE</span>
+                  <span className="info-value">Max 12 Students</span>
+                </div>
+              </div>
+              
+              <div className="batch-checklist">
+                <div className="check-item">
+                  <CheckCircle2 size={16} className="check-icon" />
+                  <span>Hands-on with 50+ premium tools</span>
+                </div>
+                <div className="check-item">
+                  <CheckCircle2 size={16} className="check-icon" />
+                  <span>Real ad budget campaigns included</span>
+                </div>
+                <div className="check-item">
+                  <CheckCircle2 size={16} className="check-icon" />
+                  <span>Diploma Certificate upon completion</span>
+                </div>
+                <div className="check-item">
+                  <CheckCircle2 size={16} className="check-icon" />
+                  <span>Job placement & interview prep</span>
+                </div>
+              </div>
+              
+              <button className="btn btn-primary demo-btn" onClick={onOpenEnrollModal}>
+                Book Free Demo Class <ArrowUpRight size={18} />
+              </button>
+            </div>
           </div>
+        </div>
         </div>
 
         {/* Weekly Modules Section */}
@@ -237,6 +307,48 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
                 {t.icon} {t.label}
               </div>
             ))}
+          </div>
+        </div>
+
+        {/* What You'll Walk Away With Section */}
+        <div className="walk-away-section">
+          <div className="walk-away-header">
+            <span className="walk-away-line"></span>
+            <h3 className="walk-away-title">WHAT YOU'LL WALK AWAY WITH</h3>
+          </div>
+          
+          <div className="walk-away-grid">
+            <div className="walk-away-card">
+              <div className="walk-icon-box">
+                <Zap size={20} className="walk-icon" />
+              </div>
+              <h4>Job-Ready Skills</h4>
+              <p>Learn the core tools that every digital marketing employer looks for — from day one</p>
+            </div>
+            
+            <div className="walk-away-card">
+              <div className="walk-icon-box">
+                <Trophy size={20} className="walk-icon" />
+              </div>
+              <h4>Live Campaign Practice</h4>
+              <p>Run actual Google and Meta ad campaigns with real budgets during the course</p>
+            </div>
+            
+            <div className="walk-away-card">
+              <div className="walk-icon-box">
+                <Sparkles size={20} className="walk-icon" />
+              </div>
+              <h4>50+ Premium Tools</h4>
+              <p>Hands-on access to industry-leading tools used by top agencies and brands</p>
+            </div>
+            
+            <div className="walk-away-card">
+              <div className="walk-icon-box">
+                <Star size={20} className="walk-icon" />
+              </div>
+              <h4>Placement Support</h4>
+              <p>250+ hiring partners across agencies, brands and startups — ready to hire you</p>
+            </div>
           </div>
         </div>
 

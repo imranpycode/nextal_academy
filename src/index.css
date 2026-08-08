@@ -1746,6 +1746,212 @@ html[data-low-performance="true"] .center-card-energy-halo {
   100% { transform: rotate(360deg); }
 }
 
+/* ── Batch Details Card ── */
+.batch-card {
+  background: var(--primary-dark);
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  max-width: 440px;
+  width: 100%;
+  margin-left: auto;
+  color: var(--text-white);
+}
+.batch-card-header {
+  padding: 2.5rem 2rem 1.5rem;
+}
+.batch-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(255,255,255,0.1);
+  padding: 0.4rem 0.9rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: #FDFBD4;
+  margin-bottom: 1rem;
+}
+.live-dot {
+  width: 6px;
+  height: 6px;
+  background: #FDFBD4;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+.batch-card-header h3 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  margin-bottom: 0.2rem;
+}
+.batch-card-header p {
+  color: rgba(255,255,255,0.7);
+  font-size: 0.95rem;
+  margin-bottom: 1.5rem;
+}
+.batch-stats {
+  display: flex;
+  gap: 1rem;
+}
+.batch-stat-box {
+  flex: 1;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 12px;
+  padding: 1.25rem 0;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+}
+.stat-value {
+  font-size: 1.8rem;
+  font-weight: 800;
+}
+.stat-label {
+  font-size: 0.65rem;
+  font-weight: 700;
+  color: #FDFBD4;
+  letter-spacing: 1px;
+  margin-top: 0.3rem;
+}
+.batch-card-body {
+  background: #ffffff;
+  color: var(--text-primary);
+  padding: 2rem;
+}
+.info-row {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.25rem;
+}
+.info-icon {
+  background: #f0f7ff;
+  color: #3b82f6;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.info-content {
+  display: flex;
+  flex-direction: column;
+}
+.info-label {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #94a3b8;
+  letter-spacing: 1px;
+  margin-bottom: 0.2rem;
+}
+.info-value {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: #0f172a;
+}
+.batch-checklist {
+  background: #f8fafc;
+  border-radius: 16px;
+  padding: 1.5rem;
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+.check-item {
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  font-size: 0.95rem;
+  color: #334155;
+  font-weight: 500;
+}
+.check-icon {
+  color: #3b82f6;
+  flex-shrink: 0;
+}
+.demo-btn {
+  width: 100%;
+  background: #f59e0b;
+  color: #000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 800;
+  font-size: 1.1rem;
+  padding: 1rem;
+}
+.demo-btn:hover {
+  background: #d97706;
+}
+
+/* ── What You'll Walk Away With ── */
+.walk-away-section {
+  padding: 2rem 0 4rem;
+}
+.walk-away-header {
+  margin-bottom: 2.5rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+.walk-away-line {
+  display: inline-block;
+  width: 40px;
+  height: 2px;
+  background: #f59e0b;
+}
+.walk-away-title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #f59e0b;
+  letter-spacing: 2px;
+  margin: 0;
+}
+.walk-away-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+.walk-away-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 2rem;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.03);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.walk-away-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+}
+.walk-icon-box {
+  width: 48px;
+  height: 48px;
+  background: #f0f7ff;
+  color: #3b82f6;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.walk-away-card h4 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  margin-bottom: 0.75rem;
+  color: #0f172a;
+}
+.walk-away-card p {
+  color: #64748b;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
 /* ── Accessibility ── */
 :focus-visible {
   outline: 3px solid var(--accent-coral);
@@ -1777,8 +1983,8 @@ html[data-low-performance="true"] .center-card-energy-halo {
   
   .footer-col { align-items: center; }
   
-  /* Course detail and subpages spacing fixes */
-  /* Course detail and subpages spacing fixes */
+  .batch-card { max-width: 100%; margin-top: 2rem; margin-left: 0; }
+  .walk-away-grid { grid-template-columns: 1fr; }
 }
 
 @media (max-width: 480px) {
