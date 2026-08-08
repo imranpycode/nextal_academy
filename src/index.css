@@ -290,9 +290,15 @@ img {
 .dropdown-item { display: block; padding: 0.5rem; color: var(--text-body); font-size: var(--text-sm); font-weight: 500; text-decoration: none; transition: all var(--transition-fast); border-radius: var(--radius-sm); }
 .dropdown-item:hover { background-color: var(--bg-alt); color: var(--accent-coral); padding-left: 0.75rem; }
 
+  /* Sub Dropdown */
+  .nav-sub-dropdown { position: relative; }
+  .nav-sub-dropdown > .dropdown-menu { top: 0; left: 100%; transform: translateX(-10px) translateY(0); margin-left: 0px; margin-top: -10px; }
+  .nav-sub-dropdown:hover > .dropdown-menu { opacity: 1; visibility: visible; transform: translateX(0) translateY(0); }
+  .sub-dropdown-toggle { display: flex; align-items: center; justify-content: space-between; padding-right: 0.75rem; }
+
 .mobile-toggle { display: none; background: none; border: none; color: var(--navy-deep); cursor: pointer; padding: 0.5rem; }
 
-/* Ã¢â€â‚¬Ã¢â€â‚¬ Hero Ã¢â€â‚¬Ã¢â€â‚¬ */
+/* Ã¢â€ â‚¬Ã¢â€ â‚¬ Hero Ã¢â€ â‚¬Ã¢â€ â‚¬ */
 .hero-section {
   position: relative;
   background:

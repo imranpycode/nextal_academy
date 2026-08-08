@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Sparkles, Menu, X, ChevronDown } from 'lucide-react';
+import { Sparkles, Menu, X, ChevronDown, ChevronRight } from 'lucide-react';
 
 export default function Header({ onOpenEnrollModal }) {
   const [scrolled, setScrolled] = useState(false);
@@ -74,35 +74,55 @@ export default function Header({ onOpenEnrollModal }) {
               <a href="#syllabus" className="nav-link dropdown-toggle" onClick={closeNav}>
                 Lectures <ChevronDown size={14} style={{ marginLeft: '4px' }} />
               </a>
-              <div className="dropdown-menu dropdown-menu-large">
-                <div className="dropdown-group">
-                  <h4 className="dropdown-heading">Digital Marketing</h4>
-                  <a href="/course/ai-digital-marketing" className="dropdown-item" onClick={closeNav}>AI Integrated Digital Marketing</a>
-                  <a href="/course/diploma-digital-marketing" className="dropdown-item" onClick={closeNav}>Diploma in Digital Marketing</a>
+              <div className="dropdown-menu" style={{ minWidth: '240px' }}>
+                <div className="nav-sub-dropdown">
+                  <div className="dropdown-item sub-dropdown-toggle">
+                    Digital Marketing <ChevronRight size={14} />
+                  </div>
+                  <div className="dropdown-menu">
+                    <a href="/course/ai-digital-marketing" className="dropdown-item" onClick={closeNav}>AI Integrated Digital Marketing</a>
+                    <a href="/course/diploma-digital-marketing" className="dropdown-item" onClick={closeNav}>Diploma in Digital Marketing</a>
+                  </div>
                 </div>
                 
-                <div className="dropdown-group">
-                  <h4 className="dropdown-heading">Design & Creative</h4>
-                  <a href="/course/ui-ux" className="dropdown-item" onClick={closeNav}>UI/UX Design</a>
-                  <a href="/course/graphic-design" className="dropdown-item" onClick={closeNav}>Graphic Design</a>
-                  <a href="/course/designer-pro" className="dropdown-item" onClick={closeNav}>Designer Pro</a>
+                <div className="nav-sub-dropdown">
+                  <div className="dropdown-item sub-dropdown-toggle">
+                    Design & Creative <ChevronRight size={14} />
+                  </div>
+                  <div className="dropdown-menu">
+                    <a href="/course/ui-ux" className="dropdown-item" onClick={closeNav}>UI/UX Design</a>
+                    <a href="/course/graphic-design" className="dropdown-item" onClick={closeNav}>Graphic Design</a>
+                    <a href="/course/designer-pro" className="dropdown-item" onClick={closeNav}>Designer Pro</a>
+                  </div>
                 </div>
 
-                <div className="dropdown-group">
-                  <h4 className="dropdown-heading">Software Development</h4>
-                  <a href="/course/web-development" className="dropdown-item" onClick={closeNav}>Web Development</a>
-                  <a href="/course/app-development" className="dropdown-item" onClick={closeNav}>App Development</a>
+                <div className="nav-sub-dropdown">
+                  <div className="dropdown-item sub-dropdown-toggle">
+                    Software Development <ChevronRight size={14} />
+                  </div>
+                  <div className="dropdown-menu">
+                    <a href="/course/web-development" className="dropdown-item" onClick={closeNav}>Web Development</a>
+                    <a href="/course/app-development" className="dropdown-item" onClick={closeNav}>App Development</a>
+                  </div>
                 </div>
 
-                <div className="dropdown-group">
-                  <h4 className="dropdown-heading">Video Editing</h4>
-                  <a href="/course/basic-video-editing" className="dropdown-item" onClick={closeNav}>Basic Video Editing</a>
-                  <a href="/course/motion-graphics" className="dropdown-item" onClick={closeNav}>Motion Graphics</a>
+                <div className="nav-sub-dropdown">
+                  <div className="dropdown-item sub-dropdown-toggle">
+                    Video Editing <ChevronRight size={14} />
+                  </div>
+                  <div className="dropdown-menu">
+                    <a href="/course/basic-video-editing" className="dropdown-item" onClick={closeNav}>Basic Video Editing</a>
+                    <a href="/course/motion-graphics" className="dropdown-item" onClick={closeNav}>Motion Graphics</a>
+                  </div>
                 </div>
 
-                <div className="dropdown-group">
-                  <h4 className="dropdown-heading">Generative AI</h4>
-                  <a href="/course/adv-gen-ai" className="dropdown-item" onClick={closeNav}>Advanced Certification in Gen AI</a>
+                <div className="nav-sub-dropdown">
+                  <div className="dropdown-item sub-dropdown-toggle">
+                    Generative AI <ChevronRight size={14} />
+                  </div>
+                  <div className="dropdown-menu">
+                    <a href="/course/adv-gen-ai" className="dropdown-item" onClick={closeNav}>Advanced Certification in Gen AI</a>
+                  </div>
                 </div>
               </div>
             </div>
