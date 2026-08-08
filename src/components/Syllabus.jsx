@@ -56,7 +56,9 @@ import {
   Cpu,
   ArrowRight,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Mail,
+  Star
 } from 'lucide-react';
 
 export default function Syllabus() {
