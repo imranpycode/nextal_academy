@@ -380,10 +380,24 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     },
     {
       id: 'motion-graphics',
-      title: 'Motion Graphics',
+      title: 'Motion Graphics Mastery',
       image: '/Video Editing Fundamentals.webp',
-      desc: 'Master After Effects and bring static designs to life with advanced motion graphics, VFX, and 2D animation.',
-      topics: [],
+      desc: 'A complete six-month mastery course to learn After Effects, VFX, 3D integration, and professional motion graphics from beginner to advanced level.',
+      topics: [
+        { label: 'Module 1: Fundamentals of Video Production & Editing', icon: <Film size={16} /> },
+        { label: 'Module 2: Adobe Premiere Pro \u2013 Beginner to Advanced', icon: <Scissors size={16} /> },
+        { label: 'Module 3: Professional Editing Techniques', icon: <Layout size={16} /> },
+        { label: 'Module 4: Audio Editing & Sound Design', icon: <Volume2 size={16} /> },
+        { label: 'Module 5: Motion Graphics & Animation', icon: <Type size={16} /> },
+        { label: 'Module 6: Adobe After Effects \u2013 Complete Workflow', icon: <Sparkles size={16} /> },
+        { label: 'Module 7: Visual Effects (VFX)', icon: <Wand2 size={16} /> },
+        { label: 'Module 8: Color Correction & Professional Color Grading', icon: <Palette size={16} /> },
+        { label: 'Module 9: 3D Integration & Visual Enhancement', icon: <Camera size={16} /> },
+        { label: 'Module 10: Content Creation for Digital Platforms', icon: <Share size={16} /> },
+        { label: 'Module 11: AI-Powered Video Editing & Automation', icon: <Brain size={16} /> },
+        { label: 'Module 12: Branding & Graphic Design for Editors', icon: <Star size={16} /> },
+        { label: 'Module 13: Exporting, Delivery & Broadcast Standards', icon: <Folder size={16} /> }
+      ],
       salaryInsights: [
         { experience: 'Fresher', salary: '\u20B93.0L - \u20B95.0L' },
         { experience: '1-3 Years', salary: '\u20B95.0L - \u20B99.0L' },
