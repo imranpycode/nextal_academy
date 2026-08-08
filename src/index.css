@@ -1746,6 +1746,133 @@ html[data-low-performance="true"] .center-card-energy-halo {
   100% { transform: rotate(360deg); }
 }
 
+
+/* ── Dynamic Course Sections ── */
+.course-includes-section {
+  margin-top: 3rem;
+  margin-bottom: 3rem;
+}
+.course-includes-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+.course-include-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 1rem 1.25rem;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  color: var(--text-white);
+  font-weight: 500;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+.course-include-item:hover {
+  transform: translateY(-2px);
+  background: rgba(255, 255, 255, 0.08);
+}
+.include-icon {
+  color: var(--accent-coral);
+  flex-shrink: 0;
+}
+
+/* Learning Process Timeline */
+.learning-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  position: relative;
+}
+.learning-timeline::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  bottom: 10px;
+  left: 24px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--accent-coral), var(--accent-purple));
+  opacity: 0.3;
+}
+.timeline-step {
+  display: flex;
+  gap: 1.5rem;
+  align-items: flex-start;
+  position: relative;
+  z-index: 1;
+}
+.timeline-number {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--accent-coral), var(--accent-purple));
+  color: white;
+  display: flex;
+  align-items: center;
+  justifyContent: center;
+  font-weight: 700;
+  font-size: 1.2rem;
+  flex-shrink: 0;
+  box-shadow: 0 4px 12px rgba(246, 36, 119, 0.3);
+}
+.timeline-content {
+  background: var(--surface-dark);
+  border: 1px solid rgba(255,255,255,0.1);
+  padding: 1.5rem;
+  border-radius: 16px;
+  flex-grow: 1;
+}
+.timeline-content h4 {
+  color: var(--text-white);
+  margin-bottom: 0.5rem;
+  font-size: 1.2rem;
+}
+.timeline-content p {
+  color: var(--text-secondary);
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+/* Salary Insights Table */
+.salary-table-wrapper {
+  overflow-x: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: var(--surface-dark);
+}
+.salary-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+.salary-table th {
+  background: rgba(255,255,255,0.05);
+  color: var(--text-white);
+  padding: 1.25rem 1.5rem;
+  font-weight: 600;
+  font-size: 1.1rem;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+.salary-table td {
+  padding: 1.25rem 1.5rem;
+  color: var(--text-secondary);
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.salary-table tr:last-child td {
+  border-bottom: none;
+}
+.salary-table tr:hover td {
+  background: rgba(255,255,255,0.02);
+}
+.salary-value strong {
+  color: var(--accent-coral);
+  font-size: 1.1rem;
+}
+
+
 /* ── What You'll Walk Away With ── */
 .walk-away-section {
   padding: 2rem 0 4rem;
