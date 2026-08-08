@@ -273,7 +273,19 @@ export default function Syllabus() {
         <div 
           className="premium-slider-container anim-image delay-4"
         >
-          {/* Left Content Area */}
+          {/* Left Noteboard Area */}
+          <div 
+            className="noteboard-wrapper anim-image delay-2"
+            onMouseEnter={() => setIsHovered(true)}
+            onMouseLeave={() => setIsHovered(false)}
+          >
+            <div className="noteboard-card">
+              <div className="noteboard-clip"></div>
+              <img src="/noteboard.png" alt="Noteboard" className="noteboard-img" loading="eager" decoding="async" />
+            </div>
+          </div>
+
+          {/* Right Content Area */}
           <div className="slider-content-area">
             {modules.map((m, idx) => (
               <div 
@@ -326,21 +338,7 @@ export default function Syllabus() {
             </div>
           </div>
 
-          {/* Right Image Area */}
-          <div 
-            className="slider-media-area"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            {modules.map((m, idx) => (
-              <div 
-                key={m.id} 
-                className={`slider-media-slide ${idx === currentIndex ? 'active' : ''}`}
-              >
-                <img src={m.image} alt={m.title} loading={idx === 0 ? "eager" : "lazy"} decoding="async" />
-              </div>
-            ))}
-          </div>
+
         </div>
       </div>
     </section>
