@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { 
   ArrowLeft, CheckCircle2, Play, BookOpen, Sliders, FileVideo, Mic, 
   Workflow, Folder, HardDrive, Video, Camera, Volume2, Palette, Sun, 
@@ -8,11 +8,70 @@ import {
   Gauge, VolumeX, Subtitles, Image, Scissors, Repeat, AlignLeft, Cpu, Star, Film,
   Brain, Database, Code, Terminal, Server, Users, Flag, Mail, MapPin, Calendar, Trophy, ArrowUpRight
 } from 'lucide-react';
+import '../course-premium.css';
+
+// Intersection Observer Hook for reveal animations
+function useScrollObserver() {
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-revealed');
+        }
+      });
+    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+    const elements = document.querySelectorAll('.reveal-up, .reveal-scale, .reveal-blur');
+    elements.forEach(el => observer.observe(el));
+
+    return () => {
+      elements.forEach(el => observer.unobserve(el));
+    };
+  }, []);
+}
 
 export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
-  // Ensure we start at the top of the page when opening a detail view
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const cursorRef = useRef(null);
+  
+  useScrollObserver();
+
   useEffect(() => {
     window.scrollTo(0, 0);
+    
+    // Scroll Progress
+    const handleScroll = () => {
+      const totalScroll = document.documentElement.scrollTop;
+      const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scroll = `${(totalScroll / windowHeight) * 100}%`;
+      setScrollProgress(scroll);
+    };
+    window.addEventListener('scroll', handleScroll);
+
+    // Custom Cursor
+    const handleMouseMove = (e) => {
+      if (cursorRef.current) {
+        cursorRef.current.style.left = e.clientX + 'px';
+        cursorRef.current.style.top = e.clientY + 'px';
+      }
+    };
+    
+    const handleMouseOver = (e) => {
+      if (e.target.closest('button, a, .premium-pill, .module-premium-card, .timeline-card, .premium-feature-card, .dashboard-row')) {
+        cursorRef.current?.classList.add('hovering');
+      } else {
+        cursorRef.current?.classList.remove('hovering');
+      }
+    };
+
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseover', handleMouseOver);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseover', handleMouseOver);
+    };
   }, []);
 
   const modules = [
@@ -33,9 +92,9 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
         { label: 'Module 9: Analytics & Reporting', icon: <Activity size={16} /> }
       ],
       salaryInsights: [
-        { experience: 'Fresher (0-2 Yrs)', salary: '₹2.5L - ₹4.0L' },
-        { experience: 'Mid-Level (2-5 Yrs)', salary: '₹7.0L - ₹12.0L' },
-        { experience: 'Senior (5+ Yrs)', salary: '₹15.0L - ₹25.0L+' }
+        { experience: 'Fresher (0-2 Yrs)', salary: '\u20B92.5L - \u20B94.0L' },
+        { experience: 'Mid-Level (2-5 Yrs)', salary: '\u20B97.0L - \u20B912.0L' },
+        { experience: 'Senior (5+ Yrs)', salary: '\u20B915.0L - \u20B925.0L+' }
       ],
       learningProcess: [
         { step: 1, title: 'Fundamentals', desc: 'Marketing basics & strategy' },
@@ -76,9 +135,9 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
         { label: 'Module 15: Personal Branding', icon: <Star size={16} /> }
       ],
       salaryInsights: [
-        { experience: 'Fresher (0-2 Yrs)', salary: '₹2.5L - ₹4.5L' },
-        { experience: 'Mid-Level (2-5 Yrs)', salary: '₹7.0L - ₹13.0L' },
-        { experience: 'Manager (5+ Yrs)', salary: '₹16.0L - ₹40.0L+' }
+        { experience: 'Fresher (0-2 Yrs)', salary: '\u20B92.5L - \u20B94.5L' },
+        { experience: 'Mid-Level (2-5 Yrs)', salary: '\u20B97.0L - \u20B913.0L' },
+        { experience: 'Manager (5+ Yrs)', salary: '\u20B916.0L - \u20B940.0L+' }
       ],
       learningProcess: [
         { step: 1, title: 'Basics & Content', desc: 'Copywriting & organic strategy' },
@@ -103,10 +162,10 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
       desc: 'Master user interface and experience design. Build stunning prototypes, conduct user research, and create design systems.',
       topics: [],
       salaryInsights: [
-        { experience: 'Fresher (0-1 Yr)', salary: '₹3.0L - ₹5.0L' },
-        { experience: 'Junior (1-3 Yrs)', salary: '₹5.0L - ₹9.0L' },
-        { experience: 'Mid-Level (3-5 Yrs)', salary: '₹9.0L - ₹16.0L' },
-        { experience: 'Senior (5+ Yrs)', salary: '₹16.0L - ₹28.0L+' }
+        { experience: 'Fresher (0-1 Yr)', salary: '\u20B93.0L - \u20B95.0L' },
+        { experience: 'Junior (1-3 Yrs)', salary: '\u20B95.0L - \u20B99.0L' },
+        { experience: 'Mid-Level (3-5 Yrs)', salary: '\u20B99.0L - \u20B916.0L' },
+        { experience: 'Senior (5+ Yrs)', salary: '\u20B916.0L - \u20B928.0L+' }
       ],
       learningProcess: [
         { step: 1, title: 'Design Principles', desc: 'Color, typography, layout' },
@@ -131,10 +190,10 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
       desc: 'Learn industry-standard graphic design tools and techniques to create stunning visual content for brands.',
       topics: [],
       salaryInsights: [
-        { experience: 'Fresher', salary: '₹2.0L - ₹3.5L' },
-        { experience: '1-3 Years', salary: '₹3.5L - ₹6.0L' },
-        { experience: '3-5 Years', salary: '₹6.0L - ₹10.0L' },
-        { experience: 'Senior', salary: '₹10.0L - ₹18.0L+' }
+        { experience: 'Fresher', salary: '\u20B92.0L - \u20B93.5L' },
+        { experience: '1-3 Years', salary: '\u20B93.5L - \u20B96.0L' },
+        { experience: '3-5 Years', salary: '\u20B96.0L - \u20B910.0L' },
+        { experience: 'Senior', salary: '\u20B910.0L - \u20B918.0L+' }
       ],
       learningProcess: [
         { step: 1, title: 'Fundamentals', desc: 'Design theory & elements' },
@@ -159,9 +218,9 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
       desc: 'The ultimate design masterclass combining graphic design, UI/UX, and motion graphics for complete creative professionals.',
       topics: [],
       salaryInsights: [
-        { experience: 'Fresher', salary: '₹3.5L - ₹6.0L' },
-        { experience: '1-3 Years', salary: '₹6.0L - ₹12.0L' },
-        { experience: 'Senior', salary: '₹15.0L - ₹25.0L+' }
+        { experience: 'Fresher', salary: '\u20B93.5L - \u20B96.0L' },
+        { experience: '1-3 Years', salary: '\u20B96.0L - \u20B912.0L' },
+        { experience: 'Senior', salary: '\u20B915.0L - \u20B925.0L+' }
       ],
       learningProcess: [
         { step: 1, title: 'Graphic Design', desc: 'Master Photoshop & Illustrator' },
@@ -186,10 +245,10 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
       desc: 'Become a full-stack web developer. Master front-end and back-end technologies to build scalable, responsive web applications.',
       topics: [],
       salaryInsights: [
-        { experience: 'Fresher', salary: '₹3.5L - ₹6.0L' },
-        { experience: '1-3 Years', salary: '₹6.0L - ₹12.0L' },
-        { experience: '3-5 Years', salary: '₹12.0L - ₹20.0L' },
-        { experience: 'Senior', salary: '₹20.0L - ₹35.0L+' }
+        { experience: 'Fresher', salary: '\u20B93.5L - \u20B96.0L' },
+        { experience: '1-3 Years', salary: '\u20B96.0L - \u20B912.0L' },
+        { experience: '3-5 Years', salary: '\u20B912.0L - \u20B920.0L' },
+        { experience: 'Senior', salary: '\u20B920.0L - \u20B935.0L+' }
       ],
       learningProcess: [
         { step: 1, title: 'Front-end Basics', desc: 'HTML, CSS, JavaScript' },
@@ -214,10 +273,10 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
       desc: 'Build cross-platform mobile applications for iOS and Android using modern frameworks like React Native or Flutter.',
       topics: [],
       salaryInsights: [
-        { experience: 'Fresher', salary: '₹4.0L - ₹7.0L' },
-        { experience: '1-3 Years', salary: '₹7.0L - ₹14.0L' },
-        { experience: '3-5 Years', salary: '₹14.0L - ₹22.0L' },
-        { experience: 'Senior', salary: '₹22.0L - ₹40.0L+' }
+        { experience: 'Fresher', salary: '\u20B94.0L - \u20B97.0L' },
+        { experience: '1-3 Years', salary: '\u20B97.0L - \u20B914.0L' },
+        { experience: '3-5 Years', salary: '\u20B914.0L - \u20B922.0L' },
+        { experience: 'Senior', salary: '\u20B922.0L - \u20B940.0L+' }
       ],
       learningProcess: [
         { step: 1, title: 'UI Fundamentals', desc: 'Mobile UI concepts' },
@@ -242,9 +301,9 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
       desc: 'Learn the fundamentals of video editing to create engaging content for YouTube, Instagram Reels, and corporate videos.',
       topics: [],
       salaryInsights: [
-        { experience: 'Fresher', salary: '₹2.5L - ₹4.0L' },
-        { experience: '1-3 Years', salary: '₹4.0L - ₹7.0L' },
-        { experience: 'Senior', salary: '₹8.0L - ₹15.0L+' }
+        { experience: 'Fresher', salary: '\u20B92.5L - \u20B94.0L' },
+        { experience: '1-3 Years', salary: '\u20B94.0L - \u20B97.0L' },
+        { experience: 'Senior', salary: '\u20B98.0L - \u20B915.0L+' }
       ],
       learningProcess: [
         { step: 1, title: 'Fundamentals', desc: 'Storytelling & timeline' },
@@ -269,10 +328,10 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
       desc: 'Master After Effects and bring static designs to life with advanced motion graphics, VFX, and 2D animation.',
       topics: [],
       salaryInsights: [
-        { experience: 'Fresher', salary: '₹3.0L - ₹5.0L' },
-        { experience: '1-3 Years', salary: '₹5.0L - ₹9.0L' },
-        { experience: '3-5 Years', salary: '₹9.0L - ₹16.0L' },
-        { experience: 'Senior', salary: '₹16.0L - ₹25.0L+' }
+        { experience: 'Fresher', salary: '\u20B93.0L - \u20B95.0L' },
+        { experience: '1-3 Years', salary: '\u20B95.0L - \u20B99.0L' },
+        { experience: '3-5 Years', salary: '\u20B99.0L - \u20B916.0L' },
+        { experience: 'Senior', salary: '\u20B916.0L - \u20B925.0L+' }
       ],
       learningProcess: [
         { step: 1, title: 'After Effects Basics', desc: 'Keyframes & layers' },
@@ -331,10 +390,10 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
         'Week 10 - MCP, Deployment & Capstone Project'
       ],
       salaryInsights: [
-        { experience: 'Fresher (0-2 Yrs)', salary: '₹6.0L - ₹10.0L' },
-        { experience: 'Mid-Level (2-5 Yrs)', salary: '₹10.0L - ₹18.0L' },
-        { experience: 'Senior (5+ Yrs)', salary: '₹18.0L - ₹30.0L+' },
-        { experience: 'Lead AI Engineer', salary: '₹30.0L - ₹50.0L+' }
+        { experience: 'Fresher (0-2 Yrs)', salary: '\u20B96.0L - \u20B910.0L' },
+        { experience: 'Mid-Level (2-5 Yrs)', salary: '\u20B910.0L - \u20B918.0L' },
+        { experience: 'Senior (5+ Yrs)', salary: '\u20B918.0L - \u20B930.0L+' },
+        { experience: 'Lead AI Engineer', salary: '\u20B930.0L - \u20B950.0L+' }
       ],
       learningProcess: [
         { step: 1, title: 'LLM Fundamentals', desc: 'APIs, prompt engineering & local models' },
@@ -370,197 +429,200 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
   ];
 
   return (
-    <div className="course-detail-page">
-      <div className="container-fluid">
+    <div className="course-detail-page premium-background">
+      
+      {/* Premium Background Blobs */}
+      <div className="particles-layer"></div>
+      <div className="blob blob-1"></div>
+      <div className="blob blob-2"></div>
+      <div className="blob blob-3"></div>
+
+      {/* Scroll Progress Bar */}
+      <div className="scroll-progress-container">
+        <div className="scroll-progress-bar" style={{ width: scrollProgress }}></div>
+      </div>
+
+      {/* Custom Cursor */}
+      <div className="custom-cursor" ref={cursorRef}></div>
+
+      <div className="container-fluid" style={{ position: 'relative', zIndex: 10 }}>
         
         {/* Back Button */}
-        <div style={{ paddingTop: '2rem', marginBottom: '1.5rem' }}>
-          <button className="btn btn-secondary back-btn" onClick={onBack}>
+        <div className="reveal-up" style={{ paddingTop: '2rem', marginBottom: '1.5rem' }}>
+          <button className="btn btn-secondary back-btn" onClick={onBack} style={{ background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(10px)', border: '1px solid rgba(0,0,0,0.05)' }}>
             <ArrowLeft size={16} /> Back to Course Overview
           </button>
         </div>
 
         {/* Hero Section */}
-        <div className="course-detail-hero">
+        <div className="course-detail-hero glass-card reveal-scale" style={{ padding: '3rem', margin: '2rem 0' }}>
           <div className="course-detail-content">
             <span className="section-tag cyan">Module Detail</span>
             <h1 className="course-detail-title">{module.title}</h1>
             <p className="course-detail-desc">{module.desc}</p>
-            <button className="btn btn-primary" onClick={onOpenEnrollModal} style={{ marginTop: '1.5rem' }}>
-              <Star size={16} /> Enroll in this Module
+            <button className="btn btn-primary" onClick={onOpenEnrollModal} style={{ marginTop: '1.5rem', background: 'linear-gradient(135deg, #F62477, #220066)', border: 'none', boxShadow: '0 10px 20px rgba(246, 36, 119, 0.3)' }}>
+              <Sparkles size={16} className="heading-icon" /> Enroll in this Module
             </button>
           </div>
-        <div className="course-detail-media">
-          <img src={module.image} alt={module.title} loading="lazy" decoding="async" />
-        </div>
+          <div className="course-detail-media" style={{ boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
+            <img src={module.image} alt={module.title} loading="lazy" decoding="async" />
+          </div>
         </div>
 
-        
         {/* Course Includes Section */}
         {module.courseIncludes && (
-          <div className="course-includes-section">
-            <h2 className="section-title">This Course Includes</h2>
-            <div className="course-includes-grid">
+          <div className="course-includes-section reveal-up stagger-container" style={{ marginTop: '4rem', marginBottom: '4rem' }}>
+            <h2 className="premium-heading"><Sparkle size={24} className="heading-icon" style={{ color: '#F62477' }} /> This Course Includes</h2>
+            <div className="premium-pill-grid">
               {module.courseIncludes.map((item, idx) => (
-                <div key={idx} className="course-include-item">
-                  <CheckCircle2 size={16} className="include-icon" />
+                <div key={idx} className="premium-pill">
+                  <CheckCircle2 size={16} className="premium-pill-icon" />
                   <span>{item}</span>
                 </div>
               ))}
             </div>
+            <div className="premium-divider"></div>
           </div>
         )}
 
         {/* Weekly Modules Section */}
         {module.weeklyModules && (
-          <div className="course-detail-section" style={{ marginTop: '4rem' }}>
-            <h2 className="section-title">Weekly Modules</h2>
-            <div style={{ display: 'grid', gap: '1rem', marginTop: '2rem' }}>
+          <div className="course-detail-section reveal-blur stagger-container">
+            <h2 className="premium-heading"><Calendar size={24} className="heading-icon" style={{ color: '#220066' }} /> Weekly Curriculum</h2>
+            <div className="module-premium-grid">
               {module.weeklyModules.map((week, idx) => (
-                <div key={idx} style={{ 
-                  padding: '1.25rem 1.5rem', 
-                  background: 'linear-gradient(135deg, rgba(246, 36, 119, 0.04), rgba(34, 0, 102, 0.04))', 
-                  border: '1px solid rgba(34, 0, 102, 0.1)',
-                  borderRadius: '12px',
-                  color: 'var(--text-primary)',
-                  fontSize: '1.05rem',
-                  fontWeight: '500',
-                  display: 'flex',
-                  alignItems: 'center',
-                  gap: '1rem',
-                  transition: 'all 0.2s ease'
-                }}>
-                  <div style={{ 
-                    background: 'linear-gradient(135deg, #E60067, #220066)', 
-                    color: '#fff', 
-                    width: '32px', 
-                    height: '32px', 
-                    borderRadius: '8px', 
-                    display: 'flex', 
-                    alignItems: 'center', 
-                    justifyContent: 'center',
-                    flexShrink: 0,
-                    fontSize: '0.8rem',
-                    fontWeight: '700'
-                  }}>{idx + 1}</div>
-                  {week}
+                <div key={idx} className="module-premium-card">
+                  <div className="module-badge">{idx + 1}</div>
+                  <div className="module-text">{week}</div>
                 </div>
               ))}
             </div>
+            <div className="premium-divider"></div>
           </div>
         )}
 
         {/* What You Will Learn Section */}
-        <div className="course-detail-section" style={{ marginTop: '4rem', marginBottom: '4rem' }}>
-          <h2 className="section-title">{module.id === 'module-7' ? 'Gen & Agentic AI Course' : 'What You Will Learn'}</h2>
-          <div className="topics-grid">
-            {module.topics.map((t, idx) => (
-              <div className="topic-chip" key={idx}>
-                {t.icon} {t.label}
-              </div>
-            ))}
+        {!module.weeklyModules && module.topics && module.topics.length > 0 && (
+          <div className="course-detail-section reveal-blur stagger-container">
+            <h2 className="premium-heading"><Target size={24} className="heading-icon" style={{ color: '#00C3FF' }} /> What You Will Learn</h2>
+            <div className="module-premium-grid">
+              {module.topics.map((t, idx) => (
+                <div className="module-premium-card" key={idx}>
+                  <div className="module-badge" style={{ background: 'linear-gradient(135deg, #00C3FF, #060B5E)' }}>
+                    {idx + 1}
+                  </div>
+                  <div className="module-text">{t.label}</div>
+                </div>
+              ))}
+            </div>
+            <div className="premium-divider"></div>
           </div>
-        </div>
+        )}
 
-        
         {/* Learning Process Roadmap */}
         {module.learningProcess && (
-          <div className="learning-process-section" style={{ marginTop: '4rem', marginBottom: '4rem' }}>
-            <h2 className="section-title">Your Learning Roadmap</h2>
-            <div className="learning-timeline">
+          <div className="learning-process-section reveal-up">
+            <h2 className="premium-heading"><Workflow size={24} className="heading-icon" style={{ color: '#F62477' }} /> Your Learning Roadmap</h2>
+            <div className="premium-timeline">
+              <div className="timeline-track">
+                <div className="timeline-progress" style={{ height: scrollProgress }}></div>
+              </div>
               {module.learningProcess.map((step, idx) => (
-                <div key={idx} className="timeline-step">
-                  <div className="timeline-number">{step.step}</div>
-                  <div className="timeline-content">
+                <div key={idx} className="premium-timeline-step">
+                  <div className="timeline-node">{step.step}</div>
+                  <div className="timeline-card">
                     <h4>{step.title}</h4>
                     <p>{step.desc}</p>
                   </div>
                 </div>
               ))}
             </div>
+            <div className="premium-divider"></div>
           </div>
         )}
 
         {/* Salary Insights Table */}
         {module.salaryInsights && (
-          <div className="salary-insights-section" style={{ marginTop: '4rem', marginBottom: '4rem' }}>
-            <h2 className="section-title">Salary Insights (India)</h2>
-            <p style={{ color: '#64748b', marginBottom: '2rem' }}>Estimated market compensation based on current industry data.</p>
-            <div className="salary-table-wrapper">
-              <table className="salary-table">
-                <thead>
-                  <tr>
-                    <th>Experience Level</th>
-                    <th>Estimated Salary (LPA)</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {module.salaryInsights.map((insight, idx) => (
-                    <tr key={idx}>
-                      <td>{insight.experience}</td>
-                      <td className="salary-value"><strong>{insight.salary}</strong></td>
+          <div className="salary-insights-section reveal-scale">
+            <h2 className="premium-heading"><ArrowUpRight size={24} className="heading-icon" style={{ color: '#00C3FF' }} /> Salary Insights (India)</h2>
+            <p style={{ color: '#64748b', marginTop: '0.5rem' }}>Estimated market compensation based on current industry data.</p>
+            <div className="premium-dashboard">
+              <div className="dashboard-inner">
+                <table className="dashboard-table">
+                  <thead>
+                    <tr>
+                      <th>Experience Level</th>
+                      <th>Estimated Salary (LPA)</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {module.salaryInsights.map((insight, idx) => (
+                      <tr key={idx} className="dashboard-row">
+                        <td>{insight.experience}</td>
+                        <td className="salary-gradient">{insight.salary}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
+            <div className="premium-divider"></div>
           </div>
         )}
 
         {/* What You'll Walk Away With Section */}
-        <div className="walk-away-section">
-          <div className="walk-away-header">
-            <span className="walk-away-line"></span>
-            <h3 className="walk-away-title">WHAT YOU'LL WALK AWAY WITH</h3>
+        <div className="walk-away-section reveal-up stagger-container">
+          <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
+            <h2 className="premium-heading" style={{ fontSize: '2rem' }}><Trophy size={28} className="heading-icon" style={{ color: '#F62477' }} /> What You'll Walk Away With</h2>
           </div>
           
-          <div className="walk-away-grid">
-            <div className="walk-away-card">
-              <div className="walk-icon-box">
-                <Zap size={20} className="walk-icon" />
+          <div className="premium-feature-grid">
+            <div className="premium-feature-card">
+              <div className="feature-icon-wrapper">
+                <Zap size={24} />
               </div>
               <h4>Job-Ready Skills</h4>
-              <p>Learn the core tools that every digital marketing employer looks for — from day one</p>
+              <p>Learn the core tools that every employer looks for — from day one.</p>
             </div>
             
-            <div className="walk-away-card">
-              <div className="walk-icon-box">
-                <Trophy size={20} className="walk-icon" />
+            <div className="premium-feature-card">
+              <div className="feature-icon-wrapper">
+                <Target size={24} />
               </div>
               <h4>Live Campaign Practice</h4>
-              <p>Run actual Google and Meta ad campaigns with real budgets during the course</p>
+              <p>Run actual ad campaigns and projects with real budgets during the course.</p>
             </div>
             
-            <div className="walk-away-card">
-              <div className="walk-icon-box">
-                <Sparkles size={20} className="walk-icon" />
+            <div className="premium-feature-card">
+              <div className="feature-icon-wrapper">
+                <Sparkles size={24} />
               </div>
               <h4>50+ Premium Tools</h4>
-              <p>Hands-on access to industry-leading tools used by top agencies and brands</p>
+              <p>Hands-on access to industry-leading tools used by top agencies and brands.</p>
             </div>
             
-            <div className="walk-away-card">
-              <div className="walk-icon-box">
-                <Star size={20} className="walk-icon" />
+            <div className="premium-feature-card">
+              <div className="feature-icon-wrapper">
+                <Star size={24} />
               </div>
               <h4>Placement Support</h4>
-              <p>250+ hiring partners across agencies, brands and startups — ready to hire you</p>
+              <p>250+ hiring partners across agencies, brands and startups — ready to hire you.</p>
             </div>
           </div>
         </div>
           
-        {/* Academy Content Section (from PDF) */}
-        <div className="academy-content-section">
+        {/* Academy Content Section */}
+        <div className="academy-content-section glass-card reveal-blur" style={{ marginTop: '5rem', background: 'linear-gradient(135deg, rgba(6, 11, 94, 0.9), rgba(74, 29, 115, 0.9))', color: 'white' }}>
           <div className="academy-content-inner">
-            <div className="academy-content-text">
-              <h2 className="section-title" style={{ color: 'var(--text-white)' }}>Why Choose Nextal Academy?</h2>
-              <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.1rem', marginBottom: '2rem', lineHeight: '1.6' }}>
-                We believe the best way to learn video editing is through practical experience. Our industry-focused curriculum helps you master professional editing techniques while working on real projects.
+            <div className="academy-content-text" style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+              <h2 className="section-title" style={{ color: 'white', marginBottom: '1.5rem', fontSize: '2.5rem' }}>Why Choose Nextal Academy?</h2>
+              <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.15rem', marginBottom: '3rem', lineHeight: '1.7' }}>
+                We believe the best way to learn is through practical experience. Our industry-focused curriculum helps you master professional techniques while working on real projects.
               </p>
-              <div className="academy-features-grid">
+              <div className="premium-pill-grid" style={{ justifyContent: 'center' }}>
                 {academyFeatures.map((feature, idx) => (
-                  <div className="academy-feature-item" key={idx}>
-                    <CheckCircle2 size={18} style={{ color: 'var(--accent-coral)' }} /> 
+                  <div className="premium-pill" key={idx} style={{ background: 'rgba(255,255,255,0.1)', color: 'white', borderColor: 'rgba(255,255,255,0.2)' }}>
+                    <CheckCircle2 size={16} style={{ color: '#00C3FF' }} /> 
                     <span>{feature}</span>
                   </div>
                 ))}
