@@ -74,9 +74,19 @@ export default function Syllabus() {
       tabLabel: '1. AI Marketing',
       image: '/Video Editing Fundamentals.webp',
       icon: <Megaphone size={18} />,
-      desc: 'Course content coming soon...',
-      highlights: ['Syllabus coming soon'],
-      topics: []
+      desc: 'Master the future of marketing with our comprehensive AI Integrated Digital Marketing course.',
+      highlights: ['AI Tools for Marketing', 'Advanced SEO & SMO', 'Meta & Google Ads'],
+      topics: [
+        { label: 'Module 1: Introduction to Digital Marketing', icon: <BookOpen size={16} /> },
+        { label: 'Module 2: Content Marketing', icon: <Type size={16} /> },
+        { label: 'Module 3: AI Tools for Digital Marketing', icon: <Sparkles size={16} /> },
+        { label: 'Module 4: Social Media Marketing (SMO)', icon: <Instagram size={16} /> },
+        { label: 'Module 5: Search Engine Optimization (SEO)', icon: <Target size={16} /> },
+        { label: 'Module 6: Meta Ads (Facebook & Instagram Ads)', icon: <Facebook size={16} /> },
+        { label: 'Module 7: Google Ads (PPC)', icon: <Megaphone size={16} /> },
+        { label: 'Module 8: Email Marketing & Automation', icon: <Mail size={16} /> },
+        { label: 'Module 9: Analytics & Reporting', icon: <Activity size={16} /> }
+      ]
     },
     {
       id: 'diploma-digital-marketing',
@@ -84,9 +94,25 @@ export default function Syllabus() {
       tabLabel: '2. Diploma DM',
       image: '/Video Editing Fundamentals.webp',
       icon: <BadgePercent size={18} />,
-      desc: 'Course content coming soon...',
-      highlights: ['Syllabus coming soon'],
-      topics: []
+      desc: 'Master the complete spectrum of digital marketing from organic social media to advanced analytics and e-commerce.',
+      highlights: ['15 Comprehensive Modules', 'E-commerce & Analytics', 'Personal Branding'],
+      topics: [
+        { label: 'Module 1: Introduction to Digital Marketing', icon: <BookOpen size={16} /> },
+        { label: 'Module 2: Content Marketing & Copywriting', icon: <Type size={16} /> },
+        { label: 'Module 3: AI Tools for Digital Marketing', icon: <Sparkles size={16} /> },
+        { label: 'Module 4: Social Media Marketing (SMO)', icon: <Instagram size={16} /> },
+        { label: 'Module 5: Social Media Marketing (Organic)', icon: <Share size={16} /> },
+        { label: 'Module 6: Search Engine Optimization (SEO)', icon: <Target size={16} /> },
+        { label: 'Module 7: Meta Ads (Facebook & Instagram Ads)', icon: <Facebook size={16} /> },
+        { label: 'Module 8: Google Ads (PPC)', icon: <Megaphone size={16} /> },
+        { label: 'Module 9: Email Marketing & Marketing Automation', icon: <Zap size={16} /> },
+        { label: 'Module 10: Website Development', icon: <Code size={16} /> },
+        { label: 'Module 11: Google Analytics & Tag Manager', icon: <Activity size={16} /> },
+        { label: 'Module 12: E-commerce Marketing', icon: <BadgePercent size={16} /> },
+        { label: 'Module 13: Affiliate, Influencer & Mobile Marketing', icon: <Users size={16} /> },
+        { label: 'Module 14: AI-Powered Market Research & Competitor Intelligence', icon: <Brain size={16} /> },
+        { label: 'Module 15: Personal Branding', icon: <Star size={16} /> }
+      ]
     },
     {
       id: 'ui-ux',
