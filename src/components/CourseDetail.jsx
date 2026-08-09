@@ -250,7 +250,16 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
       title: 'Designer Pro',
       image: '/Video Editing Fundamentals.webp',
       desc: 'The ultimate design masterclass combining graphic design, UI/UX, and motion graphics for complete creative professionals.',
-      topics: [],
+      topics: [
+        { label: 'Module 1: Principles of Visual Design', icon: <Palette size={16} /> },
+        { label: 'Module 2: Typography & Color Theory', icon: <Type size={16} /> },
+        { label: 'Module 3: Adobe Photoshop & Illustrator Mastery', icon: <Image size={16} /> },
+        { label: 'Module 4: UI/UX Fundamentals & Wireframing', icon: <Layout size={16} /> },
+        { label: 'Module 5: Figma Advanced Prototyping', icon: <Wand2 size={16} /> },
+        { label: 'Module 6: Branding & Identity Design', icon: <Star size={16} /> },
+        { label: 'Module 7: AI Tools in Design Workflow', icon: <Sparkles size={16} /> },
+        { label: 'Module 8: Freelancing & Agency Work', icon: <Target size={16} /> }
+      ],
       salaryInsights: [
         { experience: 'Fresher', salary: '\u20B93.5L - \u20B96.0L' },
         { experience: '1-3 Years', salary: '\u20B96.0L - \u20B912.0L' },
