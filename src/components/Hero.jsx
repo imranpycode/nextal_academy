@@ -152,23 +152,32 @@ export default function Hero({ onOpenEnrollModal }) {
           </div>
 
           <div className="hero-media-wrapper">
-            <div className="hero-image-frame anim-image delay-5" style={{ background: 'transparent', padding: '0', boxShadow: 'none', border: 'none', height: '550px', overflow: 'visible' }}>
-              <CanvasErrorBoundary>
-                <Canvas camera={{ position: [0, 1.5, 5], fov: 45 }} style={{ width: '100%', height: '100%', cursor: 'grab', overflow: 'visible' }}>
-                  <ambientLight intensity={0.7} />
-                  <directionalLight position={[10, 10, 5]} intensity={1.5} />
-                  <spotLight position={[-5, 5, -5]} intensity={4} color="#ffffff" />
-                  <spotLight position={[0, -5, 2]} intensity={3} color="#00C896" angle={0.5} penumbra={1} />
-                  <Environment preset="city" />
-                  <Suspense fallback={null}>
-                    <RobotCat 
-                      position={isMobile ? [0, -2.5, 0] : [-1.0, -2.3, 0]} 
-                      scale={isMobile ? 1.6 : 2.0} 
-                      rotation={[0, -Math.PI / 2, 0]} 
-                    />
-                  </Suspense>
-                </Canvas>
-              </CanvasErrorBoundary>
+            <div className="hero-image-frame anim-image delay-5" style={{ background: 'transparent', padding: '0', boxShadow: 'none', border: 'none', height: isMobile ? '400px' : '550px', overflow: 'visible' }}>
+              {!isMobile ? (
+                <CanvasErrorBoundary>
+                  <Canvas camera={{ position: [0, 1.5, 5], fov: 45 }} style={{ width: '100%', height: '100%', cursor: 'grab', overflow: 'visible' }}>
+                    <ambientLight intensity={0.7} />
+                    <directionalLight position={[10, 10, 5]} intensity={1.5} />
+                    <spotLight position={[-5, 5, -5]} intensity={4} color="#ffffff" />
+                    <spotLight position={[0, -5, 2]} intensity={3} color="#00C896" angle={0.5} penumbra={1} />
+                    <Environment preset="city" />
+                    <Suspense fallback={null}>
+                      <RobotCat 
+                        position={[-1.0, -2.3, 0]} 
+                        scale={2.0} 
+                        rotation={[0, -Math.PI / 2, 0]} 
+                      />
+                    </Suspense>
+                  </Canvas>
+                </CanvasErrorBoundary>
+              ) : (
+                <img 
+                  src="/robo_doll.png" 
+                  alt="Creative Video Editing Mascot" 
+                  style={{ width: '100%', height: '100%', objectFit: 'contain', transform: 'translateY(-10px)' }} 
+                  loading="lazy" 
+                />
+              )}
             </div>
           </div>
         </div>
