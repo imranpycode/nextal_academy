@@ -124,7 +124,16 @@ export default function Syllabus() {
       icon: <Palette size={18} />,
       desc: 'A comprehensive Six-Month Mastery Course covering everything from Graphic Design fundamentals to advanced UI/UX, Prototyping, and AI tools.',
       highlights: ['6-Month Mastery', 'Figma & Prototyping', 'AI Tools Integration'],
-      topics: []
+      topics: [
+        { label: 'Module 1: Introduction to UI/UX Principles', icon: <BookOpen size={16} /> },
+        { label: 'Module 2: User Research & Empathy Mapping', icon: <Users size={16} /> },
+        { label: 'Module 3: Wireframing & Information Architecture', icon: <AlignLeft size={16} /> },
+        { label: 'Module 4: Advanced Figma & Design Systems', icon: <Layout size={16} /> },
+        { label: 'Module 5: Interactive Prototyping', icon: <PlaySquare size={16} /> },
+        { label: 'Module 6: Usability Testing & Iteration', icon: <Activity size={16} /> },
+        { label: 'Module 7: AI Tools for Design Workflow', icon: <Sparkles size={16} /> },
+        { label: 'Module 8: Portfolio Building', icon: <Folder size={16} /> }
+      ]
     },
     {
       id: 'graphic-design',
@@ -134,7 +143,16 @@ export default function Syllabus() {
       icon: <Image size={18} />,
       desc: 'Learn industry-standard graphic design tools and techniques to create stunning visual content for brands.',
       highlights: ['Adobe Creative Suite', 'Branding & Identity', '3-Month Plan'],
-      topics: []
+      topics: [
+        { label: 'Module 1: Graphic Design Fundamentals', icon: <BookOpen size={16} /> },
+        { label: 'Module 2: Color Theory & Typography', icon: <Type size={16} /> },
+        { label: 'Module 3: Adobe Photoshop Masterclass', icon: <Image size={16} /> },
+        { label: 'Module 4: Adobe Illustrator Essentials', icon: <Palette size={16} /> },
+        { label: 'Module 5: Layout & Composition in InDesign', icon: <Layout size={16} /> },
+        { label: 'Module 6: Branding & Logo Design', icon: <Star size={16} /> },
+        { label: 'Module 7: Social Media Creatives', icon: <Instagram size={16} /> },
+        { label: 'Module 8: Print Design & Publishing', icon: <Folder size={16} /> }
+      ]
     },
     {
       id: 'designer-pro',
@@ -142,9 +160,18 @@ export default function Syllabus() {
       tabLabel: '5. Designer Pro',
       image: '/Video Editing Fundamentals.webp',
       icon: <Wand2 size={18} />,
-      desc: 'Course content coming soon...',
-      highlights: ['Syllabus coming soon'],
-      topics: []
+      desc: 'An advanced mastery course combining Graphic Design, UI/UX, and creative branding to build a complete design portfolio.',
+      highlights: ['Advanced UI/UX', 'Complete Graphic Design', 'AI Design Tools'],
+      topics: [
+        { label: 'Module 1: Principles of Visual Design', icon: <Palette size={16} /> },
+        { label: 'Module 2: Typography & Color Theory', icon: <Type size={16} /> },
+        { label: 'Module 3: Adobe Photoshop & Illustrator Mastery', icon: <Image size={16} /> },
+        { label: 'Module 4: UI/UX Fundamentals & Wireframing', icon: <Layout size={16} /> },
+        { label: 'Module 5: Figma Advanced Prototyping', icon: <Wand2 size={16} /> },
+        { label: 'Module 6: Branding & Identity Design', icon: <Star size={16} /> },
+        { label: 'Module 7: AI Tools in Design Workflow', icon: <Sparkles size={16} /> },
+        { label: 'Module 8: Freelancing & Agency Work', icon: <Target size={16} /> }
+      ]
     },
     {
       id: 'web-development',
@@ -154,7 +181,16 @@ export default function Syllabus() {
       icon: <Code size={18} />,
       desc: 'Become a full-stack developer by mastering frontend and backend technologies like React, Node.js, and databases with a 6-month mastery plan.',
       highlights: ['React & Node.js', 'Database Management', 'AI-Powered Development'],
-      topics: []
+      topics: [
+        { label: 'Module 1: HTML5, CSS3 & JavaScript Essentials', icon: <Code size={16} /> },
+        { label: 'Module 2: Frontend Development with React.js', icon: <Layout size={16} /> },
+        { label: 'Module 3: State Management & Redux', icon: <Activity size={16} /> },
+        { label: 'Module 4: Backend with Node.js & Express', icon: <Server size={16} /> },
+        { label: 'Module 5: Database Design with MongoDB & SQL', icon: <Database size={16} /> },
+        { label: 'Module 6: RESTful APIs & GraphQL', icon: <Workflow size={16} /> },
+        { label: 'Module 7: Authentication & Security', icon: <HardDrive size={16} /> },
+        { label: 'Module 8: Deployment & CI/CD', icon: <Target size={16} /> }
+      ]
     },
     {
       id: 'app-development',
@@ -164,7 +200,16 @@ export default function Syllabus() {
       icon: <Smartphone size={18} />,
       desc: 'Master full stack cross-platform mobile app development with Flutter, Firebase, and AI integration for iOS and Android.',
       highlights: ['Flutter & Firebase', 'State Management', 'App Deployment'],
-      topics: []
+      topics: [
+        { label: 'Module 1: Introduction to Dart & Flutter', icon: <Smartphone size={16} /> },
+        { label: 'Module 2: Building Responsive UI', icon: <Layout size={16} /> },
+        { label: 'Module 3: State Management (Provider/Riverpod)', icon: <Activity size={16} /> },
+        { label: 'Module 4: Firebase Integration & Auth', icon: <Database size={16} /> },
+        { label: 'Module 5: API Integration & Local Storage', icon: <HardDrive size={16} /> },
+        { label: 'Module 6: Device Features (Camera, Location)', icon: <Camera size={16} /> },
+        { label: 'Module 7: App Performance Optimization', icon: <Zap size={16} /> },
+        { label: 'Module 8: Publishing to App Store & Play Store', icon: <Target size={16} /> }
+      ]
     },
     {
       id: 'basic-video-editing',
@@ -174,7 +219,16 @@ export default function Syllabus() {
       icon: <Film size={18} />,
       desc: 'Learn the fundamentals of video editing to create engaging content for YouTube, Instagram Reels, and corporate videos with a complete 3-month curriculum.',
       highlights: ['Premiere & After Effects', 'Audio & Color Grading', 'AI-Powered Editing'],
-      topics: []
+      topics: [
+        { label: 'Module 1: Introduction to Video Editing', icon: <BookOpen size={16} /> },
+        { label: 'Module 2: Adobe Premiere Pro Interface', icon: <Layout size={16} /> },
+        { label: 'Module 3: Cutting & Transitions', icon: <Scissors size={16} /> },
+        { label: 'Module 4: Basic Audio Mixing', icon: <Volume2 size={16} /> },
+        { label: 'Module 5: Color Correction Fundamentals', icon: <Palette size={16} /> },
+        { label: 'Module 6: Titles & Simple Graphics', icon: <Type size={16} /> },
+        { label: 'Module 7: Exporting for Different Platforms', icon: <Share size={16} /> },
+        { label: 'Module 8: AI Tools for Video Creators', icon: <Bot size={16} /> }
+      ]
     },
     {
       id: 'motion-graphics',
@@ -184,7 +238,16 @@ export default function Syllabus() {
       icon: <Scissors size={18} />,
       desc: 'A complete six-month mastery course to learn After Effects, VFX, 3D integration, and professional motion graphics from beginner to advanced level.',
       highlights: ['VFX & 3D Integration', 'Professional Color Grading', 'Animation Workflow'],
-      topics: []
+      topics: [
+        { label: 'Module 1: After Effects Interface & Workflow', icon: <Layout size={16} /> },
+        { label: 'Module 2: Keyframing & Animation Principles', icon: <Activity size={16} /> },
+        { label: 'Module 3: Masking & Rotoscope', icon: <Scissors size={16} /> },
+        { label: 'Module 4: Kinetic Typography', icon: <Type size={16} /> },
+        { label: 'Module 5: VFX & Compositing', icon: <Sparkles size={16} /> },
+        { label: 'Module 6: 3D Camera & Lighting', icon: <Camera size={16} /> },
+        { label: 'Module 7: Expressions & Advanced Animation', icon: <Code size={16} /> },
+        { label: 'Module 8: Industry Projects & Reel Creation', icon: <Film size={16} /> }
+      ]
     },
     {
       id: 'adv-gen-ai',
