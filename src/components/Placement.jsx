@@ -75,7 +75,6 @@ export default function Placement({ onBack }) {
                   src={`/placement/${name}.webp`} 
                   alt={`${name} Placement`} 
                   style={{ width: '100%', height: 'auto', display: 'block' }} 
-                  loading="lazy"
                 />
               </div>
             ))}
