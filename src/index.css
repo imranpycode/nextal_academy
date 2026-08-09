@@ -2096,3 +2096,40 @@ html[data-low-performance="true"] .center-card-energy-halo {
   }
 }
 
+/* ── Mobile Layout Fixes (768px & 480px) ── */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.75rem;
+  }
+  .slider-content-area {
+    min-height: 400px; /* Prevents absolute slides from overlapping navigation */
+  }
+  .orbit-carousel-container {
+    height: 480px;
+    transform: scale(0.85);
+  }
+  .noteboard-card {
+    max-width: 320px;
+    transform: rotate(0deg); /* Prevent rotation clipping */
+  }
+}
+
+@media (max-width: 480px) {
+  .hero-title {
+    font-size: 2.25rem;
+  }
+  .site-header .btn-primary {
+    padding: 0.5rem 0.85rem;
+    font-size: 0.85rem;
+  }
+  .site-header .btn-primary svg {
+    display: none;
+  }
+  .orbit-carousel-container {
+    height: 380px;
+    transform: scale(0.7);
+  }
+  .slider-content-area {
+    min-height: 450px; 
+  }
+}

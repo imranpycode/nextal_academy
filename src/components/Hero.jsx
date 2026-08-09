@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { CheckCircle2, Award, Bot, Send, BookOpen, Clapperboard } from 'lucide-react';
 import { Canvas } from '@react-three/fiber';
 import { Environment } from '@react-three/drei';
-import RobotCat from './Robot_cat';
+
+const RobotCat = lazy(() => import('./Robot_cat'));
 
 class CanvasErrorBoundary extends React.Component {
   constructor(props) {
@@ -159,11 +160,13 @@ export default function Hero({ onOpenEnrollModal }) {
                   <spotLight position={[-5, 5, -5]} intensity={4} color="#ffffff" />
                   <spotLight position={[0, -5, 2]} intensity={3} color="#00C896" angle={0.5} penumbra={1} />
                   <Environment preset="city" />
-                  <RobotCat 
-                    position={isMobile ? [0, -2.5, 0] : [-1.0, -2.3, 0]} 
-                    scale={isMobile ? 1.6 : 2.0} 
-                    rotation={[0, -Math.PI / 2, 0]} 
-                  />
+                  <Suspense fallback={null}>
+                    <RobotCat 
+                      position={isMobile ? [0, -2.5, 0] : [-1.0, -2.3, 0]} 
+                      scale={isMobile ? 1.6 : 2.0} 
+                      rotation={[0, -Math.PI / 2, 0]} 
+                    />
+                  </Suspense>
                 </Canvas>
               </CanvasErrorBoundary>
             </div>

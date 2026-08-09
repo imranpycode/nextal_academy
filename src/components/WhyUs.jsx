@@ -46,6 +46,25 @@ export default function WhyUs({ onSelectService }) {
   const angleOffsetRef = useRef(0);
   const targetRadiusRef = useRef(370);
 
+  // Responsive radius for orbits
+  useEffect(() => {
+    const updateRadius = () => {
+      const width = window.innerWidth;
+      if (width < 480) {
+        targetRadiusRef.current = 150;
+      } else if (width < 768) {
+        targetRadiusRef.current = 220;
+      } else if (width < 992) {
+        targetRadiusRef.current = 280;
+      } else {
+        targetRadiusRef.current = 370;
+      }
+    };
+    updateRadius();
+    window.addEventListener('resize', updateRadius);
+    return () => window.removeEventListener('resize', updateRadius);
+  }, []);
+
   // Interactive 3D Tilt refs
   const tiltRef = useRef(services.map(() => ({ x: 0, y: 0 })));
   const targetTiltRef = useRef(services.map(() => ({ x: 0, y: 0 })));
