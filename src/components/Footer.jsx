@@ -8,9 +8,9 @@ export default function Footer() {
         <div className="footer-grid">
 
           {/* Brand */}
-          <div className="footer-col anim-text delay-1">
+          <div className="footer-brand">
             <a href="#home" className="footer-logo">
-              <img src="/academy_logo.webp" alt="Nextal Academy" loading="lazy" decoding="async" />
+              <img src="/academy_logo.png" alt="Nextal Academy" loading="lazy" decoding="async" />
             </a>
             <p>
               Nagercoil's premier skill development institute providing

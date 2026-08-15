@@ -58,25 +58,6 @@ const serviceDetails = {
       "Module 4: Trend Analysis & Optimizing Videos for Algorithms"
     ]
   },
-  "data-science": {
-    title: "Data Science & Analytics",
-    subtitle: "Transform Raw Information into Actionable Insights",
-    desc: "Learn how to clean, structure, and analyze complex datasets. Master SQL database queries, statistical analysis, and interactive dashboard creation for data-driven decisions.",
-    duration: "3 Months (Analytical Program)",
-    outcomes: [
-      "Clean, analyze, and manipulate datasets with Python libraries",
-      "Query databases using advanced SQL commands",
-      "Design interactive dashboards in Tableau or PowerBI",
-      "Apply predictive models to solve real business challenges"
-    ],
-    curriculum: [
-      "Module 1: Intro to Data Analysis & Python Foundations",
-      "Module 2: Data Cleaning & Wrangling with Pandas & NumPy",
-      "Module 3: Structured Query Language (SQL) for Databases",
-      "Module 4: Data Visualization (Matplotlib, Seaborn, Tableau)",
-      "Module 5: Basics of Machine Learning & Business Intelligence"
-    ]
-  },
   "generative-ai": {
     title: "Generative AI Content Creation",
     subtitle: "Create Copy, Graphics, and Videos with the Power of AI",
@@ -169,17 +150,16 @@ export default function ServiceDetail({ slug, onBack, onOpenEnrollModal }) {
   }
 
   return (
-    <section className="service-detail-section" style={{ padding: '6rem 0' }}>
+    <section key={slug} className="service-detail-section" style={{ padding: '6rem 0', background: '#ffffff', opacity: 0, animation: 'pageFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
       <div className="container">
         {/* Back Button */}
         <button onClick={onBack} className="service-detail-back-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'none', border: 'none', color: 'var(--accent-coral)', fontWeight: '600', cursor: 'pointer', marginBottom: '2.5rem', padding: '0', fontSize: '1rem' }}>
           <ArrowLeft size={18} /> Back to Home
         </button>
 
-        <div className="service-detail-grid" style={{ display: 'grid', gridTemplateColumns: '1.2fr 0.8fr', gap: '4rem', alignItems: 'start' }}>
+        <div className="service-detail-grid" style={{ display: 'grid', gridTemplateColumns: '0.8fr 1.2fr', gap: '2rem', alignItems: 'stretch' }}>
           {/* Main Info */}
-          <div className="service-detail-main">
-            <span className="section-tag" style={{ marginBottom: '1.25rem' }}>Nextal Academy Course</span>
+          <div className="service-detail-main" style={{ display: 'flex', flexDirection: 'column' }}>
             <h1 className="service-detail-title" style={{ fontSize: '3rem', color: 'var(--primary-dark)', fontWeight: '800', lineHeight: '1.1', marginBottom: '1rem' }}>
               {service.title}
             </h1>
@@ -190,14 +170,21 @@ export default function ServiceDetail({ slug, onBack, onOpenEnrollModal }) {
               {service.desc}
             </p>
 
-            {/* Curriculum Panel */}
-            <div className="service-curriculum-panel" style={{ background: 'var(--bg-surface)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', padding: '2.5rem', boxShadow: 'var(--shadow-sm)', marginBottom: '3rem' }}>
-              <h3 style={{ fontSize: '1.5rem', color: 'var(--primary-dark)', marginBottom: '1.5rem', fontWeight: '700' }}>Course Syllabus</h3>
+            {/* Benefits Panel */}
+            <div className="service-curriculum-panel" style={{ flex: 1, background: 'var(--bg-surface)', border: '1px solid var(--border-light)', borderRadius: 'var(--radius-lg)', padding: '2.5rem', boxShadow: 'var(--shadow-sm)', marginBottom: 0 }}>
+              <h3 style={{ fontSize: '1.5rem', color: 'var(--primary-dark)', marginBottom: '1.5rem', fontWeight: '700' }}>Why Choose Nextal Academy?</h3>
               <div className="curriculum-list" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
-                {service.curriculum.map((module, idx) => (
-                  <div key={idx} className="curriculum-item" style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', paddingBottom: '1rem', borderBottom: idx < service.curriculum.length - 1 ? '1px solid var(--border-light)' : 'none' }}>
+                {[
+                  "100% Practical & Hands-on Training",
+                  "Industry-Oriented Curriculum",
+                  "Work on Live Commercial Projects",
+                  "Build a Professional Portfolio",
+                  "Internship & Placement Assistance",
+                  "Learn from Experienced Industry Trainers"
+                ].map((benefit, idx) => (
+                  <div key={idx} className="curriculum-item" style={{ display: 'flex', gap: '1rem', alignItems: 'flex-start', paddingBottom: '1rem', borderBottom: idx < 5 ? '1px solid var(--border-light)' : 'none' }}>
                     <div style={{ width: '8px', height: '8px', background: 'var(--accent-coral)', borderRadius: '50%', marginTop: '8px', flexShrink: 0 }} />
-                    <span style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--text-primary)' }}>{module}</span>
+                    <span style={{ fontSize: '1rem', fontWeight: '600', color: 'var(--text-primary)' }}>{benefit}</span>
                   </div>
                 ))}
               </div>
@@ -205,7 +192,7 @@ export default function ServiceDetail({ slug, onBack, onOpenEnrollModal }) {
           </div>
 
           {/* Sidebar Info */}
-          <div className="service-detail-sidebar" style={{ position: 'sticky', top: '100px', background: 'linear-gradient(135deg, #5E086B 0%, #220066 100%)', borderRadius: 'var(--radius-lg)', padding: '2.5rem', color: 'var(--text-white)', boxShadow: 'var(--shadow-lg)' }}>
+          <div className="service-detail-sidebar" style={{ display: 'flex', flexDirection: 'column', position: 'sticky', top: '100px', background: 'linear-gradient(135deg, #5E086B 0%, #220066 100%)', borderRadius: 'var(--radius-lg)', padding: '2.5rem', color: 'var(--text-white)', boxShadow: 'var(--shadow-lg)' }}>
             <h3 style={{ fontSize: '1.5rem', color: 'var(--text-white)', fontWeight: '700', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Sparkles size={20} className="text-accent" style={{ color: 'var(--accent-coral)' }} /> Course Details
             </h3>
@@ -238,6 +225,13 @@ export default function ServiceDetail({ slug, onBack, onOpenEnrollModal }) {
                   </div>
                 ))}
               </div>
+            </div>
+
+            <div style={{ marginTop: 'auto', marginBottom: '1.5rem', background: 'rgba(255,255,255,0.06)', padding: '1.5rem', borderRadius: 'var(--radius-sm)', border: '1px solid rgba(255,255,255,0.1)' }}>
+              <h4 style={{ fontSize: '1.1rem', color: 'var(--text-white)', fontWeight: '700', marginBottom: '0.5rem' }}>Ready to Start?</h4>
+              <p style={{ fontSize: '0.9rem', color: 'rgba(255,255,255,0.85)', lineHeight: '1.5', margin: 0 }}>
+                Join our intensive program to build yourself into what you want to become, gain hands-on experience, and secure your creative career with industry-leading mentors.
+              </p>
             </div>
 
             <button onClick={onOpenEnrollModal} className="btn btn-primary" style={{ width: '100%', display: 'flex', justifyContent: 'center', gap: '0.5rem', background: 'var(--accent-coral)', color: 'var(--text-white)', border: 'none', borderRadius: 'var(--radius-sm)', padding: '0.9rem 1.5rem', fontWeight: '700', fontSize: '1rem', cursor: 'pointer', transition: 'all 0.2s ease', boxShadow: '0 8px 16px rgba(246,36,119,0.3)' }}>

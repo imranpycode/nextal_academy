@@ -1,14 +1,14 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { Video, Wand2, Smartphone, Database, Brain, Network, Briefcase, Handshake } from 'lucide-react';
 
 const services = [
-  { id: 0, img: "/images/service1-Photoroom.png", title: "Video Editing", subtitle: "Adobe Premiere Pro", desc: "Cinematic cuts & professional grading", slug: "video-editing", label: "PRO" },
-  { id: 1, img: "/images/service2-Photoroom.png", title: "Motion Graphics", subtitle: "Adobe After Effects", desc: "Dynamic logo stings & particle VFX", slug: "motion-graphics", label: "VFX" },
-  { id: 2, img: "/images/service3-Photoroom.png", title: "Social Media Reels", subtitle: "CapCut & Canva", desc: "High-retention hooks & viral pacing", slug: "social-reels", label: "REEL" },
-  { id: 3, img: "/images/service4-Photoroom.png", title: "Data Science", subtitle: "Python & Analytics", desc: "Data cleaning, dashboards & ML", slug: "data-science", label: "DATA" },
-  { id: 4, img: "/images/service5-Photoroom.png", title: "Generative AI", subtitle: "Prompt Engineering", desc: "AI art & text generation at scale", slug: "generative-ai", label: "GEN" },
-  { id: 5, img: "/images/service6-Photoroom.png", title: "Agentic AI", subtitle: "Autonomous Workflows", desc: "Automate complex multi-step tasks", slug: "agentic-ai", label: "AGNT" },
-  { id: 6, img: "/images/service7-Photoroom.png", title: "Live Portfolio", subtitle: "Client Briefs", desc: "Real commercial projects", slug: "live-portfolio", label: "LIVE" },
-  { id: 7, img: "/images/service8-Photoroom.png", title: "Placement Support", subtitle: "Career Assistance", desc: "Mock interviews & placement help", slug: "placement-support", label: "JOB" }
+  { id: 0, icon: Video, title: "Video Editing", subtitle: "Adobe Premiere Pro", desc: "Cinematic cuts & professional grading", slug: "video-editing", label: "PRO", bgColor: "#ffe8e8", color: "#d32f2f" },
+  { id: 1, icon: Wand2, title: "Motion Graphics", subtitle: "Adobe After Effects", desc: "Dynamic logo stings & particle VFX", slug: "motion-graphics", label: "VFX", bgColor: "#f3e5f5", color: "#7b1fa2" },
+  { id: 2, icon: Smartphone, title: "Social Media Reels", subtitle: "CapCut & Canva", desc: "High-retention hooks & viral pacing", slug: "social-reels", label: "REEL", bgColor: "#e3f2fd", color: "#1976d2" },
+  { id: 3, icon: Brain, title: "Generative AI", subtitle: "Prompt Engineering", desc: "AI art & text generation at scale", slug: "generative-ai", label: "GEN", bgColor: "#fff3e0", color: "#f57c00" },
+  { id: 4, icon: Network, title: "Agentic AI", subtitle: "Autonomous Workflows", desc: "Automate complex multi-step tasks", slug: "agentic-ai", label: "AGNT", bgColor: "#e8eaf6", color: "#303f9f" },
+  { id: 5, icon: Briefcase, title: "Live Portfolio", subtitle: "Client Briefs", desc: "Real commercial projects", slug: "live-portfolio", label: "LIVE", bgColor: "#fce4ec", color: "#c2185b" },
+  { id: 6, icon: Handshake, title: "Placement Support", subtitle: "Career Assistance", desc: "Mock interviews & placement help", slug: "placement-support", label: "JOB", bgColor: "#f1f8e9", color: "#689f38" }
 ];
 
 const headlines = [
@@ -20,7 +20,7 @@ const headlines = [
 ];
 
 export default function WhyUs({ onSelectService }) {
-  const [slots, setSlots] = useState([0, 1, 2, 3, 4, 5, 6, 7]);
+  const [slots, setSlots] = useState([0, 1, 2, 3, 4, 5, 6]);
   const [isPaused, setIsPaused] = useState(false);
   const [hoveredIdx, setHoveredIdx] = useState(null);
   const [introStarted, setIntroStarted] = useState(false);
@@ -57,7 +57,7 @@ export default function WhyUs({ onSelectService }) {
       } else if (width < 992) {
         targetRadiusRef.current = 280;
       } else {
-        targetRadiusRef.current = 370;
+        targetRadiusRef.current = 440;
       }
     };
     updateRadius();
@@ -95,22 +95,7 @@ export default function WhyUs({ onSelectService }) {
     return () => clearInterval(cycleInterval);
   }, []);
 
-  // Handle responsiveness
-  useEffect(() => {
-    const handleResize = () => {
-      const width = window.innerWidth;
-      if (width > 992) {
-        targetRadiusRef.current = 370;
-      } else if (width > 768) {
-        targetRadiusRef.current = 250;
-      } else {
-        targetRadiusRef.current = 145;
-      }
-    };
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  // Removed duplicate handleResize useEffect that was overwriting updateRadius
 
   // Trigger intro scale-in after mount
   useEffect(() => {
@@ -159,7 +144,7 @@ export default function WhyUs({ onSelectService }) {
           }
 
           if (!isCenter) {
-            const angle = angleOffsetRef.current + (2 * Math.PI * (slot - 1)) / 7;
+            const angle = angleOffsetRef.current + (2 * Math.PI * (slot - 1)) / 6;
             tx = targetRadiusRef.current * Math.cos(angle);
             ty = targetRadiusRef.current * Math.sin(angle);
           }
@@ -203,34 +188,15 @@ export default function WhyUs({ onSelectService }) {
             // Apply scale combined with depth scale
             const finalScale = scaleRef.current[idx] * (isCenter ? 1.0 : depthScale);
             el.style.transform = `translate3d(-50%, -50%, 0) translate3d(${posRef.current[idx].x}px, ${posRef.current[idx].y}px, 0) scale(${finalScale})`;
-            el.style.zIndex = isCenter ? 15 : 2;
+            el.style.zIndex = isCenter ? 25 : 2;
             el.style.opacity = depthOpacity;
             el.style.filter = 'none';
 
-            // Dynamic color based on which side the card is on
-            const cardX = posRef.current[idx].x;
-            // Left side (navy bg) → yellow text; Right/center → navy text
-            const onNavySide = cardX < -30;
-            const cardTextColor = onNavySide ? '#FFF8D8' : '#000053';
+            // Set text color for orbit title
             const orbitTitle = el.querySelector('.orbit-title');
-            if (orbitTitle) orbitTitle.style.color = cardTextColor;
+            if (orbitTitle) orbitTitle.style.color = '#000000';
 
-            // Dynamic Card Lighting & Glow Interpolation
-            const imageBox = el.querySelector('.orbit-card-image-box');
-            if (imageBox) {
-              // Interpolate over a 300px transition zone across the center line (-150 to +150)
-              const transitionT = Math.max(0, Math.min(1, (cardX + 150) / 300));
-              const pctYellow = (transitionT * 100).toFixed(1);
-              
-              // Blue theme = rgba(0, 100, 255) | Yellow theme = rgba(255, 160, 0)
-              const bg = `color-mix(in srgb, rgba(255, 250, 230, 0.95) ${pctYellow}%, rgba(230, 240, 255, 0.95))`;
-              const shadowColor = `color-mix(in srgb, rgba(255, 160, 0, 0.45) ${pctYellow}%, rgba(0, 120, 255, 0.45))`;
-              const borderColor = `color-mix(in srgb, rgba(255, 160, 0, 0.5) ${pctYellow}%, rgba(0, 120, 255, 0.5))`;
-              
-              imageBox.style.background = bg;
-              imageBox.style.boxShadow = `0 4px 20px ${shadowColor}, inset 0 0 15px ${shadowColor}`;
-              imageBox.style.borderColor = borderColor;
-            }
+            // Removed dynamic card lighting & glow interpolation to stick to CSS defaults
 
             // Apply 3D Tilt & Light Reflection to the center card content
             const inner = el.querySelector('.orbit-card-inner');
@@ -335,25 +301,26 @@ export default function WhyUs({ onSelectService }) {
   };
 
   const TextBlock = ({ color }) => (
-    <div className="text-center mx-auto anim-text delay-2" style={{ marginBottom: '3.5rem' }}>
-      <h2
-        className="section-title"
-        style={{
-          color,
-          fontSize: '3.5rem',
-          lineHeight: '1.2',
-          opacity: quoteVisible ? 1 : 0,
-          transform: quoteVisible ? 'translateY(0)' : 'translateY(12px)',
-          transition: 'opacity 0.45s ease, transform 0.45s ease',
-        }}
-      >
+    <div className="text-center mx-auto anim-text delay-2" style={{ marginBottom: '10rem' }}>
+        <h2
+          className={`section-title`}
+          style={{
+            display: 'inline-block',
+            fontSize: '3.5rem',
+            lineHeight: '1.2',
+            color: '#000000',
+            opacity: quoteVisible ? 1 : 0,
+            transform: quoteVisible ? 'translateY(0)' : 'translateY(-20px)',
+            transition: 'opacity 0.45s ease, transform 0.45s cubic-bezier(0.16, 1, 0.3, 1)',
+          }}
+        >
         {headlines[quoteIdx].title}<br/>{headlines[quoteIdx].sub}
       </h2>
     </div>
   );
 
   return (
-    <section id="why-us" className="section why-us-interactive-section" style={{ position: 'relative' }}>
+    <section id="why-us" className="section why-us-interactive-section" style={{ position: 'relative', backgroundColor: '#ffffff' }}>
       {/* Background Ambience / Subtle Glowing Nodes & Blobs */}
       <div className="orbit-ambient-dots">
         <div className="ambient-dot p1"></div>
@@ -361,48 +328,12 @@ export default function WhyUs({ onSelectService }) {
         <div className="ambient-dot p3"></div>
         <div className="ambient-particles"></div>
       </div>
-      
-      {/* ── Sliding Shutter Panels (Decor) ── */}
-      <div className="premium-shutter-layer" aria-hidden="true" />
-      <div className="navy-shutter-layer" aria-hidden="true" />
 
       <div className="container" style={{ zIndex: 2 }}>
         
-        {/* Full Section Wrapper for Text Shutters (Absolute, covers full padding-box of section) */}
-        <div style={{ position: 'absolute', top: 0, bottom: 0, left: 0, right: 0, pointerEvents: 'none', zIndex: 10 }}>
-          
-          {/* Yellow Text Shutter (Navy Text) */}
-          <div className="text-shutter-yellow">
-            <div className="shutter-counter-transform-yellow">
-              {/* Flex Container to perfectly mimic the <section>'s vertical centering */}
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
-                <div className="container">
-                  <TextBlock color="#000053" />
-                  {/* Dummy carousel to force exact same height for vertical flex synchronization */}
-                  <div className="orbit-carousel-container" style={{ visibility: 'hidden' }} />
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Navy Text Shutter (Yellow Text) */}
-          <div className="text-shutter-navy">
-            <div className="shutter-counter-transform-navy">
-              <div style={{ display: 'flex', flexDirection: 'column', justifyContent: 'center', height: '100%' }}>
-                <div className="container">
-                  <TextBlock color="#FFF8D8" />
-                  {/* Dummy carousel to force exact same height for vertical flex synchronization */}
-                  <div className="orbit-carousel-container" style={{ visibility: 'hidden' }} />
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
-
-        {/* Base Text Wrapper (Static, visible in gap before shutters close) */}
+        {/* Base Text Wrapper */}
         <div style={{ position: 'relative', zIndex: 2 }}>
-          <TextBlock color="#000053" />
+          <TextBlock color="#000000" />
         </div>
 
         {/* Circular Orbit Carousel Container */}
@@ -457,9 +388,9 @@ export default function WhyUs({ onSelectService }) {
                       className="orbit-card-inner"
                       onClick={(e) => handleCardClick(service, e)}
                     >
-                      {/* Image container box */}
-                      <div className="orbit-card-image-box">
-                        <img src={service.img} alt={service.title} className="orbit-card-image" loading="lazy" decoding="async" />
+                      {/* Icon container box */}
+                      <div className="orbit-card-image-box" style={{ justifyContent: 'center', backgroundColor: isCenter ? '#fff' : service.bgColor, borderColor: isCenter ? '' : service.color }}>
+                        <service.icon size={46} color={isCenter ? '#000053' : service.color} strokeWidth={1.5} className="orbit-card-icon" />
                         
                         {/* Dynamic shininess element overlay (3D reflection) */}
                         <div className="orbit-card-glass-reflection"></div>
@@ -478,7 +409,6 @@ export default function WhyUs({ onSelectService }) {
                           <div className="center-card-content">
                             <span className="center-subtitle">{service.subtitle}</span>
                             <span className="center-title">{service.title}</span>
-                            <p className="center-description">{service.desc}</p>
                           </div>
                         ) : (
                           <div className="orbit-card-content">

@@ -61,6 +61,71 @@ import {
   Star
 } from 'lucide-react';
 
+const AnimatedCounter = ({ target, suffix, delay, color = '#F62477' }) => {
+  const [count, setCount] = React.useState(0);
+  const [isCounting, setIsCounting] = React.useState(false);
+  const [isFinished, setIsFinished] = React.useState(false);
+  const ref = React.useRef(null);
+
+  React.useEffect(() => {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      setCount(target);
+      setIsFinished(true);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          observer.disconnect();
+          setTimeout(() => {
+            setIsCounting(true);
+            let startTime = null;
+            const duration = 2000;
+
+            const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+
+            const animate = (timestamp) => {
+              if (!startTime) startTime = timestamp;
+              const progress = timestamp - startTime;
+              const t = Math.min(progress / duration, 1);
+              
+              const currentCount = Math.floor(easeOutCubic(t) * target);
+              setCount(currentCount);
+
+              if (t < 1) {
+                requestAnimationFrame(animate);
+              } else {
+                setCount(target);
+                setIsCounting(false);
+                setIsFinished(true);
+              }
+            };
+            requestAnimationFrame(animate);
+          }, delay);
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => observer.disconnect();
+  }, [target, delay]);
+
+  return (
+    <h3 ref={ref} className={`stat-number ${isCounting ? 'counting' : ''} ${isFinished ? 'finished' : ''}`}>
+      <span className="stat-value">{count}</span>
+      <span style={{ opacity: isFinished ? 1 : 0, transition: 'opacity 0.2s ease', display: 'inline-block', color: color }}>
+        {suffix}
+      </span>
+    </h3>
+  );
+};
+
 export default function Syllabus() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [progress, setProgress] = useState(0);
@@ -72,9 +137,9 @@ export default function Syllabus() {
   const modules = [
     {
       id: 'ai-digital-marketing',
-      title: 'AI Integrated Digital Marketing',
+      title: <>AI Integrated<br/>Digital Marketing</>,
       tabLabel: '1. AI Marketing',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/AI Integrated Digital Marketing.webp',
       icon: <Megaphone size={18} />,
       desc: 'Master the future of marketing with our comprehensive AI Integrated Digital Marketing course.',
       highlights: ['AI Tools for Marketing', 'Advanced SEO & SMO', 'Meta & Google Ads'],
@@ -92,9 +157,9 @@ export default function Syllabus() {
     },
     {
       id: 'diploma-digital-marketing',
-      title: 'Diploma in Digital Marketing',
+      title: <>Diploma in<br/>Digital Marketing</>,
       tabLabel: '2. Diploma DM',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/diplomo in digital marketing.webp',
       icon: <BadgePercent size={18} />,
       desc: 'Master the complete spectrum of digital marketing from organic social media to advanced analytics and e-commerce.',
       highlights: ['15 Comprehensive Modules', 'E-commerce & Analytics', 'Personal Branding'],
@@ -120,7 +185,7 @@ export default function Syllabus() {
       id: 'ui-ux',
       title: 'UI/UX Design',
       tabLabel: '3. UI/UX',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/UIUX Design.webp',
       icon: <Palette size={18} />,
       desc: 'A comprehensive Six-Month Mastery Course covering everything from Graphic Design fundamentals to advanced UI/UX, Prototyping, and AI tools.',
       highlights: ['6-Month Mastery', 'Figma & Prototyping', 'AI Tools Integration'],
@@ -139,7 +204,7 @@ export default function Syllabus() {
       id: 'graphic-design',
       title: 'Graphic Design',
       tabLabel: '4. Graphics',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/Graphic Design.webp',
       icon: <Image size={18} />,
       desc: 'Learn industry-standard graphic design tools and techniques to create stunning visual content for brands.',
       highlights: ['Adobe Creative Suite', 'Branding & Identity', '3-Month Plan'],
@@ -158,7 +223,7 @@ export default function Syllabus() {
       id: 'designer-pro',
       title: 'Designer Pro',
       tabLabel: '5. Designer Pro',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/Designer Pro.webp',
       icon: <Wand2 size={18} />,
       desc: 'An advanced mastery course combining Graphic Design, UI/UX, and creative branding to build a complete design portfolio.',
       highlights: ['Advanced UI/UX', 'Complete Graphic Design', 'AI Design Tools'],
@@ -177,7 +242,7 @@ export default function Syllabus() {
       id: 'web-development',
       title: 'Web Development',
       tabLabel: '6. Web Dev',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/Web Development.webp',
       icon: <Code size={18} />,
       desc: 'Become a full-stack developer by mastering frontend and backend technologies like React, Node.js, and databases with a 6-month mastery plan.',
       highlights: ['React & Node.js', 'Database Management', 'AI-Powered Development'],
@@ -196,7 +261,7 @@ export default function Syllabus() {
       id: 'app-development',
       title: 'App Development',
       tabLabel: '7. App Dev',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/App Development.webp',
       icon: <Smartphone size={18} />,
       desc: 'Master full stack cross-platform mobile app development with Flutter, Firebase, and AI integration for iOS and Android.',
       highlights: ['Flutter & Firebase', 'State Management', 'App Deployment'],
@@ -215,7 +280,7 @@ export default function Syllabus() {
       id: 'basic-video-editing',
       title: 'Basic Video Editing',
       tabLabel: '8. Video Basics',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/basic video editing.webp',
       icon: <Film size={18} />,
       desc: 'Learn the fundamentals of video editing to create engaging content for YouTube, Instagram Reels, and corporate videos with a complete 3-month curriculum.',
       highlights: ['Premiere & After Effects', 'Audio & Color Grading', 'AI-Powered Editing'],
@@ -234,7 +299,7 @@ export default function Syllabus() {
       id: 'motion-graphics',
       title: 'Motion Graphics',
       tabLabel: '9. Motion VFX',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/Motion Graphics.webp',
       icon: <Scissors size={18} />,
       desc: 'A complete six-month mastery course to learn After Effects, VFX, 3D integration, and professional motion graphics from beginner to advanced level.',
       highlights: ['VFX & 3D Integration', 'Professional Color Grading', 'Animation Workflow'],
@@ -251,7 +316,7 @@ export default function Syllabus() {
     },
     {
       id: 'adv-gen-ai',
-      title: 'Advanced Certification in Gen AI',
+      title: <>Advanced&nbsp;Certification<br/>in Gen AI</>,
       tabLabel: '10. Gen AI',
       image: '/genai&agenai.webp',
       icon: <Brain size={18} />,
@@ -327,20 +392,12 @@ export default function Syllabus() {
   };
 
   return (
-    <section id="syllabus" className="section section-alt" style={{ padding: '5rem 0', position: 'relative' }}>
+    <section id="syllabus" className="section" style={{ padding: '5rem 0', position: 'relative', backgroundColor: '#ffffff' }}>
       <div className="text-center mx-auto anim-text delay-2" style={{ marginBottom: '3rem' }}>
-        <h2 className="section-title animated-heading-shimmer">What You Will Learn</h2>
+        <h2 className="section-title" style={{ background: 'linear-gradient(to right, #F62477, #5E086B)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', display: 'inline-block' }}>What You Will Learn</h2>
       </div>
-
       <div className="syllabus-grid-wrapper">
-        {/* Left Noticeboard Column */}
-        <div className="noticeboard-column anim-image delay-4">
-          <div className="noteboard-card">
-            <div className="noteboard-clip"></div>
-            <img src="/noteboard.png" alt="Noticeboard" className="noteboard-img" loading="lazy" decoding="async" />
-          </div>
-        </div>
-        
+
         {/* Slider Column */}
         <div className="slider-column">
           <div className="premium-slider-container anim-image delay-4">
@@ -351,23 +408,25 @@ export default function Syllabus() {
                   key={m.id} 
                   className={`slider-content-slide ${idx === currentIndex ? 'active' : ''}`}
                 >
-                  <div>
-                    <div className="slide-badge">
-                      {m.icon} {m.tabLabel}
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
+                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', alignItems: 'flex-start' }}>
+                      <div className="slide-badge" style={{ margin: 0, transform: 'translateY(4px)' }}>
+                        {m.icon} {m.tabLabel}
+                      </div>
+                      <h3 className="slide-title" style={{ margin: 0 }}>{m.title}</h3>
                     </div>
-                    <h3 className="slide-title">{m.title}</h3>
-                    <p className="slide-desc">{m.desc}</p>
+                    <p className="slide-desc" style={{ margin: '-4px 0 0 0' }}>{m.desc}</p>
                     
-                    <div className="slide-highlights">
+                    <div className="slide-highlights" style={{ margin: '24px 0 0 0' }}>
                       {m.highlights.map((h, i) => (
                         <div className="slide-highlight-item" key={i}>
-                          <CheckCircle2 size={18} style={{ color: 'var(--accent-coral)' }} /> {h}
+                          <CheckCircle2 size={18} style={{ color: '#E35336' }} /> {h}
                         </div>
                       ))}
                     </div>
                   </div>
 
-                  <a href={`/course/${m.id}`} className="btn btn-primary slide-cta">
+                  <a href={`/course/${m.id}`} className="btn btn-primary slide-cta" style={{ marginTop: '86px' }}>
                     Explore Module <ArrowRight size={16} />
                   </a>
                 </div>
@@ -398,23 +457,48 @@ export default function Syllabus() {
             </div>
 
             {/* Right Image Area */}
-            <div 
-              className="slider-media-area"
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
-            >
-              {modules.map((m, idx) => (
-                <div 
-                  key={m.id} 
-                  className={`slider-media-slide ${idx === currentIndex ? 'active' : ''}`}
-                >
-                  <img src={m.image} alt={m.title} loading={idx === 0 ? "eager" : "lazy"} decoding="async" />
-                </div>
-              ))}
+            <div className="slider-media-wrapper">
+              
+              <div 
+                className="slider-media-area"
+                onMouseEnter={() => setIsHovered(true)}
+                onMouseLeave={() => setIsHovered(false)}
+              >
+                {modules.map((m, idx) => (
+                  <div 
+                    key={m.id} 
+                    className={`slider-media-slide ${idx === currentIndex ? 'active' : ''}`}
+                  >
+                    <img src={m.image} alt={m.title} loading={idx === 0 ? "eager" : "lazy"} decoding="async" />
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <div className="hero-container" style={{ marginTop: '5rem' }}>
+        <div className="hero-stats anim-text delay-6" style={{ justifyContent: 'center', marginBottom: '2rem' }}>
+          <div className="stat-item" style={{ backgroundColor: '#6B082D' }}>
+            <AnimatedCounter target={100} suffix="%" delay={100} color="#ffffff" />
+            <p>Practical Training</p>
+          </div>
+          <div className="stat-item" style={{ backgroundColor: '#A60E48' }}>
+            <AnimatedCounter target={6} suffix="+" delay={250} color="#ffffff" />
+            <p>Editing Tools</p>
+          </div>
+          <div className="stat-item" style={{ backgroundColor: '#D81662' }}>
+            <AnimatedCounter target={10} suffix="+" delay={400} color="#ffffff" />
+            <p>Live Projects</p>
+          </div>
+          <div className="stat-item" style={{ backgroundColor: '#F62477' }}>
+            <AnimatedCounter target={100} suffix="%" delay={550} color="#ffffff" />
+            <p>Placement Support</p>
+          </div>
+        </div>
+      </div>
+
     </section>
   );
 }

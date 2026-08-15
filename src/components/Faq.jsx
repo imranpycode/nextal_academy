@@ -40,10 +40,9 @@ export default function Faq() {
   }, [isPaused, faqs.length]);
 
   return (
-    <section id="faq" className="section">
+    <section id="faq" className="section" style={{ backgroundColor: '#ffffff' }}>
       <div className="container">
         <div className="text-center mx-auto">
-          <span className="section-tag cyan anim-badge delay-1">Got Questions?</span>
           <h2 className="section-title anim-text delay-2">Frequently Asked Questions</h2>
           <p className="section-subtitle mx-auto anim-text delay-3">Here are answers to the most common questions about our Video Editing Course in Nagercoil.</p>
         </div>

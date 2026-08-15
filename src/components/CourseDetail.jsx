@@ -32,7 +32,9 @@ function useScrollObserver() {
 
 export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [timelineProgress, setTimelineProgress] = useState(0);
   const cursorRef = useRef(null);
+  const timelineRef = useRef(null);
   
   useScrollObserver();
 
@@ -45,6 +47,16 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
       const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
       const scroll = `${(totalScroll / windowHeight) * 100}%`;
       setScrollProgress(scroll);
+
+      if (timelineRef.current) {
+        const rect = timelineRef.current.getBoundingClientRect();
+        const viewportHeight = window.innerHeight;
+        // Progress starts when top hits 60% of viewport, ends when bottom hits 60%
+        const triggerPoint = viewportHeight * 0.6;
+        let progress = (triggerPoint - rect.top) / rect.height;
+        progress = Math.max(0, Math.min(1, progress));
+        setTimelineProgress(progress * 100);
+      }
     };
     window.addEventListener('scroll', handleScroll);
 
@@ -78,7 +90,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     {
       id: 'ai-digital-marketing',
       title: 'AI Integrated Digital Marketing',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/AI Integrated Digital Marketing.webp',
       desc: 'Master the future of marketing with our comprehensive AI Integrated Digital Marketing course. Learn to leverage artificial intelligence across all core digital marketing channels.',
       topics: [
         { label: 'Module 1: Introduction to Digital Marketing', icon: <BookOpen size={16} /> },
@@ -115,7 +127,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     {
       id: 'diploma-digital-marketing',
       title: 'Diploma in Digital Marketing',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/diplomo in digital marketing.webp',
       desc: 'Master the complete spectrum of digital marketing from organic social media to advanced analytics and e-commerce.',
       topics: [
         { label: 'Module 1: Introduction to Digital Marketing', icon: <BookOpen size={16} /> },
@@ -158,7 +170,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     {
       id: 'ui-ux',
       title: 'UI/UX Design Mastery',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/UIUX Design.webp',
       desc: 'A comprehensive Six-Month Mastery Course covering everything from Graphic Design fundamentals to advanced UI/UX, Prototyping, and AI tools.',
       topics: [
         { label: 'Module 1: Introduction to Graphic Design', icon: <BookOpen size={16} /> },
@@ -209,7 +221,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     {
       id: 'graphic-design',
       title: 'Graphic Design',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/Graphic Design.webp',
       desc: 'Learn industry-standard graphic design tools and techniques to create stunning visual content for brands.',
       topics: [
         { label: 'Module 1: Introduction to Graphic Design', icon: <BookOpen size={16} /> },
@@ -248,7 +260,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     {
       id: 'designer-pro',
       title: 'Designer Pro',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/Designer Pro.webp',
       desc: 'The ultimate design masterclass combining graphic design, UI/UX, and motion graphics for complete creative professionals.',
       topics: [
         { label: 'Module 1: Principles of Visual Design', icon: <Palette size={16} /> },
@@ -284,7 +296,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     {
       id: 'web-development',
       title: 'Full Stack Web Development',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/Web Development.webp',
       desc: 'Become a full-stack developer by mastering frontend and backend technologies like React, Node.js, and databases with a 6-month mastery plan.',
       topics: [
         { label: 'Module 1: Programming Fundamentals', icon: <Code size={16} /> },
@@ -323,7 +335,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     {
       id: 'app-development',
       title: 'Full Stack Mobile App Development',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/App Development.webp',
       desc: 'Master full stack cross-platform mobile app development with Flutter, Firebase, and AI integration for iOS and Android.',
       topics: [
         { label: 'Module 1: Programming Fundamentals', icon: <Terminal size={16} /> },
@@ -362,7 +374,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     {
       id: 'basic-video-editing',
       title: 'Video Editing Mastery',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/basic video editing.webp',
       desc: 'Learn the fundamentals of video editing to create engaging content for YouTube, Instagram Reels, and corporate videos with a complete 3-month curriculum.',
       topics: [
         { label: 'Module 1: Video Editing Fundamentals', icon: <Film size={16} /> },
@@ -401,7 +413,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     {
       id: 'motion-graphics',
       title: 'Motion Graphics Mastery',
-      image: '/Video Editing Fundamentals.webp',
+      image: '/course page images/Motion Graphics.webp',
       desc: 'A complete six-month mastery course to learn After Effects, VFX, 3D integration, and professional motion graphics from beginner to advanced level.',
       topics: [
         { label: 'Module 1: Fundamentals of Video Production & Editing', icon: <Film size={16} /> },
@@ -541,7 +553,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
       <div className="container-fluid" style={{ position: 'relative', zIndex: 10 }}>
         
         {/* Back Button */}
-        <div className="reveal-up" style={{ paddingTop: '2rem', marginBottom: '1.5rem' }}>
+        <div className="reveal-up" style={{ paddingTop: '8rem', marginBottom: '1.5rem' }}>
           <button className="btn btn-secondary back-btn" onClick={onBack} style={{ background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(10px)', border: '1px solid rgba(0,0,0,0.05)' }}>
             <ArrowLeft size={16} /> Back to Course Overview
           </button>
@@ -550,7 +562,6 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
         {/* Hero Section */}
         <div className="course-detail-hero glass-card reveal-scale" style={{ padding: '3rem', margin: '2rem 0' }}>
           <div className="course-detail-content">
-            <span className="section-tag cyan">Module Detail</span>
             <h1 className="course-detail-title">{module.title}</h1>
             <p className="course-detail-desc">{module.desc}</p>
             <button className="btn btn-primary" onClick={onOpenEnrollModal} style={{ marginTop: '1.5rem', background: 'linear-gradient(135deg, #F62477, #220066)', border: 'none', boxShadow: '0 10px 20px rgba(246, 36, 119, 0.3)' }}>
@@ -616,48 +627,40 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
         {module.learningProcess && (
           <div className="learning-process-section reveal-up">
             <h2 className="premium-heading"><Workflow size={24} className="heading-icon" style={{ color: '#F62477' }} /> Your Learning Roadmap</h2>
-            <div className="premium-timeline">
+            <div className="premium-timeline" ref={timelineRef}>
               <div className="timeline-track">
-                <div className="timeline-progress" style={{ height: scrollProgress }}></div>
+                <div className="timeline-progress" style={{ height: `${timelineProgress}%` }}></div>
               </div>
-              {module.learningProcess.map((step, idx) => (
-                <div key={idx} className="premium-timeline-step">
+              {module.learningProcess.map((step, idx) => {
+                const isActive = timelineProgress >= (idx / (module.learningProcess.length - 1)) * 100;
+                return (
+                <div key={idx} className={`premium-timeline-step ${idx % 2 === 0 ? 'step-left' : 'step-right'} ${isActive ? 'active' : ''}`}>
                   <div className="timeline-node">{step.step}</div>
                   <div className="timeline-card">
                     <h4>{step.title}</h4>
                     <p>{step.desc}</p>
                   </div>
                 </div>
-              ))}
+                );
+              })}
             </div>
             <div className="premium-divider"></div>
           </div>
         )}
 
-        {/* Salary Insights Table */}
+        {/* Salary Insights Cards */}
         {module.salaryInsights && (
           <div className="salary-insights-section reveal-scale">
             <h2 className="premium-heading"><ArrowUpRight size={24} className="heading-icon" style={{ color: '#00C3FF' }} /> Salary Insights (India)</h2>
             <p style={{ color: '#64748b', marginTop: '0.5rem' }}>Estimated market compensation based on current industry data.</p>
-            <div className="premium-dashboard">
-              <div className="dashboard-inner">
-                <table className="dashboard-table">
-                  <thead>
-                    <tr>
-                      <th>Experience Level</th>
-                      <th>Estimated Salary (LPA)</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {module.salaryInsights.map((insight, idx) => (
-                      <tr key={idx} className="dashboard-row">
-                        <td>{insight.experience}</td>
-                        <td className="salary-gradient">{insight.salary}</td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
+            
+            <div className="salary-cards-grid">
+              {module.salaryInsights.map((insight, idx) => (
+                <div key={idx} className="salary-insight-card" style={{ transitionDelay: `${idx * 0.15}s` }}>
+                  <div className="salary-exp-badge">{insight.experience}</div>
+                  <div className="salary-gradient-text">{insight.salary}</div>
+                </div>
+              ))}
             </div>
             <div className="premium-divider"></div>
           </div>
@@ -666,7 +669,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
         {/* What You'll Walk Away With Section */}
         <div className="walk-away-section reveal-up stagger-container">
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
-            <h2 className="premium-heading" style={{ fontSize: '2rem' }}><Trophy size={28} className="heading-icon" style={{ color: '#F62477' }} /> What You'll Walk Away With</h2>
+            <h2 className="premium-heading" style={{ fontSize: '2rem' }}>What You'll Walk Away With</h2>
           </div>
           
           <div className="premium-feature-grid">

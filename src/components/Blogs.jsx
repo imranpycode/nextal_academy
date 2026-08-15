@@ -9,7 +9,7 @@ export default function Blogs({ onBack }) {
   return (
     <div style={{ minHeight: 'calc(100vh - 400px)', paddingBottom: '4rem' }}>
       <div className="container">
-        <div style={{ paddingTop: '10rem', marginBottom: '2rem' }}>
+        <div style={{ paddingTop: '8rem', marginBottom: '2rem' }}>
           <button 
             className="btn btn-secondary back-btn" 
             onClick={onBack}

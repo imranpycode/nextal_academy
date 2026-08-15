@@ -74,10 +74,7 @@ export default function RobotCat(props) {
     const t = state.clock.elapsedTime
 
     if (bodyRef.current) {
-      bodyRef.current.position.y = Math.sin(t * 1.5) * 2
-      bodyRef.current.rotation.z = Math.sin(t * 0.8) * 0.04
-      const s = 1 + Math.sin(t * 2) * 0.015
-      bodyRef.current.scale.set(s, s, s)
+      // Static pose - no floating or breathing
     }
 
     if (headRef.current) {
@@ -165,6 +162,30 @@ export default function RobotCat(props) {
               <mesh geometry={nodes.Triangle.geometry}   material={accentMaterial} position={[-1.554, 60.25,  19.625]} rotation={[ 0.175, Math.PI / 2, 0]} />
             </group>{/* end headRef */}
 
+            {/* Static Speech Bubble (does not rotate with head) */}
+            <Html
+              position={isMobile ? [-40, 70, 25] : [-45, 75, 30]}
+              center
+              style={{
+                opacity: speechStep > 0 ? 1 : 0,
+                transform: `translateY(${speechStep > 0 ? '0' : '15px'}) scale(${speechStep > 0 ? 1 : 0.5})`,
+                transition: 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
+                pointerEvents: 'none',
+                zIndex: 10,
+              }}
+            >
+              <div className="robot-bubble">
+                <span style={{ 
+                  fontSize: isMobile ? '1rem' : '1.25rem', 
+                  fontWeight: 700, 
+                  color: '#4B1D95', 
+                  whiteSpace: 'nowrap' 
+                }}>
+                  {speechStep === 1 ? 'Hi!!' : 'Welcome To Nextal'}
+                </span>
+              </div>
+            </Html>
+
             {/* Left leg — inside the y=133 parent, so local y=-59 = absolute y=74 */}
             <mesh geometry={nodes.Cube_3.geometry} material={customMaterial} position={[-18.748, -59.574, -13.312]} rotation={[0, Math.PI / 2, 0]} />
             {/* Left arm */}
@@ -172,35 +193,6 @@ export default function RobotCat(props) {
             {/* Right arm (has speech bubble) */}
             <group ref={rightArmRef} position={[-19.116, -18.008, 20.126]} rotation={[-0.578, Math.PI / 2, 0]}>
               <mesh geometry={nodes.Cube_5.geometry} material={customMaterial} position={[0, 0, 0]} rotation={[0, 0, 0]} />
-              <Html
-                position={isMobile ? [15, 15, 0] : [20, 20, 0]}
-                center
-                style={{
-                  opacity: speechStep > 0 ? 1 : 0,
-                  transform: `translateY(${speechStep > 0 ? '0' : '15px'}) scale(${speechStep > 0 ? 1 : 0.5})`,
-                  transition: 'all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)',
-                  pointerEvents: 'none',
-                  zIndex: 10,
-                }}
-              >
-                <div style={{
-                  background: 'rgba(255, 255, 255, 0.95)',
-                  padding: isMobile ? '8px 16px' : '12px 24px',
-                  borderRadius: '20px',
-                  boxShadow: '0 10px 30px rgba(230,0,103,0.3)',
-                  border: '1px solid rgba(255,255,255,0.4)',
-                  backdropFilter: 'blur(10px)',
-                }}>
-                  <span style={{ 
-                    fontSize: isMobile ? '1rem' : '1.25rem', 
-                    fontWeight: 700, 
-                    color: '#4B1D95', 
-                    whiteSpace: 'nowrap' 
-                  }}>
-                    {speechStep === 1 ? 'Hi!!' : 'Welcome To Nextal'}
-                  </span>
-                </div>
-              </Html>
             </group>
             {/* Right leg */}
             <mesh geometry={nodes.Cube_2.geometry} material={customMaterial} position={[-18.748, -59.574, 10.216]} rotation={[0, Math.PI / 2, 0]} />

@@ -3,9 +3,9 @@ import { UserPlus } from 'lucide-react';
 
 export default function CtaBanner({ onOpenEnrollModal }) {
   return (
-    <section className="section" style={{ padding: '0 0 5rem 0' }}>
-      <div className="container">
-        <div id="enroll" className="cta-banner anim-image delay-1">
+    <section className="section" style={{ padding: '0 0 5rem 0', backgroundColor: '#ffffff' }}>
+      <div className="container-fluid">
+        <div id="enroll" className="cta-banner anim-image delay-1" style={{ borderRadius: 'var(--radius-lg)', margin: '3rem 0' }}>
           <div className="cta-content">
             <h2 className="anim-text delay-2">Enroll in the Best Video Editing Course in Nagercoil</h2>
             <p className="anim-text delay-3">

@@ -308,14 +308,15 @@
 .premium-timeline {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
+  gap: 3rem;
   margin-top: 3rem;
   position: relative;
-  padding-left: 2rem;
+  padding-left: 0;
 }
 .timeline-track {
   position: absolute;
-  top: 15px; bottom: 15px; left: 19px;
+  top: 15px; bottom: 15px; left: 50%;
+  transform: translateX(-50%);
   width: 2px;
   background: rgba(0,0,0,0.05);
   border-radius: 2px;
@@ -330,27 +331,30 @@
 }
 .premium-timeline-step {
   display: flex;
-  gap: 2rem;
-  align-items: flex-start;
+  width: 100%;
+  align-items: center;
   position: relative;
   z-index: 2;
 }
 .timeline-node {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
   width: 40px; height: 40px;
   border-radius: 50%;
   background: white;
   border: 2px solid rgba(0,0,0,0.1);
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; color: #64748b;
-  margin-left: -39px; /* Align with track */
+  margin-left: 0;
   transition: all 0.4s ease;
   flex-shrink: 0;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
 }
-.premium-timeline-step:hover .timeline-node {
+.premium-timeline-step.active .timeline-node {
   border-color: #F62477;
   color: #F62477;
-  transform: scale(1.1);
+  transform: translateX(-50%) scale(1.1);
   box-shadow: 0 0 15px rgba(246, 36, 119, 0.2);
 }
 .timeline-card {
@@ -360,10 +364,37 @@
   padding: 1.5rem;
   border-radius: 16px;
   box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-  flex-grow: 1;
-  transition: all 0.3s ease;
+  width: 100%;
+  max-width: 380px;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  opacity: 0;
 }
-.premium-timeline-step:hover .timeline-card {
+.step-left {
+  justify-content: flex-end;
+  padding-right: calc(50% + 55px);
+}
+.step-left .timeline-card {
+  text-align: right;
+  transform: translateX(-40px);
+}
+.step-right {
+  justify-content: flex-start;
+  padding-left: calc(50% + 55px);
+}
+.step-right .timeline-card {
+  text-align: left;
+  transform: translateX(40px);
+}
+.premium-timeline-step.active .timeline-card {
+  opacity: 1;
+  transform: translateX(0);
+}
+.step-left:hover .timeline-card, .premium-timeline-step.active.step-left:hover .timeline-card {
+  transform: translateX(-5px);
+  box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  border-color: rgba(246, 36, 119, 0.1);
+}
+.step-right:hover .timeline-card, .premium-timeline-step.active.step-right:hover .timeline-card {
   transform: translateX(5px);
   box-shadow: 0 10px 25px rgba(0,0,0,0.05);
   border-color: rgba(246, 36, 119, 0.1);
@@ -380,60 +411,55 @@
   margin: 0;
 }
 
-/* --- Salary Dashboard --- */
-.premium-dashboard {
+/* --- Salary Cards Grid (Redesigned) --- */
+.salary-cards-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.salary-insight-card {
+  flex: 1 1 200px;
   background: rgba(255, 255, 255, 0.7);
-  backdrop-filter: blur(20px);
-  border: 1px solid rgba(255,255,255,0.8);
-  border-radius: 24px;
-  padding: 2px;
-  box-shadow: 0 20px 40px rgba(0,0,0,0.04);
-  margin-top: 3rem;
-  overflow: hidden;
-}
-.dashboard-inner {
-  background: #ffffff;
-  border-radius: 22px;
-  overflow: hidden;
-}
-.dashboard-table {
-  width: 100%;
-  border-collapse: collapse;
-}
-.dashboard-table th {
-  background: #f8fafc;
-  padding: 1.5rem;
-  text-align: left;
-  font-weight: 700;
-  color: #334155;
-  border-bottom: 1px solid #e2e8f0;
-  text-transform: uppercase;
-  font-size: 0.85rem;
-  letter-spacing: 1px;
-}
-.dashboard-row {
-  transition: all 0.3s ease;
-  border-bottom: 1px solid #f1f5f9;
-}
-.dashboard-row:last-child { border-bottom: none; }
-.dashboard-row:hover {
-  background: #f8fafc;
-  transform: scale(1.01);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.6);
+  border-radius: 20px;
+  padding: 2.5rem 1.5rem;
+  text-align: center;
   box-shadow: 0 4px 15px rgba(0,0,0,0.02);
-  z-index: 2;
-  position: relative;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1), transform 0.6s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease, border-color 0.3s ease;
 }
-.dashboard-row td {
-  padding: 1.5rem;
-  color: #0f172a;
-  font-weight: 500;
+.reveal-scale.is-revealed .salary-insight-card {
+  opacity: 1;
+  transform: translateY(0);
 }
-.salary-gradient {
-  background: linear-gradient(135deg, #F62477, #220066);
+.salary-insight-card:hover {
+  transform: translateY(-8px) !important;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+  border-color: rgba(246, 36, 119, 0.2);
+}
+.salary-exp-badge {
+  display: inline-block;
+  padding: 0.4rem 1rem;
+  background: #f8fafc;
+  color: #334155;
+  border-radius: 100px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(0,0,0,0.05);
+}
+.salary-gradient-text {
+  background: linear-gradient(135deg, #F62477, #5E086B);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   font-weight: 800;
-  font-size: 1.2rem;
+  font-size: 1.8rem;
+  line-height: 1.2;
 }
 
 /* --- Walk Away Feature Cards --- */
@@ -500,3 +526,146 @@
   background: transparent !important; /* Let background blobs show */
   position: relative;
 }
+
+/* ==========================================================================
+   Course Premium — Responsive Overrides
+   ========================================================================== */
+
+/* ── 1024px — Stack timeline & reduce padding ── */
+@media (max-width: 1024px) {
+  /* Two-column timeline becomes single column */
+  .timeline-track { left: 20px; transform: none; }
+  .timeline-node { left: 20px; transform: none; }
+  .premium-timeline-step.active .timeline-node { transform: scale(1.1); }
+  .step-left, .step-right {
+    justify-content: flex-start;
+    padding-left: 72px;
+    padding-right: 0;
+  }
+  .step-left .timeline-card,
+  .step-right .timeline-card {
+    text-align: left;
+    transform: translateX(0);
+    max-width: 100%;
+    width: 100%;
+  }
+  .premium-timeline-step.active .timeline-card { transform: translateX(0); }
+  .step-left:hover .timeline-card,
+  .premium-timeline-step.active.step-left:hover .timeline-card { transform: translateX(4px); }
+  .step-right:hover .timeline-card,
+  .premium-timeline-step.active.step-right:hover .timeline-card { transform: translateX(4px); }
+
+  /* Feature grid — 2 columns */
+  .premium-feature-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
+
+  /* Module grid — 2 columns */
+  .module-premium-grid { grid-template-columns: repeat(2, 1fr); }
+
+  /* Salary cards wrap naturally */
+  .salary-cards-grid { gap: 1rem; }
+  .salary-insight-card { flex: 1 1 180px; }
+}
+
+/* ── 768px — Full single-column ── */
+@media (max-width: 768px) {
+  /* Blobs reduced on mobile */
+  .blob { opacity: 0.25; filter: blur(60px); }
+  .blob-1 { width: 80vw; height: 80vw; }
+  .blob-2 { width: 90vw; height: 90vw; }
+  .blob-3 { width: 70vw; height: 70vw; }
+
+  /* Timeline single-column */
+  .premium-timeline { gap: 1.5rem; margin-top: 2rem; }
+  .step-left, .step-right { padding-left: 65px; }
+  .timeline-card { padding: 1.25rem; }
+  .timeline-card h4 { font-size: 1rem; }
+  .timeline-card p { font-size: 0.875rem; }
+
+  /* Feature grid — single column */
+  .premium-feature-grid { grid-template-columns: 1fr; gap: 1rem; margin-top: 2rem; }
+  .premium-feature-card { padding: 1.75rem 1.5rem; }
+  .feature-icon-wrapper { width: 50px; height: 50px; margin-bottom: 1rem; }
+  .premium-feature-card h4 { font-size: 1.1rem; }
+
+  /* Module grid — single column */
+  .module-premium-grid { grid-template-columns: 1fr; gap: 1rem; }
+  .module-premium-card { padding: 1.25rem 1rem; }
+  .module-badge { width: 36px; height: 36px; font-size: 0.875rem; }
+  .module-text { font-size: 0.95rem; }
+
+  /* Salary cards — single column */
+  .salary-cards-grid { flex-direction: column; gap: 0.875rem; }
+  .salary-insight-card { padding: 1.75rem 1.25rem; }
+  .salary-gradient-text { font-size: 1.6rem; }
+
+  /* Pills */
+  .premium-pill-grid { gap: 0.6rem; margin-top: 1.25rem; }
+  .premium-pill { padding: 0.65rem 1rem; font-size: 0.875rem; gap: 0.6rem; }
+
+  /* Heading */
+  .premium-heading { font-size: var(--text-xl, 1.5rem); }
+  .premium-divider { margin: 3rem 0; }
+}
+
+/* ── 640px — Compact mobile ── */
+@media (max-width: 640px) {
+  .premium-timeline { gap: 1.25rem; }
+  .step-left, .step-right { padding-left: 58px; }
+  .timeline-node { width: 34px; height: 34px; font-size: 0.8rem; }
+  .timeline-card { padding: 1rem; border-radius: 12px; }
+
+  .premium-feature-card { padding: 1.5rem 1.25rem; border-radius: 16px; }
+  .feature-icon-wrapper { width: 44px; height: 44px; border-radius: 12px; }
+
+  .module-premium-card { border-radius: 14px; }
+  .module-badge { width: 32px; height: 32px; border-radius: 10px; font-size: 0.8rem; }
+
+  .salary-insight-card { border-radius: 16px; padding: 1.5rem 1rem; }
+  .salary-gradient-text { font-size: 1.4rem; }
+  .salary-exp-badge { font-size: 0.75rem; padding: 0.3rem 0.75rem; }
+
+  .premium-pill { padding: 0.55rem 0.85rem; font-size: 0.8rem; border-radius: 80px; }
+  .premium-pill-grid { gap: 0.5rem; }
+}
+
+/* ── 480px — Portrait mobile ── */
+@media (max-width: 480px) {
+  /* Blobs hidden for performance */
+  .blob { display: none; }
+  .particles-layer { opacity: 0.25; }
+
+  .premium-timeline { margin-top: 1.5rem; gap: 1rem; }
+  .step-left, .step-right { padding-left: 54px; }
+  .timeline-node { width: 30px; height: 30px; left: 15px; font-size: 0.75rem; }
+  .timeline-track { left: 15px; }
+  .timeline-card h4 { font-size: 0.95rem; }
+  .timeline-card p { font-size: 0.825rem; }
+
+  .premium-feature-card { padding: 1.25rem 1rem; }
+  .premium-feature-card h4 { font-size: 1rem; }
+  .premium-feature-card p { font-size: 0.875rem; }
+
+  .module-premium-card { padding: 1rem; gap: 0.85rem; }
+  .module-text { font-size: 0.9rem; }
+
+  .salary-insight-card { padding: 1.25rem 0.85rem; }
+  .salary-gradient-text { font-size: 1.25rem; }
+
+  .premium-heading { font-size: var(--text-lg, 1.25rem); }
+  .heading-icon { margin-right: 8px; font-size: 1rem; }
+  .premium-divider { margin: 2rem 0; }
+}
+
+/* ── 360px — Tiny phones ── */
+@media (max-width: 360px) {
+  .step-left, .step-right { padding-left: 48px; }
+  .timeline-node { width: 26px; height: 26px; left: 10px; font-size: 0.7rem; }
+  .timeline-track { left: 10px; }
+  .timeline-card { padding: 0.875rem; }
+
+  .premium-feature-card { padding: 1rem 0.875rem; }
+  .module-premium-card { padding: 0.875rem; gap: 0.75rem; }
+  .salary-gradient-text { font-size: 1.1rem; }
+  .premium-pill { font-size: 0.75rem; padding: 0.4rem 0.65rem; }
+}
+

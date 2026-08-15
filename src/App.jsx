@@ -3,6 +3,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import useFPSMonitor from './hooks/useFPSMonitor';
 import LoadingScreen from './components/LoadingScreen';
+import Lenis from '@studio-freight/lenis';
 
 // ── Lazy load below-fold & route-only components ──────────────────────────
 const WhyUs       = React.lazy(() => import('./components/WhyUs'));
@@ -29,6 +30,32 @@ export default function App() {
   
   // Start FPS Monitor
   useFPSMonitor();
+
+  // Initialize Lenis smooth scrolling
+  useEffect(() => {
+    const lenis = new Lenis({
+      duration: 1.2,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      direction: 'vertical',
+      gestureDirection: 'vertical',
+      smooth: true,
+      mouseMultiplier: 1,
+      smoothTouch: false,
+      touchMultiplier: 2,
+      infinite: false,
+    });
+
+    function raf(time) {
+      lenis.raf(time);
+      requestAnimationFrame(raf);
+    }
+
+    requestAnimationFrame(raf);
+
+    return () => {
+      lenis.destroy();
+    };
+  }, []);
 
   useEffect(() => {
     let timeoutMs = 800; // Standard connection

@@ -62,7 +62,7 @@ export default function Header({ onOpenEnrollModal }) {
 
           {/* Brand Logo */}
           <a href="#home" className="brand-logo">
-            <img src="/academy_logo.webp" alt="Nextal Academy" fetchpriority="high" decoding="async" />
+            <img src="/academy_logo.png" alt="Nextal Academy" fetchpriority="high" decoding="async" />
           </a>
 
           {/* Navigation */}

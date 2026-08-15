@@ -9,7 +9,7 @@ export default function Placement({ onBack }) {
   return (
     <div style={{ minHeight: 'calc(100vh - 400px)', paddingBottom: '4rem' }}>
       <div className="container-fluid">
-        <div style={{ paddingTop: '2rem', marginBottom: '1.5rem' }}>
+        <div style={{ paddingTop: '8rem', marginBottom: '1.5rem' }}>
           <button 
             className="btn btn-secondary back-btn" 
             onClick={onBack}
