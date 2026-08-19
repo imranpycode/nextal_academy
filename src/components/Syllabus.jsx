@@ -61,7 +61,7 @@ import {
   Star
 } from 'lucide-react';
 
-const AnimatedCounter = ({ target, suffix, delay, color = '#F62477' }) => {
+const AnimatedCounter = ({ target, suffix, delay, color = '#000000' }) => {
   const [count, setCount] = React.useState(0);
   const [isCounting, setIsCounting] = React.useState(false);
   const [isFinished, setIsFinished] = React.useState(false);
@@ -119,7 +119,7 @@ const AnimatedCounter = ({ target, suffix, delay, color = '#F62477' }) => {
   return (
     <h3 ref={ref} className={`stat-number ${isCounting ? 'counting' : ''} ${isFinished ? 'finished' : ''}`}>
       <span className="stat-value">{count}</span>
-      <span style={{ opacity: isFinished ? 1 : 0, transition: 'opacity 0.2s ease', display: 'inline-block', color: color }}>
+      <span style={{ display: 'inline-block', color: color }}>
         {suffix}
       </span>
     </h3>
@@ -392,7 +392,7 @@ export default function Syllabus() {
   };
 
   return (
-    <section id="syllabus" className="section" style={{ padding: '5rem 0', position: 'relative', backgroundColor: '#ffffff' }}>
+    <section id="syllabus" className="section" style={{ position: 'relative', backgroundColor: '#ffffff' }}>
       <div className="text-center mx-auto anim-text delay-2" style={{ marginBottom: '3rem' }}>
         <h2 className="section-title" style={{ background: 'linear-gradient(to right, #F62477, #5E086B)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', display: 'inline-block' }}>What You Will Learn</h2>
       </div>
@@ -408,19 +408,14 @@ export default function Syllabus() {
                   key={m.id} 
                   className={`slider-content-slide ${idx === currentIndex ? 'active' : ''}`}
                 >
-                  <div style={{ display: 'flex', flexDirection: 'column', gap: '4px' }}>
-                    <div style={{ display: 'flex', flexDirection: 'column', gap: '2px', alignItems: 'flex-start' }}>
-                      <div className="slide-badge" style={{ margin: 0, transform: 'translateY(4px)' }}>
-                        {m.icon} {m.tabLabel}
-                      </div>
-                      <h3 className="slide-title" style={{ margin: 0 }}>{m.title}</h3>
-                    </div>
-                    <p className="slide-desc" style={{ margin: '-4px 0 0 0' }}>{m.desc}</p>
+                  <div style={{ display: 'flex', flexDirection: 'column', gap: '8px' }}>
+                    <h3 className="slide-title" style={{ margin: 0 }}>{m.title}</h3>
+                    <p className="slide-desc" style={{ margin: '16px 0 0 0' }}>{m.desc}</p>
                     
-                    <div className="slide-highlights" style={{ margin: '24px 0 0 0' }}>
+                    <div className="slide-highlights" style={{ margin: '20px 0 0 0' }}>
                       {m.highlights.map((h, i) => (
                         <div className="slide-highlight-item" key={i}>
-                          <CheckCircle2 size={18} style={{ color: '#E35336' }} /> {h}
+                          <CheckCircle2 size={18} style={{ color: '#10B981' }} /> {h}
                         </div>
                       ))}
                     </div>
@@ -432,26 +427,43 @@ export default function Syllabus() {
                 </div>
               ))}
               
-              {/* Navigation Controls */}
-              <div className="slider-navigation">
-                <div className="slider-progress-wrapper">
-                  <span className="slider-counter">
-                    {String(currentIndex + 1).padStart(2, '0')} / {String(modules.length).padStart(2, '0')}
-                  </span>
-                  <div className="slider-progress-track">
-                    <div 
-                      className="slider-progress-fill" 
-                      style={{ width: `${progress}%` }}
-                    />
+              <div className="slider-navigation" style={{ paddingRight: '20px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', alignItems: 'center' }}>
+                  <div className="slider-arrows">
+                    <button className="slider-arrow" onClick={handlePrev} aria-label="Previous Module">
+                      <ChevronLeft size={20} />
+                    </button>
+                    <button className="slider-arrow" onClick={handleNext} aria-label="Next Module">
+                      <ChevronRight size={20} />
+                    </button>
                   </div>
-                </div>
-                <div className="slider-arrows">
-                  <button className="slider-arrow" onClick={handlePrev} aria-label="Previous Module">
-                    <ChevronLeft size={20} />
-                  </button>
-                  <button className="slider-arrow" onClick={handleNext} aria-label="Next Module">
-                    <ChevronRight size={20} />
-                  </button>
+                  <div className="slider-dots" style={{ display: 'flex', gap: '8px', flexWrap: 'wrap', justifyContent: 'center', maxWidth: '200px' }}>
+                    {modules.map((_, idx) => {
+                      const isActive = idx === currentIndex;
+                      return (
+                        <button 
+                          key={idx} 
+                          className={`slider-dot ${isActive ? 'active' : ''}`}
+                          onClick={() => {
+                            setCurrentIndex(idx);
+                            setProgress(0);
+                            if (startTimeRef) startTimeRef.current = null;
+                          }}
+                          aria-label={`Go to slide ${idx + 1}`}
+                          style={{
+                            width: isActive ? '24px' : '8px',
+                            height: '8px',
+                            borderRadius: '4px',
+                            backgroundColor: isActive ? '#F62477' : 'rgba(0,0,0,0.15)',
+                            transition: 'all 0.3s ease',
+                            border: 'none',
+                            padding: 0,
+                            cursor: 'pointer'
+                          }}
+                        />
+                      );
+                    })}
+                  </div>
                 </div>
               </div>
             </div>
@@ -477,25 +489,30 @@ export default function Syllabus() {
           </div>
         </div>
       </div>
-
-      <div className="hero-container" style={{ marginTop: '5rem' }}>
-        <div className="hero-stats anim-text delay-6" style={{ justifyContent: 'center', marginBottom: '2rem' }}>
-          <div className="stat-item" style={{ backgroundColor: '#6B082D' }}>
-            <AnimatedCounter target={100} suffix="%" delay={100} color="#ffffff" />
+      {/* 📊 CLEAN MINIMALIST STATS SECTION */}
+      <div className="stats-clean-wrapper">
+        <div className="stats-clean-container">
+          
+          <div className="stat-clean-item">
+            <AnimatedCounter target={100} suffix="%" delay={100} color="#000000" />
             <p>Practical Training</p>
           </div>
-          <div className="stat-item" style={{ backgroundColor: '#A60E48' }}>
-            <AnimatedCounter target={6} suffix="+" delay={250} color="#ffffff" />
-            <p>Editing Tools</p>
-          </div>
-          <div className="stat-item" style={{ backgroundColor: '#D81662' }}>
-            <AnimatedCounter target={10} suffix="+" delay={400} color="#ffffff" />
+
+          <div className="stat-clean-item">
+            <AnimatedCounter target={10} suffix="+" delay={250} color="#000000" />
             <p>Live Projects</p>
           </div>
-          <div className="stat-item" style={{ backgroundColor: '#F62477' }}>
-            <AnimatedCounter target={100} suffix="%" delay={550} color="#ffffff" />
+
+          <div className="stat-clean-item">
+            <AnimatedCounter target={6} suffix="+" delay={400} color="#000000" />
+            <p>Editing Tools</p>
+          </div>
+
+          <div className="stat-clean-item">
+            <AnimatedCounter target={100} suffix="%" delay={550} color="#000000" />
             <p>Placement Support</p>
           </div>
+
         </div>
       </div>
 

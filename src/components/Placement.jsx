@@ -7,9 +7,9 @@ export default function Placement({ onBack }) {
   }, []);
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 400px)', paddingBottom: '4rem' }}>
+    <div style={{ minHeight: 'calc(100vh - 400px)', paddingBlock: 'var(--section-spacing-md)', backgroundColor: '#ffffff' }}>
       <div className="container-fluid">
-        <div style={{ paddingTop: '8rem', marginBottom: '1.5rem' }}>
+        <div style={{ marginBottom: '1.5rem' }}>
           <button 
             className="btn btn-secondary back-btn" 
             onClick={onBack}
@@ -18,17 +18,17 @@ export default function Placement({ onBack }) {
             <ArrowLeft size={16} /> Back
           </button>
         </div>
-        <section style={{ display: 'grid', gridTemplateColumns: '1fr auto', gap: '4rem', alignItems: 'start' }}>
+        <section style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))', gap: 'var(--space-xl)', alignItems: 'start' }}>
           <div className="anim-text delay-1">
             <h1 className="section-title">Placement</h1>
-            <p style={{ fontSize: '1.15rem', color: 'var(--text-muted)', lineHeight: '1.8' }}>
+            <p style={{ fontSize: 'var(--text-base)', color: 'var(--text-muted)', lineHeight: '1.8' }}>
               Many IT professionals face unexpected job losses due to layoffs, automation, and changing market demands. 
               Staying updated with the latest technologies is essential to remain competitive in the industry. 
               Continuous upskilling and hands-on project experience significantly improve career opportunities. 
               The right training can help transform uncertainty into a successful new career path.
             </p>
 
-            <h3 style={{ fontSize: '1.5rem', color: 'var(--navy-deep)', marginTop: '2.5rem', marginBottom: '1.25rem', fontWeight: '700' }}>
+            <h3 style={{ fontSize: 'var(--text-xl)', color: 'var(--navy-deep)', marginTop: 'var(--space-lg)', marginBottom: 'var(--space-md)', fontWeight: '700' }}>
               What They Lacks Off
             </h3>
             <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '1rem' }}>
@@ -38,7 +38,7 @@ export default function Placement({ onBack }) {
                 'Placement Assistance',
                 'AI-Powered Career Development'
               ].map((point, idx) => (
-                <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: '1.1rem', color: 'var(--text-body)' }}>
+                <li key={idx} style={{ display: 'flex', alignItems: 'center', gap: '0.75rem', fontSize: 'var(--text-base)', color: 'var(--text-body)' }}>
                   <CheckCircle size={20} color="var(--accent-coral)" style={{ flexShrink: 0 }} />
                   <span style={{ fontWeight: '500' }}>{point}</span>
                 </li>
@@ -51,7 +51,7 @@ export default function Placement({ onBack }) {
         </section>
 
         {/* Placed Students Category */}
-        <section style={{ marginTop: '5rem', width: '100%' }}>
+        <section style={{ paddingBlock: 'var(--section-spacing-md)', width: '100%' }}>
           <div style={{ textAlign: 'center', marginBottom: '3rem' }}>
             <h2 className="section-title animated-heading-shimmer anim-text delay-1" style={{ marginTop: '0.75rem', marginBottom: '0' }}>Our Successors</h2>
           </div>

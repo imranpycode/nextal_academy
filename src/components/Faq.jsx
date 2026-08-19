@@ -44,7 +44,10 @@ export default function Faq() {
       <div className="container">
         <div className="text-center mx-auto">
           <h2 className="section-title anim-text delay-2">Frequently Asked Questions</h2>
-          <p className="section-subtitle mx-auto anim-text delay-3">Here are answers to the most common questions about our Video Editing Course in Nagercoil.</p>
+          <p className="section-subtitle mx-auto anim-text delay-3" style={{ color: '#888888', maxWidth: '100%' }}>
+            Here are answers to the most common questions<br />
+            about our Video Editing Course in Nagercoil.
+          </p>
         </div>
 
         <div 

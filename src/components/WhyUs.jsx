@@ -107,6 +107,14 @@ export default function WhyUs({ onSelectService }) {
 
   // Frame animation loop with spring physics and dynamic 3D depth effects
   useEffect(() => {
+    // Respect prefers-reduced-motion — skip physics loop entirely
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (prefersReducedMotion) {
+      // Set all cards to their final static positions immediately, no animation
+      scaleRef.current = services.map(() => 1);
+      return;
+    }
+
     const animate = (time) => {
       if (prevTimeRef.current !== undefined) {
         const dt = Math.min((time - prevTimeRef.current) / 1000, 0.1); // Cap delta time at 100ms

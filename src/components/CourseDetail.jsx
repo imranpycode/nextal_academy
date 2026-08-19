@@ -11,7 +11,7 @@ import {
 import '../course-premium.css';
 
 // Intersection Observer Hook for reveal animations
-function useScrollObserver() {
+function useScrollObserver(dependency) {
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
@@ -19,7 +19,7 @@ function useScrollObserver() {
           entry.target.classList.add('is-revealed');
         }
       });
-    }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+    }, { threshold: 0, rootMargin: '0px 0px -50px 0px' });
 
     const elements = document.querySelectorAll('.reveal-up, .reveal-scale, .reveal-blur');
     elements.forEach(el => observer.observe(el));
@@ -27,7 +27,7 @@ function useScrollObserver() {
     return () => {
       elements.forEach(el => observer.unobserve(el));
     };
-  }, []);
+  }, [dependency]);
 }
 
 export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
@@ -36,7 +36,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
   const cursorRef = useRef(null);
   const timelineRef = useRef(null);
   
-  useScrollObserver();
+  useScrollObserver(slug);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -89,7 +89,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
   const modules = [
     {
       id: 'ai-digital-marketing',
-      title: 'AI Integrated Digital Marketing',
+      title: 'AI Integrated\nDigital Marketing',
       image: '/course page images/AI Integrated Digital Marketing.webp',
       desc: 'Master the future of marketing with our comprehensive AI Integrated Digital Marketing course. Learn to leverage artificial intelligence across all core digital marketing channels.',
       topics: [
@@ -126,7 +126,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     },
     {
       id: 'diploma-digital-marketing',
-      title: 'Diploma in Digital Marketing',
+      title: 'Diploma in\nDigital Marketing',
       image: '/course page images/diplomo in digital marketing.webp',
       desc: 'Master the complete spectrum of digital marketing from organic social media to advanced analytics and e-commerce.',
       topics: [
@@ -553,14 +553,14 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
       <div className="container-fluid" style={{ position: 'relative', zIndex: 10 }}>
         
         {/* Back Button */}
-        <div className="reveal-up" style={{ paddingTop: '8rem', marginBottom: '1.5rem' }}>
+        <div className="reveal-up" style={{ paddingBlock: 'var(--section-spacing-md)' }}>
           <button className="btn btn-secondary back-btn" onClick={onBack} style={{ background: 'rgba(255,255,255,0.8)', backdropFilter: 'blur(10px)', border: '1px solid rgba(0,0,0,0.05)' }}>
             <ArrowLeft size={16} /> Back to Course Overview
           </button>
         </div>
 
         {/* Hero Section */}
-        <div className="course-detail-hero glass-card reveal-scale" style={{ padding: '3rem', margin: '2rem 0' }}>
+        <div className="course-detail-hero glass-card reveal-scale">
           <div className="course-detail-content">
             <h1 className="course-detail-title">{module.title}</h1>
             <p className="course-detail-desc">{module.desc}</p>
@@ -569,14 +569,17 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
             </button>
           </div>
           <div className="course-detail-media" style={{ boxShadow: '0 20px 40px rgba(0,0,0,0.1)' }}>
-            <img src={module.image} alt={module.title} loading="lazy" decoding="async" />
+            <picture>
+              <source media="(max-width: 768px)" srcSet={`${module.image}?w=480`} />
+              <img src={module.image} alt={module.title} width="600" height="400" style={{ width: '100%', height: 'auto', aspectRatio: '3/2', objectFit: 'cover' }} loading="lazy" decoding="async" />
+            </picture>
           </div>
         </div>
 
         {/* Course Includes Section */}
         {module.courseIncludes && (
-          <div className="course-includes-section reveal-up stagger-container" style={{ marginTop: '4rem', marginBottom: '4rem' }}>
-            <h2 className="premium-heading"><Sparkle size={24} className="heading-icon" style={{ color: '#F62477' }} /> This Course Includes</h2>
+          <div className="course-includes-section reveal-up stagger-container">
+            <h2 className="premium-heading">This Course Includes</h2>
             <div className="premium-pill-grid">
               {module.courseIncludes.map((item, idx) => (
                 <div key={idx} className="premium-pill">
@@ -592,7 +595,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
         {/* Weekly Modules Section */}
         {module.weeklyModules && (
           <div className="course-detail-section reveal-blur stagger-container">
-            <h2 className="premium-heading"><Calendar size={24} className="heading-icon" style={{ color: '#220066' }} /> Weekly Curriculum</h2>
+            <h2 className="premium-heading">Weekly Curriculum</h2>
             <div className="module-premium-grid">
               {module.weeklyModules.map((week, idx) => (
                 <div key={idx} className="module-premium-card">
@@ -608,7 +611,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
         {/* What You Will Learn Section */}
         {!module.weeklyModules && module.topics && module.topics.length > 0 && (
           <div className="course-detail-section reveal-blur stagger-container">
-            <h2 className="premium-heading"><Target size={24} className="heading-icon" style={{ color: '#00C3FF' }} /> What You Will Learn</h2>
+            <h2 className="premium-heading">What You Will Learn</h2>
             <div className="module-premium-grid">
               {module.topics.map((t, idx) => (
                 <div className="module-premium-card" key={idx}>
@@ -626,13 +629,16 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
         {/* Learning Process Roadmap */}
         {module.learningProcess && (
           <div className="learning-process-section reveal-up">
-            <h2 className="premium-heading"><Workflow size={24} className="heading-icon" style={{ color: '#F62477' }} /> Your Learning Roadmap</h2>
+            <div style={{ textAlign: 'center' }}>
+              <h2 className="premium-heading">Your Learning Roadmap</h2>
+            </div>
             <div className="premium-timeline" ref={timelineRef}>
               <div className="timeline-track">
                 <div className="timeline-progress" style={{ height: `${timelineProgress}%` }}></div>
               </div>
               {module.learningProcess.map((step, idx) => {
-                const isActive = timelineProgress >= (idx / (module.learningProcess.length - 1)) * 100;
+                const threshold = (idx / (module.learningProcess.length - 1)) * 100;
+                const isActive = idx === 0 ? timelineProgress > 0 : timelineProgress >= threshold;
                 return (
                 <div key={idx} className={`premium-timeline-step ${idx % 2 === 0 ? 'step-left' : 'step-right'} ${isActive ? 'active' : ''}`}>
                   <div className="timeline-node">{step.step}</div>
@@ -651,7 +657,7 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
         {/* Salary Insights Cards */}
         {module.salaryInsights && (
           <div className="salary-insights-section reveal-scale">
-            <h2 className="premium-heading"><ArrowUpRight size={24} className="heading-icon" style={{ color: '#00C3FF' }} /> Salary Insights (India)</h2>
+            <h2 className="premium-heading">Salary Insights (India)</h2>
             <p style={{ color: '#64748b', marginTop: '0.5rem' }}>Estimated market compensation based on current industry data.</p>
             
             <div className="salary-cards-grid">
@@ -708,18 +714,19 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
         </div>
           
         {/* Academy Content Section */}
-        <div className="academy-content-section glass-card reveal-blur" style={{ marginTop: '5rem', background: 'linear-gradient(135deg, rgba(6, 11, 94, 0.9), rgba(74, 29, 115, 0.9))', color: 'white' }}>
+        <div className="academy-content-section glass-card reveal-blur" style={{ background: 'linear-gradient(135deg, rgba(6, 11, 94, 0.9), rgba(74, 29, 115, 0.9))', color: 'white' }}>
           <div className="academy-content-inner">
-            <div className="academy-content-text" style={{ textAlign: 'center', maxWidth: '800px', margin: '0 auto' }}>
+            <div className="academy-content-text pill-container-wrapper" style={{ textAlign: 'center', maxWidth: '100%', margin: '0 auto', padding: '0 1rem' }}>
               <h2 className="section-title" style={{ color: 'white', marginBottom: '1.5rem', fontSize: '2.5rem' }}>Why Choose Nextal Academy?</h2>
-              <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.15rem', marginBottom: '3rem', lineHeight: '1.7' }}>
-                We believe the best way to learn is through practical experience. Our industry-focused curriculum helps you master professional techniques while working on real projects.
+              <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.1rem', marginBottom: '3rem', lineHeight: '1.7', whiteSpace: 'nowrap' }}>
+                We believe the best way to learn is through practical experience. <br/>
+                Our industry-focused curriculum helps you master professional techniques while working on real projects.
               </p>
-              <div className="premium-pill-grid" style={{ justifyContent: 'center' }}>
+              <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem', maxWidth: '1200px', margin: '0 auto' }}>
                 {academyFeatures.map((feature, idx) => (
-                  <div className="premium-pill" key={idx} style={{ background: 'rgba(255,255,255,0.1)', color: 'white', borderColor: 'rgba(255,255,255,0.2)' }}>
-                    <CheckCircle2 size={16} style={{ color: '#00C3FF' }} /> 
-                    <span>{feature}</span>
+                  <div className="premium-pill premium-pill-fluid" key={idx} style={{ background: 'rgba(255,255,255,0.1)', color: 'white', borderColor: 'rgba(255,255,255,0.2)', padding: '0.85rem 1rem', justifyContent: 'center' }}>
+                    <CheckCircle2 size={16} style={{ color: '#00C3FF', flexShrink: 0 }} /> 
+                    <span style={{ fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{feature}</span>
                   </div>
                 ))}
               </div>

@@ -62,11 +62,14 @@ export default function Header({ onOpenEnrollModal }) {
 
           {/* Brand Logo */}
           <a href="#home" className="brand-logo">
-            <img src="/academy_logo.png" alt="Nextal Academy" fetchpriority="high" decoding="async" />
+            <picture>
+              <source media="(max-width: 768px)" srcSet="/academy_logo-mobile.png" />
+              <img src="/academy_logo.png" alt="Nextal Academy" width="200" height="50" style={{ height: '150px', width: 'auto', objectFit: 'contain' }} fetchpriority="high" decoding="async" />
+            </picture>
           </a>
 
           {/* Navigation */}
-          <nav className={`nav-menu${mobileNavOpen ? ' active' : ''}`}>
+          <nav id="main-nav-menu" className={`nav-menu${mobileNavOpen ? ' active' : ''}`}>
             <a href="#home"    className="nav-link" onClick={closeNav}>Home</a>
             <a href="#why-us"  className="nav-link" onClick={closeNav}>Why Us</a>
 
@@ -141,6 +144,8 @@ export default function Header({ onOpenEnrollModal }) {
               className="mobile-toggle"
               onClick={() => setMobileNavOpen(prev => !prev)}
               aria-label="Toggle navigation"
+              aria-expanded={mobileNavOpen}
+              aria-controls="main-nav-menu"
             >
               {mobileNavOpen ? <X size={24} /> : <Menu size={24} />}
             </button>

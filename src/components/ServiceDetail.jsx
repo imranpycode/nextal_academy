@@ -141,7 +141,7 @@ export default function ServiceDetail({ slug, onBack, onOpenEnrollModal }) {
 
   if (!service) {
     return (
-      <div className="container" style={{ padding: '8rem 1.5rem', textAlign: 'center' }}>
+      <div className="container" style={{ paddingBlock: 'var(--section-spacing-md)', paddingInline: '1.5rem', textAlign: 'center' }}>
         <h2>Service Not Found</h2>
         <p style={{ margin: '1rem 0 2rem 0' }}>The service details page you are trying to visit does not exist.</p>
         <button onClick={onBack} className="btn btn-primary">Go Back Home</button>
@@ -150,14 +150,14 @@ export default function ServiceDetail({ slug, onBack, onOpenEnrollModal }) {
   }
 
   return (
-    <section key={slug} className="service-detail-section" style={{ padding: '6rem 0', background: '#ffffff', opacity: 0, animation: 'pageFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
+    <section key={slug} className="service-detail-section" style={{ paddingBlock: 'var(--section-spacing-md)', background: '#ffffff', opacity: 0, animation: 'pageFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
       <div className="container">
         {/* Back Button */}
         <button onClick={onBack} className="service-detail-back-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'none', border: 'none', color: 'var(--accent-coral)', fontWeight: '600', cursor: 'pointer', marginBottom: '2.5rem', padding: '0', fontSize: '1rem' }}>
           <ArrowLeft size={18} /> Back to Home
         </button>
 
-        <div className="service-detail-grid" style={{ display: 'grid', gridTemplateColumns: '0.8fr 1.2fr', gap: '2rem', alignItems: 'stretch' }}>
+        <div className="service-detail-grid" style={{ display: 'grid', gap: '2rem', alignItems: 'stretch' }}>
           {/* Main Info */}
           <div className="service-detail-main" style={{ display: 'flex', flexDirection: 'column' }}>
             <h1 className="service-detail-title" style={{ fontSize: '3rem', color: 'var(--primary-dark)', fontWeight: '800', lineHeight: '1.1', marginBottom: '1rem' }}>

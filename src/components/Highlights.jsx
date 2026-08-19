@@ -1,199 +1,242 @@
 import React, { useEffect, useRef } from 'react';
+import gsap from 'gsap';
 import { 
   GraduationCap, Wrench, Briefcase, FolderOpen, Clapperboard, 
   Bot, FileText, MessageSquare, Building2, Award, Medal
 } from 'lucide-react';
-import gsap from 'gsap';
+import './Highlights.css';
+
+const baseItems = [
+  { id: '01', label: 'Beginner to Advanced Training', icon: <GraduationCap size={16} strokeWidth={2.5} /> },
+  { id: '02', label: 'Hands-on Practical Sessions', icon: <Wrench size={16} strokeWidth={2.5} /> },
+  { id: '03', label: 'Live Client Projects', icon: <Briefcase size={16} strokeWidth={2.5} /> },
+  { id: '04', label: 'Portfolio & Resume Building', icon: <FolderOpen size={16} strokeWidth={2.5} /> },
+  { id: '05', label: 'AI Video Editing Tools', icon: <Bot size={16} strokeWidth={2.5} /> },
+  { id: '06', label: 'Interview Preparation', icon: <MessageSquare size={16} strokeWidth={2.5} /> },
+  { id: '07', label: 'Internship Opportunities', icon: <Building2 size={16} strokeWidth={2.5} /> },
+  { id: '08', label: 'Placement Assistance', icon: <Award size={16} strokeWidth={2.5} /> },
+  { id: '09', label: 'Industry Recognized Certificate', icon: <Medal size={16} strokeWidth={2.5} /> }
+];
+
+// Duplicate items twice (18 total) to form a complete 360-degree circle with 20-degree spacing (18 * 20 = 360).
+// This enables a perfect, gapless, continuous loop.
+const carouselItems = [...baseItems, ...baseItems];
+const ANGLE_SPACING = 20;
 
 export default function Highlights() {
   const sectionRef = useRef(null);
+  const containerRef = useRef(null);
+  const trackRef = useRef(null);
+  const arcRef = useRef(null);
+  const nodesRef = useRef([]);
+  const tlRef = useRef(null);
+  const proxyRef = useRef({ rotation: 0 });
 
-  const highlights = [
-    { text: "Beginner to Advanced Training", icon: <GraduationCap size={28} /> },
-    { text: "Hands-on Practical Sessions", icon: <Wrench size={28} /> },
-    { text: "Live Client Projects", icon: <Briefcase size={28} /> },
-    { text: "Portfolio & Resume Building", icon: <FolderOpen size={28} /> },
-    { text: "AI Video Editing Tools", icon: <Bot size={28} /> },
-    { text: "Interview Preparation", icon: <MessageSquare size={28} /> },
-    { text: "Internship Opportunities", icon: <Building2 size={28} /> },
-    { text: "Placement Assistance", icon: <Award size={28} /> },
-    { text: "Industry Recognized Certificate", icon: <Medal size={28} /> }
-  ];
+  const staticRingRef = useRef(null);
 
   useEffect(() => {
-    const section = sectionRef.current;
-    if (!section) return;
+    const mm = gsap.matchMedia();
+    
+    mm.add("(prefers-reduced-motion: no-preference)", () => {
+      let radius = 0;
+      let centerX = 0;
+      let centerY = 0;
+      
+      const updateGeometry = () => {
+        if (!containerRef.current) return;
+        const w = containerRef.current.offsetWidth;
+        // Clamp radius to ensure a beautiful wide arc on all screens
+        radius = Math.max(w * 0.9, 700) / 2; 
+        centerX = w / 2;
+        // Push center down so the full ring (140px half-height) sits inside the wrapper
+        centerY = radius + 175; 
 
-    const circles = section.querySelectorAll('.hl-circle');
-    const container = section.querySelector('.highlights-scroll-container');
-
-    // Build one single GSAP timeline with infinite repeat
-    const tl = gsap.timeline({
-      repeat: -1,       // Loop forever
-      repeatDelay: 1.5  // 1.5s pause between each full wave pass
-    });
-
-    let hoveringCirclesCount = 0;
-    let isIntersecting = false;
-    let interactionTimeout = null;
-    const cleanupFunctions = [];
-
-    const playTl = () => {
-      if (isIntersecting && hoveringCirclesCount === 0 && !interactionTimeout) {
-        tl.play();
-      }
-    };
-
-    const pauseTl = () => {
-      tl.pause();
-    };
-
-    const handleUserInteraction = (e) => {
-      // Ignore vertical scrolling so the animation doesn't pause when just scrolling the page
-      if (e && e.type === 'wheel') {
-        if (Math.abs(e.deltaY) > Math.abs(e.deltaX)) {
-          return;
+        // Update the visual background arc path
+        if (arcRef.current) {
+          gsap.set(arcRef.current, {
+            width: radius * 2,
+            height: radius * 2,
+            top: centerY - radius,
+          });
         }
-      }
-      pauseTl();
-      if (container) {
-        gsap.killTweensOf(container); // Stop the programmatic scroll immediately
-      }
-      clearTimeout(interactionTimeout);
-      interactionTimeout = setTimeout(() => {
-        interactionTimeout = null;
-        playTl();
-      }, 1500); // Resume 1.5s after interaction ends
-    };
-
-    circles.forEach((circle, index) => {
-      const position = index * (0.7 - 0.12); // 0.12s overlap between each circle
-
-      // Reset initial state just in case
-      gsap.set(circle, { x: 0, y: 0, rotation: 0 });
-
-      tl.to(
-        circle,
-        {
-          keyframes: [
-            { x: 18, y: -18, rotation: 8,  duration: 0.35, ease: 'power2.in' },
-            { x: 0,  y: 0,   rotation: 0,  duration: 0.35, ease: 'power2.out' }
-          ],
-          onStart: () => {
-            const wrapper = circle.closest('.hl-circle-wrapper');
-            
-            if (container && wrapper) {
-              // Smoothly scroll to center the active circle using GSAP so it can be interrupted
-              const scrollTarget = wrapper.offsetLeft - container.offsetWidth / 2 + wrapper.offsetWidth / 2;
-              gsap.to(container, { scrollLeft: scrollTarget, duration: 0.5, ease: 'power2.out' });
-              
-              // Apply active glow class
-              section.querySelectorAll('.hl-circle-wrapper').forEach(w => w.classList.remove('active-glow'));
-              wrapper.classList.add('active-glow');
-            }
-          }
-        },
-        position
-      );
-
-      // Hover events for each circle
-      const wrapper = circle.closest('.hl-circle-wrapper');
-      if (wrapper) {
-        const handleMouseEnter = () => {
-          hoveringCirclesCount++;
-          pauseTl();
-        };
-        const handleMouseLeave = () => {
-          hoveringCirclesCount = Math.max(0, hoveringCirclesCount - 1);
-          // Short delay to allow smooth transition checking before resuming
-          setTimeout(playTl, 50);
-        };
         
-        wrapper.addEventListener('mouseenter', handleMouseEnter);
-        wrapper.addEventListener('mouseleave', handleMouseLeave);
-        
-        cleanupFunctions.push(() => {
-          wrapper.removeEventListener('mouseenter', handleMouseEnter);
-          wrapper.removeEventListener('mouseleave', handleMouseLeave);
+        // Position static ring exactly at the top center (-90 deg)
+        if (staticRingRef.current) {
+          gsap.set(staticRingRef.current, {
+            x: centerX,
+            y: centerY - radius,
+            xPercent: -50,
+            yPercent: -50,
+          });
+        }
+      };
+      
+      const updateNodes = (rotationOffset) => {
+        nodesRef.current.forEach((node, idx) => {
+           // We have 18 steps, exactly filling 360 degrees. (18 * 20 = 360).
+           // Top center is -90 degrees.
+           const baseAngles = carouselItems.map((_, i) => -90 + (i * ANGLE_SPACING));
+           let currentAngle = baseAngles[idx] + rotationOffset;
+           
+           // Wrap logic to keep the nodes within the -180 to 180 visual range around -90
+           let relativeAngle = (currentAngle - (-90)) % 360;
+           if (relativeAngle > 180) relativeAngle -= 360;
+           if (relativeAngle < -180) relativeAngle += 360;
+           let finalAngle = relativeAngle - 90;
+           
+           const rad = finalAngle * (Math.PI / 180);
+           const x = centerX + radius * Math.cos(rad);
+           const y = centerY + radius * Math.sin(rad);
+           
+           // Calculate distance from active top center (-90)
+           let diff = Math.abs(finalAngle - (-90));
+           
+           // Calculate scaling based on closeness to center (visible range is roughly +/- 80 degrees)
+           let progressToCenter = Math.max(0, 1 - (diff / 80)); 
+           
+           let scale = 0.5 + (0.5 * progressToCenter);
+           let opacity = diff > 80 ? 0 : 0.4 + (0.6 * progressToCenter);
+           
+           gsap.set(node, {
+             x: x,
+             y: y,
+             xPercent: -50,
+             yPercent: -50,
+             scale: scale,
+             opacity: opacity,
+             zIndex: progressToCenter > 0.8 ? 10 : 5,
+             display: diff > 85 ? 'none' : 'flex' // Hide nodes completely wrapped around bottom
+           });
+           
+           if (progressToCenter > 0.95) {
+             node.classList.add('sl-active');
+           } else {
+             node.classList.remove('sl-active');
+           }
         });
-      }
+      };
+      
+      const buildTimeline = () => {
+        if (tlRef.current) tlRef.current.kill();
+        
+        // The timeline will step infinitely through all 18 items, rotating by -360 degrees
+        tlRef.current = gsap.timeline({ repeat: -1 });
+        
+        for(let i = 1; i <= carouselItems.length; i++) {
+           tlRef.current.to(proxyRef.current, {
+             rotation: i * -ANGLE_SPACING,
+             duration: 0.8,
+             ease: 'power2.inOut',
+             onUpdate: () => {
+               updateNodes(proxyRef.current.rotation);
+             }
+           }, `+=${1.4}`); // 1.4s hold time
+        }
+      };
+
+      // Initialization
+      updateGeometry();
+      updateNodes(proxyRef.current.rotation);
+      buildTimeline();
+      
+      let resizeTimer;
+      const handleResize = () => {
+        clearTimeout(resizeTimer);
+        resizeTimer = setTimeout(() => {
+          updateGeometry();
+          updateNodes(proxyRef.current.rotation);
+        }, 150);
+      };
+      
+      window.addEventListener('resize', handleResize);
+      
+      return () => {
+        window.removeEventListener('resize', handleResize);
+        if (tlRef.current) tlRef.current.kill();
+      };
     });
+    
+    // Reduced motion fallback
+    mm.add("(prefers-reduced-motion: reduce)", () => {
+       if (!containerRef.current) return;
+       const w = containerRef.current.offsetWidth;
+       const radius = Math.max(w * 0.9, 700) / 2;
+       const centerX = w / 2;
+       const centerY = radius + 175;
+       
+       if (arcRef.current) {
+          gsap.set(arcRef.current, { width: radius * 2, height: radius * 2, top: centerY - radius });
+       }
+       
+       if (staticRingRef.current) {
+          gsap.set(staticRingRef.current, {
+            x: centerX,
+            y: centerY - radius,
+            xPercent: -50,
+            yPercent: -50,
+          });
+       }
 
-    // Scroller / User scroll events
-    if (container) {
-      container.addEventListener('wheel', handleUserInteraction, { passive: true });
-      container.addEventListener('touchstart', handleUserInteraction, { passive: true });
-      container.addEventListener('touchmove', handleUserInteraction, { passive: true });
-      container.addEventListener('mousedown', handleUserInteraction, { passive: true });
-    }
-
-    // Pause timeline initially, play only when section is in view
-    tl.pause();
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          isIntersecting = entry.isIntersecting;
-          if (isIntersecting) {
-            playTl();
-          } else {
-            pauseTl();
-          }
-        });
-      },
-      { threshold: 0.15 }
-    );
-
-    observer.observe(section);
-
-    return () => {
-      observer.disconnect();
-      tl.kill(); // Clean up on unmount
-      
-      if (container) {
-        container.removeEventListener('wheel', handleUserInteraction);
-        container.removeEventListener('touchstart', handleUserInteraction);
-        container.removeEventListener('touchmove', handleUserInteraction);
-        container.removeEventListener('mousedown', handleUserInteraction);
-      }
-      clearTimeout(interactionTimeout);
-      
-      // Remove all hover event listeners
-      cleanupFunctions.forEach(cleanup => cleanup());
-    };
+       nodesRef.current.forEach((node, idx) => {
+         if(idx === 0) { // Keep just the first node
+           const rad = -90 * (Math.PI / 180);
+           gsap.set(node, {
+             x: centerX + radius * Math.cos(rad),
+             y: centerY + radius * Math.sin(rad),
+             xPercent: -50,
+             yPercent: -50,
+             scale: 1,
+             opacity: 1,
+             zIndex: 10,
+             display: 'flex'
+           });
+           node.classList.add('sl-active');
+         } else {
+           gsap.set(node, { display: 'none' });
+         }
+       });
+    });
+    
+    return () => mm.revert();
   }, []);
 
   return (
-    <section className="section highlights-section" ref={sectionRef} style={{ backgroundImage: 'url(/course-highlight-compressed.jpg)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundAttachment: 'fixed' }}>
-      {/* Floating blurred background orbs */}
-      <div className="highlights-bg-orbs">
-        <div className="hl-orb hl-orb-pink"></div>
-        <div className="hl-orb hl-orb-purple"></div>
-        <div className="hl-orb hl-orb-white"></div>
-      </div>
+    <section className="section highlights-section" ref={sectionRef}>
 
       <div className="hero-container" style={{ position: 'relative', zIndex: 10 }}>
-        <div className="text-center" style={{ marginBottom: '4rem' }}>
+        <div className="text-center">
           <h2 className="highlights-heading anim-text delay-2">Course Highlights</h2>
-          <p className="highlights-subtitle anim-text delay-3">Working smart means working hard on what truly matters.</p>
         </div>
       </div>
 
-      {/* Horizontal scroll track wrapper - full width */}
-      <div className="highlights-scroll-container anim-image delay-4" style={{ position: 'relative', zIndex: 10 }}>
-        <div className="highlights-zigzag-flow">
-          {highlights.map((item, idx) => (
-            <div className="hl-circle-wrapper" key={idx}>
-              <div className="hl-circle">
-                <div className="hl-circle-icon">
-                  {item.icon}
+      <div className="spotlight-carousel-wrapper" ref={containerRef}>
+        <div className="spotlight-container">
+          <div className="spotlight-arc-track" ref={arcRef}></div>
+          
+          <div className="spotlight-static-ring" ref={staticRingRef}>
+             <div className="sl-ring-gradient"></div>
+             <div className="sl-ring-dashed"></div>
+          </div>
+
+          <div className="spotlight-track" ref={trackRef}>
+            {carouselItems.map((step, idx) => (
+              <div 
+                key={idx} 
+                className="spotlight-node" 
+                ref={el => nodesRef.current[idx] = el}
+              >
+                <div className="spotlight-node-inner">
+                  <div className="sl-content">
+                    <div className="sl-id">{step.id}</div>
+                    <div className="sl-label">{step.label}</div>
+                  </div>
                 </div>
-                <span className="hl-circle-text">{item.text}</span>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
+
     </section>
   );
 }

@@ -103,20 +103,20 @@
 .reveal-up {
   opacity: 0;
   transform: translateY(40px);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 .reveal-scale {
   opacity: 0;
   transform: scale(0.95);
-  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   will-change: opacity, transform;
 }
 .reveal-blur {
   opacity: 0;
   filter: blur(10px);
   transform: translateY(20px);
-  transition: opacity 0.8s ease, filter 0.8s ease, transform 0.8s ease;
+  transition: opacity 0.4s ease, filter 0.4s ease, transform 0.4s ease;
   will-change: opacity, filter, transform;
 }
 .is-revealed {
@@ -125,12 +125,12 @@
   filter: blur(0);
 }
 /* Staggering children */
-.stagger-container.is-revealed > *:nth-child(1) { transition-delay: 0.1s; }
-.stagger-container.is-revealed > *:nth-child(2) { transition-delay: 0.2s; }
-.stagger-container.is-revealed > *:nth-child(3) { transition-delay: 0.3s; }
-.stagger-container.is-revealed > *:nth-child(4) { transition-delay: 0.4s; }
-.stagger-container.is-revealed > *:nth-child(5) { transition-delay: 0.5s; }
-.stagger-container.is-revealed > *:nth-child(6) { transition-delay: 0.6s; }
+.stagger-container.is-revealed > *:nth-child(1) { transition-delay: 0.05s; }
+.stagger-container.is-revealed > *:nth-child(2) { transition-delay: 0.1s; }
+.stagger-container.is-revealed > *:nth-child(3) { transition-delay: 0.15s; }
+.stagger-container.is-revealed > *:nth-child(4) { transition-delay: 0.2s; }
+.stagger-container.is-revealed > *:nth-child(5) { transition-delay: 0.25s; }
+.stagger-container.is-revealed > *:nth-child(6) { transition-delay: 0.3s; }
 
 /* --- Premium Headings --- */
 .premium-heading {
@@ -317,17 +317,30 @@
   position: absolute;
   top: 15px; bottom: 15px; left: 50%;
   transform: translateX(-50%);
-  width: 2px;
-  background: rgba(0,0,0,0.05);
-  border-radius: 2px;
+  width: 4px;
+  background: rgba(0,0,0,0.08);
+  border-radius: 4px;
 }
 .timeline-progress {
   position: absolute;
   top: 0; left: 0; width: 100%; height: 0%;
   background: linear-gradient(to bottom, #F62477, #220066);
-  border-radius: 2px;
-  transition: height 0.5s ease-out;
-  box-shadow: 0 0 10px rgba(246, 36, 119, 0.4);
+  border-radius: 4px;
+  transition: none;
+  box-shadow: 0 0 12px rgba(246, 36, 119, 0.5);
+}
+.timeline-progress::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%) translateY(50%);
+  width: 12px;
+  height: 12px;
+  background: #F62477;
+  border-radius: 50%;
+  box-shadow: 0 0 15px 6px rgba(246, 36, 119, 0.6);
+  z-index: 3;
 }
 .premium-timeline-step {
   display: flex;
@@ -343,19 +356,20 @@
   width: 40px; height: 40px;
   border-radius: 50%;
   background: white;
-  border: 2px solid rgba(0,0,0,0.1);
+  border: 4px solid rgba(0,0,0,0.1);
   display: flex; align-items: center; justify-content: center;
   font-weight: 800; color: #64748b;
   margin-left: 0;
-  transition: all 0.4s ease;
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   flex-shrink: 0;
   box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+  z-index: 4;
 }
 .premium-timeline-step.active .timeline-node {
   border-color: #F62477;
   color: #F62477;
-  transform: translateX(-50%) scale(1.1);
-  box-shadow: 0 0 15px rgba(246, 36, 119, 0.2);
+  transform: translateX(-50%) scale(1.15);
+  box-shadow: 0 0 20px rgba(246, 36, 119, 0.3);
 }
 .timeline-card {
   background: rgba(255, 255, 255, 0.7);
@@ -366,7 +380,7 @@
   box-shadow: 0 4px 15px rgba(0,0,0,0.02);
   width: 100%;
   max-width: 380px;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
   opacity: 0;
 }
 .step-left {
@@ -375,7 +389,7 @@
 }
 .step-left .timeline-card {
   text-align: right;
-  transform: translateX(-40px);
+  transform: translateX(-100px);
 }
 .step-right {
   justify-content: flex-start;
@@ -383,7 +397,7 @@
 }
 .step-right .timeline-card {
   text-align: left;
-  transform: translateX(40px);
+  transform: translateX(100px);
 }
 .premium-timeline-step.active .timeline-card {
   opacity: 1;
@@ -559,7 +573,7 @@
   .premium-feature-grid { grid-template-columns: repeat(2, 1fr); gap: 1.25rem; }
 
   /* Module grid — 2 columns */
-  .module-premium-grid { grid-template-columns: repeat(2, 1fr); }
+  /* .module-premium-grid breakpoint removed for fluid grid */
 
   /* Salary cards wrap naturally */
   .salary-cards-grid { gap: 1rem; }
@@ -588,7 +602,7 @@
   .premium-feature-card h4 { font-size: 1.1rem; }
 
   /* Module grid — single column */
-  .module-premium-grid { grid-template-columns: 1fr; gap: 1rem; }
+  /* .module-premium-grid breakpoint removed for fluid grid */
   .module-premium-card { padding: 1.25rem 1rem; }
   .module-badge { width: 36px; height: 36px; font-size: 0.875rem; }
   .module-text { font-size: 0.95rem; }
@@ -667,5 +681,42 @@
   .module-premium-card { padding: 0.875rem; gap: 0.75rem; }
   .salary-gradient-text { font-size: 1.1rem; }
   .premium-pill { font-size: 0.75rem; padding: 0.4rem 0.65rem; }
+}
+
+
+/* ==========================================================================
+   Container Queries
+   ========================================================================== */
+.pill-container-wrapper {
+  container-type: inline-size;
+  container-name: pillGrid;
+}
+.premium-pill-fluid {
+  flex: 0 0 calc(25% - 1rem);
+}
+@container pillGrid (max-width: 1000px) {
+  .premium-pill-fluid {
+    flex: 0 0 calc(33.333% - 1rem);
+  }
+}
+@container pillGrid (max-width: 750px) {
+  .premium-pill-fluid {
+    flex: 0 0 calc(50% - 1rem);
+  }
+}
+@container pillGrid (max-width: 480px) {
+  .premium-pill-fluid {
+    flex: 0 0 100%;
+  }
+}
+
+/* Course Detail Section Spacing */
+.course-includes-section,
+.course-detail-section,
+.learning-process-section,
+.salary-insights-section,
+.walk-away-section,
+.academy-content-section {
+  padding-block: var(--section-spacing-sm);
 }
 
