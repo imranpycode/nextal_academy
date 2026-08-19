@@ -392,7 +392,7 @@ export default function Syllabus() {
   };
 
   return (
-    <section id="syllabus" className="section" style={{ position: 'relative', backgroundColor: '#ffffff' }}>
+    <section id="syllabus" className="section" style={{ position: 'relative', backgroundColor: '#ffffff', overflow: 'hidden' }}>
       <div className="text-center mx-auto anim-text delay-2" style={{ marginBottom: '3rem' }}>
         <h2 className="section-title" style={{ background: 'linear-gradient(to right, #F62477, #5E086B)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', display: 'inline-block' }}>What You Will Learn</h2>
       </div>

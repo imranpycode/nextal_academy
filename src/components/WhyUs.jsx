@@ -45,24 +45,42 @@ export default function WhyUs({ onSelectService }) {
   // Orbit rotation variables
   const angleOffsetRef = useRef(0);
   const targetRadiusRef = useRef(370);
+  const responsiveFactorRef = useRef(1);
 
-  // Responsive radius for orbits
+  // Responsive radius and scale factor
   useEffect(() => {
-    const updateRadius = () => {
+    let timeoutId;
+    const updateLayout = () => {
       const width = window.innerWidth;
-      if (width < 480) {
-        targetRadiusRef.current = 150;
+      
+      // Fluid radius calculation
+      targetRadiusRef.current = Math.min(440, Math.max(130, width * 0.35));
+      
+      // Responsive scale factor for cards
+      if (width < 380) {
+        responsiveFactorRef.current = 0.5;
+      } else if (width < 480) {
+        responsiveFactorRef.current = 0.6;
       } else if (width < 768) {
-        targetRadiusRef.current = 220;
+        responsiveFactorRef.current = 0.75;
       } else if (width < 992) {
-        targetRadiusRef.current = 280;
+        responsiveFactorRef.current = 0.85;
       } else {
-        targetRadiusRef.current = 440;
+        responsiveFactorRef.current = 1;
       }
     };
-    updateRadius();
-    window.addEventListener('resize', updateRadius);
-    return () => window.removeEventListener('resize', updateRadius);
+
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(updateLayout, 200);
+    };
+
+    updateLayout(); // Initial layout calc on mount
+    window.addEventListener('resize', handleResize);
+    return () => {
+      clearTimeout(timeoutId);
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
 
   // Interactive 3D Tilt refs
@@ -144,10 +162,11 @@ export default function WhyUs({ onSelectService }) {
 
           // Introduce staggered launch during page load
           if (introStarted) {
+            const factor = responsiveFactorRef.current;
             if (isCenter) {
-              targetScale = 1.45;
+              targetScale = 1.45 * factor;
             } else {
-              targetScale = 0.85;
+              targetScale = 0.85 * factor;
             }
           }
 
@@ -328,7 +347,7 @@ export default function WhyUs({ onSelectService }) {
   );
 
   return (
-    <section id="why-us" className="section why-us-interactive-section" style={{ position: 'relative', backgroundColor: '#ffffff' }}>
+    <section id="why-us" className="section why-us-interactive-section" style={{ position: 'relative', backgroundColor: '#ffffff', overflow: 'hidden' }}>
       {/* Background Ambience / Subtle Glowing Nodes & Blobs */}
       <div className="orbit-ambient-dots">
         <div className="ambient-dot p1"></div>

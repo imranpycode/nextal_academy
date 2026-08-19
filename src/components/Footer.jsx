@@ -10,10 +10,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="footer-brand">
             <a href="#home" className="footer-logo">
-              <picture>
-                <source media="(max-width: 768px)" srcSet="/academy_logo-mobile.png" />
-                <img src="/academy_logo.png" alt="Nextal Academy" width="200" height="50" style={{ height: 'auto', width: '100%', maxWidth: '200px' }} loading="lazy" decoding="async" />
-              </picture>
+              <img src="/nextal white logo.png" alt="Nextal Academy" width="140" height="auto" style={{ height: 'auto', width: '100%', maxWidth: '140px' }} loading="lazy" decoding="async" />
             </a>
             <p>
               Nagercoil's premier skill development institute providing

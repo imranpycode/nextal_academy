@@ -46,7 +46,7 @@ export default function Placement({ onBack }) {
             </ul>
           </div>
           <div className="anim-image delay-2">
-            <img src="/placement.png" alt="Placement and Career Opportunities" loading="lazy" decoding="async" style={{ maxWidth: '450px', width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)' }} />
+            <img src="/placement.webp" alt="Placement and Career Opportunities" loading="lazy" decoding="async" style={{ maxWidth: '450px', width: '100%', height: 'auto', borderRadius: 'var(--radius-lg)' }} />
           </div>
         </section>
 

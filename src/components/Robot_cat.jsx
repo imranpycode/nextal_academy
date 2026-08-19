@@ -3,13 +3,21 @@
   Floating, mouse-head-tracking, blinking, arm wave, speech bubble
 */
 import React, { useRef, useState, useEffect } from 'react'
-import { useGraph, useFrame } from '@react-three/fiber'
+import { useLoader, useGraph, useFrame } from '@react-three/fiber'
 import * as THREE from 'three'
-import { useGLTF, PerspectiveCamera, Html } from '@react-three/drei'
-import { SkeletonUtils } from 'three-stdlib'
+import { PerspectiveCamera } from '@react-three/drei/core/PerspectiveCamera'
+import { Html } from '@react-three/drei/web/Html'
+import * as SkeletonUtils from 'three/examples/jsm/utils/SkeletonUtils.js'
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader.js'
+import { DRACOLoader } from 'three/examples/jsm/loaders/DRACOLoader.js'
 
 export default function RobotCat(props) {
-  const { scene } = useGLTF('/robot_cat.gltf')
+  const gltf = useLoader(GLTFLoader, '/robot_cat_draco.gltf', (loader) => {
+    const dracoLoader = new DRACOLoader()
+    dracoLoader.setDecoderPath('https://www.gstatic.com/draco/v1/decoders/')
+    loader.setDRACOLoader(dracoLoader)
+  })
+  const scene = gltf.scene
   const clone = React.useMemo(() => SkeletonUtils.clone(scene), [scene])
   const { nodes } = useGraph(clone)
 
@@ -214,4 +222,3 @@ export default function RobotCat(props) {
   )
 }
 
-useGLTF.preload('/robot_cat.gltf')

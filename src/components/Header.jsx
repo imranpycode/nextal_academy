@@ -62,10 +62,7 @@ export default function Header({ onOpenEnrollModal }) {
 
           {/* Brand Logo */}
           <a href="#home" className="brand-logo">
-            <picture>
-              <source media="(max-width: 768px)" srcSet="/academy_logo-mobile.png" />
-              <img src="/academy_logo.png" alt="Nextal Academy" width="200" height="50" style={{ height: '150px', width: 'auto', objectFit: 'contain' }} fetchpriority="high" decoding="async" />
-            </picture>
+            <img src="/academy_logo.webp" alt="Nextal Academy" width="200" height="50" style={{ height: '150px', width: 'auto', objectFit: 'contain' }} fetchpriority="high" decoding="async" />
           </a>
 
           {/* Navigation */}

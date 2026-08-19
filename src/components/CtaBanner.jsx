@@ -7,10 +7,10 @@ export default function CtaBanner({ onOpenEnrollModal }) {
       <div className="container-fluid">
         <div id="enroll" className="cta-banner anim-image delay-1" style={{ borderRadius: 'var(--radius-lg)', margin: '3rem 0' }}>
           <div className="cta-content" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
-            <h2 className="anim-text delay-2" style={{ whiteSpace: 'nowrap' }}>
+            <h2 className="anim-text delay-2">
               Master In-Demand Digital Skills <br/> at Nextal Academy
             </h2>
-            <p className="anim-text delay-3" style={{ whiteSpace: 'nowrap' }}>
+            <p className="anim-text delay-3">
               Launch your career in Development, AI, UI/UX, Motion Graphics, and Marketing. <br/> 
               Transform your passion into professional skills with our expert-led training.
             </p>
