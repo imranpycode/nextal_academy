@@ -16,9 +16,19 @@ export default function EnrollModal({ isOpen, onClose }) {
   const handleSubmit = (e) => {
     e.preventDefault();
     setLoading(true);
+
+    const message = `Hello Nextal Academy, I would like to submit my enrollment application:
+Name: ${formData.fullName}
+Phone: ${formData.phone}
+Email: ${formData.email}
+Preferred Batch: ${formData.batch === 'weekday' ? 'Weekday Batches (Mon - Fri)' : 'Weekend Batches (Sat & Sun)'}`;
+
+    const whatsappUrl = `https://wa.me/919487167617?text=${encodeURIComponent(message)}`;
+
     setTimeout(() => {
       setLoading(false);
       setSubmitted(true);
+      window.open(whatsappUrl, '_blank');
     }, 800);
   };
 
