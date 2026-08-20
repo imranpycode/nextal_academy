@@ -134,14 +134,28 @@ export default function App() {
         return;
       }
 
-      if (window.location.pathname !== '/' && href.startsWith('#')) {
+      if (href.startsWith('#') && href.length > 1) {
         e.preventDefault();
-        window.history.pushState({}, '', '/');
-        window.dispatchEvent(new Event('popstate'));
-        setTimeout(() => {
-          const el = document.querySelector(href);
-          if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }, 150);
+        
+        const scrollToTarget = () => {
+          let attempts = 0;
+          const checkExist = setInterval(() => {
+            const el = document.querySelector(href);
+            if (el) {
+              clearInterval(checkExist);
+              el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+            attempts++;
+            if (attempts > 30) clearInterval(checkExist); // Give up after 3 seconds
+          }, 100);
+        };
+
+        if (window.location.pathname !== '/') {
+          window.history.pushState({}, '', '/');
+          window.dispatchEvent(new Event('popstate'));
+        }
+        
+        scrollToTarget();
         return;
       }
     };
@@ -160,12 +174,14 @@ export default function App() {
     window.dispatchEvent(new Event('popstate'));
   };
 
-  const isServiceRoute  = currentPath.startsWith('/services/');
-  const serviceSlug     = isServiceRoute ? currentPath.replace('/services/', '') : '';
-  const isCourseRoute   = currentPath.startsWith('/course/');
-  const courseSlug      = isCourseRoute ? currentPath.replace('/course/', '') : '';
-  const isBlogsRoute    = currentPath === '/blogs';
-  const isPlacementRoute = currentPath === '/placement';
+  const normalizedPath = currentPath.replace(/\/+$/, '') || '/';
+  
+  const isServiceRoute  = normalizedPath.startsWith('/services/');
+  const serviceSlug     = isServiceRoute ? normalizedPath.replace('/services/', '') : '';
+  const isCourseRoute   = normalizedPath.startsWith('/course/');
+  const courseSlug      = isCourseRoute ? normalizedPath.replace('/course/', '') : '';
+  const isBlogsRoute    = normalizedPath === '/blogs';
+  const isPlacementRoute = normalizedPath === '/placement';
 
   return (
     <div className="app">

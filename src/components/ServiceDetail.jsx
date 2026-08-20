@@ -150,7 +150,7 @@ export default function ServiceDetail({ slug, onBack, onOpenEnrollModal }) {
   }
 
   return (
-    <section key={slug} className="service-detail-section" style={{ paddingBlock: 'var(--section-spacing-md)', background: '#ffffff', opacity: 0, animation: 'pageFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards' }}>
+    <section key={slug} className="service-detail-section" style={{ paddingBlock: 'var(--section-spacing-md)', background: '#ffffff' }}>
       <div className="container">
         {/* Back Button */}
         <button onClick={onBack} className="service-detail-back-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'none', border: 'none', color: 'var(--accent-coral)', fontWeight: '600', cursor: 'pointer', marginBottom: '2.5rem', padding: '0', fontSize: '1rem' }}>

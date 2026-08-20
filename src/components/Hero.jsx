@@ -50,10 +50,9 @@ export default function Hero({ onOpenEnrollModal }) {
           <div className="hero-content">
 
             <h1 className="hero-title anim-text delay-2">
-              <span>Master </span>
-              <span className="accent">Creative AI</span>
-              {' '}
-              <span>& Build Your Future</span>
+              <span className="laptop-nowrap">Master <span className="accent">Creative AI</span></span>
+              <br className="laptop-break" />
+              <span className="laptop-nowrap">& Build Your Future</span>
             </h1>
 
             <div className="hero-evolution-steps anim-text delay-3" style={{ 

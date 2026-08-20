@@ -73,6 +73,8 @@ export default function Highlights() {
       
       const updateNodes = (rotationOffset) => {
         nodesRef.current.forEach((node, idx) => {
+           if (!node) return; // Fix for null reading crash
+
            // We have 18 steps, exactly filling 360 degrees. (18 * 20 = 360).
            // Top center is -90 degrees.
            const baseAngles = carouselItems.map((_, i) => -90 + (i * ANGLE_SPACING));
@@ -120,7 +122,7 @@ export default function Highlights() {
         if (tlRef.current) tlRef.current.kill();
         
         // The timeline will step infinitely through all 18 items, rotating by -360 degrees
-        tlRef.current = gsap.timeline({ repeat: -1 });
+        tlRef.current = gsap.timeline({ repeat: -1, paused: true });
         
         for(let i = 1; i <= carouselItems.length; i++) {
            tlRef.current.to(proxyRef.current, {
@@ -139,6 +141,19 @@ export default function Highlights() {
       updateNodes(proxyRef.current.rotation);
       buildTimeline();
       
+      // Play animation only when visible
+      const scrollObserver = new IntersectionObserver((entries) => {
+        if (entries[0].isIntersecting) {
+          if (tlRef.current) tlRef.current.play();
+        } else {
+          if (tlRef.current) tlRef.current.pause();
+        }
+      }, { threshold: 0.2 });
+      
+      if (sectionRef.current) {
+        scrollObserver.observe(sectionRef.current);
+      }
+      
       let resizeTimer;
       const handleResize = () => {
         clearTimeout(resizeTimer);
@@ -151,8 +166,10 @@ export default function Highlights() {
       window.addEventListener('resize', handleResize);
       
       return () => {
+        clearTimeout(resizeTimer);
         window.removeEventListener('resize', handleResize);
         if (tlRef.current) tlRef.current.kill();
+        scrollObserver.disconnect();
       };
     });
     

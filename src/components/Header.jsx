@@ -5,6 +5,8 @@ export default function Header({ onOpenEnrollModal }) {
   const [scrolled, setScrolled] = useState(false);
   const [isHidden, setIsHidden] = useState(false);
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
+  const [mobileSubDropdownOpen, setMobileSubDropdownOpen] = useState(null);
   const [mounted, setMounted] = useState(false);
   const lastScrollY = useRef(0);
 
@@ -53,7 +55,13 @@ export default function Header({ onOpenEnrollModal }) {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  const closeNav = () => setMobileNavOpen(false);
+  const closeNav = () => {
+    setMobileNavOpen(false);
+    setTimeout(() => {
+      setMobileDropdownOpen(false);
+      setMobileSubDropdownOpen(null);
+    }, 300);
+  };
 
   return (
     <header className={`site-header${scrolled ? ' scrolled' : ''}${isHidden ? ' hidden' : ''}`}>
@@ -70,14 +78,26 @@ export default function Header({ onOpenEnrollModal }) {
             <a href="#home"    className="nav-link" onClick={closeNav}>Home</a>
             <a href="#why-us"  className="nav-link" onClick={closeNav}>Why Us</a>
 
-            <div className="nav-dropdown">
-              <a href="#syllabus" className="nav-link dropdown-toggle" onClick={closeNav}>
-                Lectures <ChevronDown size={14} style={{ marginLeft: '4px' }} />
+            <div className={`nav-dropdown ${mobileDropdownOpen ? 'mobile-open' : ''}`}>
+              <a href="#syllabus" className="nav-link dropdown-toggle" onClick={(e) => {
+                if (window.innerWidth < 1024) {
+                  e.preventDefault();
+                  setMobileDropdownOpen(!mobileDropdownOpen);
+                } else {
+                  closeNav();
+                }
+              }}>
+                Lectures <ChevronDown size={14} style={{ marginLeft: '4px', transform: mobileDropdownOpen && window.innerWidth < 1024 ? 'rotate(180deg)' : 'none', transition: 'transform 0.3s' }} />
               </a>
               <div className="dropdown-menu" style={{ minWidth: '240px' }}>
-                <div className="nav-sub-dropdown">
-                  <div className="dropdown-item sub-dropdown-toggle">
-                    Digital Marketing <ChevronRight size={14} />
+                <div className={`nav-sub-dropdown ${mobileSubDropdownOpen === 'digital' ? 'mobile-open' : ''}`}>
+                  <div className="dropdown-item sub-dropdown-toggle" onClick={(e) => {
+                    if (window.innerWidth < 1024) {
+                      e.preventDefault();
+                      setMobileSubDropdownOpen(mobileSubDropdownOpen === 'digital' ? null : 'digital');
+                    }
+                  }}>
+                    Digital Marketing <ChevronRight size={14} style={{ transform: mobileSubDropdownOpen === 'digital' && window.innerWidth < 1024 ? 'rotate(90deg)' : 'none', transition: 'transform 0.3s' }} />
                   </div>
                   <div className="dropdown-menu">
                     <a href="/course/ai-digital-marketing" className="dropdown-item" onClick={closeNav}>AI Integrated Digital Marketing</a>
@@ -85,9 +105,14 @@ export default function Header({ onOpenEnrollModal }) {
                   </div>
                 </div>
                 
-                <div className="nav-sub-dropdown">
-                  <div className="dropdown-item sub-dropdown-toggle">
-                    Design & Creative <ChevronRight size={14} />
+                <div className={`nav-sub-dropdown ${mobileSubDropdownOpen === 'design' ? 'mobile-open' : ''}`}>
+                  <div className="dropdown-item sub-dropdown-toggle" onClick={(e) => {
+                    if (window.innerWidth < 1024) {
+                      e.preventDefault();
+                      setMobileSubDropdownOpen(mobileSubDropdownOpen === 'design' ? null : 'design');
+                    }
+                  }}>
+                    Design & Creative <ChevronRight size={14} style={{ transform: mobileSubDropdownOpen === 'design' && window.innerWidth < 1024 ? 'rotate(90deg)' : 'none', transition: 'transform 0.3s' }} />
                   </div>
                   <div className="dropdown-menu">
                     <a href="/course/ui-ux" className="dropdown-item" onClick={closeNav}>UI/UX Design</a>
@@ -96,9 +121,14 @@ export default function Header({ onOpenEnrollModal }) {
                   </div>
                 </div>
 
-                <div className="nav-sub-dropdown">
-                  <div className="dropdown-item sub-dropdown-toggle">
-                    Software Development <ChevronRight size={14} />
+                <div className={`nav-sub-dropdown ${mobileSubDropdownOpen === 'software' ? 'mobile-open' : ''}`}>
+                  <div className="dropdown-item sub-dropdown-toggle" onClick={(e) => {
+                    if (window.innerWidth < 1024) {
+                      e.preventDefault();
+                      setMobileSubDropdownOpen(mobileSubDropdownOpen === 'software' ? null : 'software');
+                    }
+                  }}>
+                    Software Development <ChevronRight size={14} style={{ transform: mobileSubDropdownOpen === 'software' && window.innerWidth < 1024 ? 'rotate(90deg)' : 'none', transition: 'transform 0.3s' }} />
                   </div>
                   <div className="dropdown-menu">
                     <a href="/course/web-development" className="dropdown-item" onClick={closeNav}>Web Development</a>
@@ -106,9 +136,14 @@ export default function Header({ onOpenEnrollModal }) {
                   </div>
                 </div>
 
-                <div className="nav-sub-dropdown">
-                  <div className="dropdown-item sub-dropdown-toggle">
-                    Video Editing <ChevronRight size={14} />
+                <div className={`nav-sub-dropdown ${mobileSubDropdownOpen === 'video' ? 'mobile-open' : ''}`}>
+                  <div className="dropdown-item sub-dropdown-toggle" onClick={(e) => {
+                    if (window.innerWidth < 1024) {
+                      e.preventDefault();
+                      setMobileSubDropdownOpen(mobileSubDropdownOpen === 'video' ? null : 'video');
+                    }
+                  }}>
+                    Video Editing <ChevronRight size={14} style={{ transform: mobileSubDropdownOpen === 'video' && window.innerWidth < 1024 ? 'rotate(90deg)' : 'none', transition: 'transform 0.3s' }} />
                   </div>
                   <div className="dropdown-menu">
                     <a href="/course/basic-video-editing" className="dropdown-item" onClick={closeNav}>Basic Video Editing</a>
@@ -116,9 +151,14 @@ export default function Header({ onOpenEnrollModal }) {
                   </div>
                 </div>
 
-                <div className="nav-sub-dropdown">
-                  <div className="dropdown-item sub-dropdown-toggle">
-                    Generative AI <ChevronRight size={14} />
+                <div className={`nav-sub-dropdown ${mobileSubDropdownOpen === 'ai' ? 'mobile-open' : ''}`}>
+                  <div className="dropdown-item sub-dropdown-toggle" onClick={(e) => {
+                    if (window.innerWidth < 1024) {
+                      e.preventDefault();
+                      setMobileSubDropdownOpen(mobileSubDropdownOpen === 'ai' ? null : 'ai');
+                    }
+                  }}>
+                    Generative AI <ChevronRight size={14} style={{ transform: mobileSubDropdownOpen === 'ai' && window.innerWidth < 1024 ? 'rotate(90deg)' : 'none', transition: 'transform 0.3s' }} />
                   </div>
                   <div className="dropdown-menu">
                     <a href="/course/adv-gen-ai" className="dropdown-item" onClick={closeNav}>Advanced Certification in Gen AI</a>
