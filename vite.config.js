@@ -15,11 +15,12 @@ export default defineConfig({
           'vendor-react': ['react', 'react-dom'],
           'vendor-gsap':  ['gsap'],
           'vendor-icons': ['lucide-react'],
+          'vendor-three': ['three', '@react-three/fiber', '@react-three/drei'],
         }
       }
     },
-    // Raise chunk size warning limit slightly (GSAP + lucide are large)
-    chunkSizeWarningLimit: 600,
+    // Raise chunk size warning limit slightly (Three.js and Draco are large)
+    chunkSizeWarningLimit: 1000,
     // Minify with esbuild (default, very fast)
     minify: 'esbuild',
     // Enable CSS code splitting — only load CSS needed per route

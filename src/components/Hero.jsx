@@ -22,10 +22,14 @@ export default function Hero({ onOpenEnrollModal }) {
       observer = new IntersectionObserver(
         (entries) => {
           if (entries[0].isIntersecting) {
-            // Delay loading the 3D scene so it doesn't block initial page load (FCP/LCP)
+            // Delay loading the 3D scene significantly so it doesn't block initial page load (FCP/LCP/TTI)
             setTimeout(() => {
-              setShouldLoad3D(true);
-            }, 500);
+              if ('requestIdleCallback' in window) {
+                window.requestIdleCallback(() => setShouldLoad3D(true), { timeout: 1000 });
+              } else {
+                setShouldLoad3D(true);
+              }
+            }, 2500);
             if (observer) {
               observer.disconnect();
             }
