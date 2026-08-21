@@ -19,7 +19,7 @@ export default defineConfig({
         }
       }
     },
-    // Raise chunk size warning limit slightly (Three.js and Draco are large)
+    // Raise chunk size warning limit slightly
     chunkSizeWarningLimit: 1000,
     // Minify with esbuild (default, very fast)
     minify: 'esbuild',
