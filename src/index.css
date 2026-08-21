@@ -819,7 +819,7 @@ img {
     margin-top: 1rem;
   }
   .slide-title {
-    font-size: var(--text-xl);
+    font-size: 1.75rem;
   }
 }
 
@@ -3301,7 +3301,7 @@ a:focus-visible, button:focus-visible, .nav-link:focus-visible, .dropdown-item:f
 
 /* CTA Banner Glassmorphism Overrides */
 .cta-banner { 
-  background: url('/cta-bg.jpg') center/cover no-repeat !important; 
+  background: url('/enroll-bg.jpg') center/cover no-repeat !important; 
   padding-block: 0 !important; 
   padding-inline: 0 !important; 
 }
