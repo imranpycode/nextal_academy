@@ -38,7 +38,7 @@ export default function Footer() {
 
           {/* Quick Links */}
           <div className="footer-col anim-text delay-2">
-            <h4>Quick Links</h4>
+            <h3>Quick Links</h3>
             <div className="footer-links">
               <a href="#home">Home</a>
               <a href="#why-us">Why Choose Us</a>
@@ -49,7 +49,7 @@ export default function Footer() {
 
           {/* Course Modules */}
           <div className="footer-col anim-text delay-3">
-            <h4>Course Modules</h4>
+            <h3>Course Modules</h3>
             <div className="footer-links">
               <a href="#syllabus">AI Digital Marketing</a>
               <a href="#syllabus">UI/UX Design</a>
@@ -62,7 +62,7 @@ export default function Footer() {
 
           {/* Contact */}
           <div className="footer-col anim-text delay-4">
-            <h4>Get In Touch</h4>
+            <h3>Get In Touch</h3>
             <div className="footer-contact-item">
               <MapPin size={18} />
               <a href="https://maps.google.com/maps?vet=10CAAQoqAOahcKEwj4iYCE566WAxUAAAAAHQAAAAAQBw..i&sca_esv=ed6da2d1bfbc369e&mstk=AUtExfBkC4aRU7ZywGLz57uZmi4W6UoXa6oqu49ZESuXeMrkxP4gn8GW2ZEUgV6rLyq1Xl34ny6qvGpGZCdGX_Dw1C97AzrhyteeoYKk1dl5boH8m6M4mT1O7YP1PMgl4-J9d4TGa5rTCgKejTX6Yt8dKT-jfq0CxlnItr3iyWTB19iVdWwWo8Z56h2mQXZ5YTj16w9K&pvq=Cg0vZy8xMXpoNHJkenB5gAEB&fvr=1&cs=1&um=1&ie=UTF-8&fb=1&gl=in&sa=X&ftid=0x3b04f96c0c22d09f:0xb380cd21e268d473" target="_blank" rel="noopener noreferrer" style={{ color: 'inherit', textDecoration: 'none' }}>

@@ -1047,8 +1047,12 @@ img {
 /* ÃƒÂ¢Ã¢â‚¬ Ã¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ Ã¢â€šÂ¬ Modal ÃƒÂ¢Ã¢â‚¬ Ã¢â€šÂ¬ÃƒÂ¢Ã¢â‚¬ Ã¢â€šÂ¬ */
 .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(34, 0, 102, 0.78); backdrop-filter: blur(6px); z-index: 2000; display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all var(--transition-normal); }
 .modal-overlay.active { opacity: 1; visibility: visible; }
-.modal-box { background-color: var(--bg-surface); width: 100%; max-width: 540px; border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: 0 25px 50px rgba(34, 0, 102, 0.3); position: relative; transform: translateY(20px); transition: transform var(--transition-normal); }
+.modal-box { background-color: var(--bg-surface); width: 100%; max-width: 768px; max-height: 95vh; overflow-y: auto; border-radius: var(--radius-lg); padding: 2.5rem; box-shadow: 0 25px 50px rgba(34, 0, 102, 0.3); position: relative; transform: translateY(20px); transition: transform var(--transition-normal); }
 .modal-overlay.active .modal-box { transform: translateY(0); }
+@media (min-width: 769px) {
+  .modal-box form { display: grid; grid-template-columns: 1fr 1fr; gap: 0 1.5rem; }
+  .modal-box form button[type="submit"] { grid-column: 1 / -1; margin-top: 1rem; }
+}
 .modal-close-btn { position: absolute; top: 1.25rem; right: 1.25rem; background: none; border: none; color: var(--text-muted); cursor: pointer; padding: 0.5rem; border-radius: 50%; transition: all var(--transition-fast); min-width: 44px; min-height: 44px; display: flex; align-items: center; justify-content: center; }
 .modal-close-btn:hover { background-color: var(--bg-alt); color: var(--accent-coral); }
 .form-group { margin-bottom: 1.25rem; text-align: left; }
@@ -1063,8 +1067,8 @@ img {
 .footer-col p { font-size: var(--text-sm); line-height: 1.7; }
 .footer-logo { display: inline-block; margin-bottom: 0.5rem; }
 .footer-logo img { height: 52px; width: auto; object-fit: contain; mix-blend-mode: lighten; filter: brightness(1.2); }
-.footer-col h4 { color: var(--text-white); font-size: var(--text-lg); margin-bottom: 0.25rem; position: relative; }
-.footer-col h4::after { content: ''; position: absolute; bottom: -0.5rem; left: 0; width: 30px; height: 2px; background-color: var(--accent-coral); }
+.footer-col h3 { color: var(--text-white); font-size: var(--text-lg); margin-bottom: 0.25rem; position: relative; }
+.footer-col h3::after { content: ''; position: absolute; bottom: -0.5rem; left: 0; width: 30px; height: 2px; background-color: var(--accent-coral); }
 .footer-links { display: flex; flex-direction: column; gap: 0.75rem; }
 .footer-links a { color: rgba(255,255,255,0.75); font-size: var(--text-sm); transition: color var(--transition-fast); }
 .footer-links a:hover { color: var(--accent-coral); }
@@ -2447,11 +2451,13 @@ html[data-low-performance="true"] .center-card-energy-halo {
 
   /* Modal */
   .modal-box { padding: 1.75rem 1.25rem; max-width: calc(100vw - 2rem); }
+  .modal-box h3 { padding: 0 1.5rem; }
+  .modal-close-btn { top: 0.75rem; right: 0.75rem; }
 
   /* Footer */
   .footer-grid { grid-template-columns: 1fr; text-align: center; gap: var(--space-lg); }
   .footer-col { align-items: center; }
-  .footer-col h4::after { left: 50%; transform: translateX(-50%); }
+  .footer-col h3::after { left: 50%; transform: translateX(-50%); }
   .footer-contact-item { justify-content: center; }
   .footer-bottom { flex-direction: column; gap: 0.5rem; text-align: center; }
   .site-footer { padding: 3rem 0 1.5rem; }
@@ -2627,7 +2633,7 @@ html[data-low-performance="true"] .center-card-energy-halo {
 
   /* Footer */
   .footer-logo img { height: 44px; }
-  .footer-col h4 { font-size: var(--text-base); }
+  .footer-col h3 { font-size: var(--text-base); }
 
   /* Btn full-width on tiny screens */
   .hero-actions .btn, .cta-content .btn { max-width: 100%; }
@@ -3110,6 +3116,7 @@ a:focus-visible, button:focus-visible, .nav-link:focus-visible, .dropdown-item:f
   font-size: 3rem;
   background: linear-gradient(to right, #ec4899, #a855f7);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 
@@ -3301,7 +3308,7 @@ a:focus-visible, button:focus-visible, .nav-link:focus-visible, .dropdown-item:f
 
 /* CTA Banner Glassmorphism Overrides */
 .cta-banner { 
-  background: url('/enroll-bg.jpg') center/cover no-repeat !important; 
+  background: url('/enroll-bg.webp') center/cover no-repeat !important; 
   padding-block: 0 !important; 
   padding-inline: 0 !important; 
 }

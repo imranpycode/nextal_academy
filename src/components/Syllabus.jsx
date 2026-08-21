@@ -421,7 +421,7 @@ export default function Syllabus() {
                     </div>
                   </div>
 
-                  <a href={`/course/${m.id}`} className="btn btn-primary slide-cta" style={{ marginTop: '86px' }}>
+                  <a href={`/course/${m.id}`} className="btn btn-primary slide-cta" style={{ marginTop: '86px' }} aria-label={`Explore ${m.title} module`}>
                     Explore Module <ArrowRight size={16} />
                   </a>
                 </div>
