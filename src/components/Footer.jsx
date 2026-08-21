@@ -10,7 +10,7 @@ export default function Footer() {
           {/* Brand */}
           <div className="footer-brand anim-image delay-1">
             <a href="#home" className="footer-logo">
-              <img src="/nextal white logo.png" alt="Nextal Academy" width="140" height="auto" style={{ height: 'auto', width: '100%', maxWidth: '140px' }} loading="lazy" decoding="async" />
+              <img src="/nextal white logo.png" alt="Nextal Academy" width="140" height="40" style={{ height: 'auto', width: '100%', maxWidth: '140px' }} loading="lazy" decoding="async" />
             </a>
             <p>
               Nagercoil's premier skill development institute providing
