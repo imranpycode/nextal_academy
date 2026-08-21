@@ -23,6 +23,24 @@ const ComingSoon    = React.lazy(() => import('./components/ComingSoon'));
 // Premium Fallback
 const PageFallback = () => <LoadingScreen isFadingOut={false} />;
 
+const LazySection = ({ children }) => {
+  const [isVisible, setIsVisible] = React.useState(false);
+  const ref = React.useRef();
+
+  React.useEffect(() => {
+    const observer = new IntersectionObserver(([entry]) => {
+      if (entry.isIntersecting) {
+        setIsVisible(true);
+        observer.disconnect();
+      }
+    }, { rootMargin: '200px' });
+    if (ref.current) observer.observe(ref.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return <div ref={ref}>{isVisible ? children : <div style={{ height: '100vh' }} />}</div>;
+};
+
 export default function App() {
   const [modalOpen, setModalOpen] = useState(false);
   const [currentPath, setCurrentPath] = useState(window.location.pathname);
@@ -217,11 +235,13 @@ export default function App() {
         ) : (
           <main>
             <Hero onOpenEnrollModal={() => setModalOpen(true)} />
-            <WhyUs onSelectService={handleSelectService} />
-            <Syllabus />
-            <Highlights />
-            <Faq />
-            <CtaBanner onOpenEnrollModal={() => setModalOpen(true)} />
+            <LazySection>
+              <WhyUs onSelectService={handleSelectService} />
+              <Syllabus />
+              <Highlights />
+              <Faq />
+              <CtaBanner onOpenEnrollModal={() => setModalOpen(true)} />
+            </LazySection>
           </main>
         )}
 
