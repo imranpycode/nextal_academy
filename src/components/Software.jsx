@@ -14,16 +14,16 @@ export default function Software() {
     <section id="software" className="section">
       <div className="container">
         <div className="text-center mx-auto">
-          <span className="section-tag">Industry Tools</span>
-          <h2 className="section-title">Software You'll Master</h2>
-          <p className="section-subtitle mx-auto">
+          <span className="section-tag anim-text delay-1">Industry Tools</span>
+          <h2 className="section-title anim-text delay-2">Software You'll Master</h2>
+          <p className="section-subtitle mx-auto anim-text delay-3">
             Gain practical, hands-on experience with the exact software stack used by professional production studios worldwide.
           </p>
         </div>
 
         <div className="software-grid">
           {tools.map((t, i) => (
-            <div className="software-card" key={i}>
+            <div className={`software-card anim-card delay-${(i % 3) + 1}`} key={i}>
               <div className={`software-badge-icon ${t.cls}`}>{t.code}</div>
               <h4>{t.name}</h4>
               <p>{t.desc}</p>

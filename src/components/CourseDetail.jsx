@@ -524,7 +524,6 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
     "Live Editing Projects",
     "Portfolio Development",
     "Learn from Experienced Trainers",
-    "Motion Graphics Training",
     "YouTube & Social Media Editing",
     "Reels & Short Video Creation",
     "Internship Opportunities",
@@ -533,6 +532,73 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
 
   return (
     <div className="course-detail-page">
+      <style>
+        {`
+          @keyframes meshBreathing {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+          }
+          .fluid-mesh-bg {
+            background: 
+              radial-gradient(circle at 15% 50%, rgba(118, 53, 218, 0.4), transparent 50%),
+              radial-gradient(circle at 85% 30%, rgba(0, 195, 255, 0.2), transparent 50%),
+              linear-gradient(135deg, #050942, #1a0b36) !important;
+            background-size: 200% 200% !important;
+            animation: meshBreathing 15s ease-in-out infinite;
+          }
+          @keyframes slideUpFade {
+            0% { opacity: 0; transform: translateY(20px); }
+            100% { opacity: 1; transform: translateY(0); }
+          }
+          .text-reveal {
+            opacity: 0;
+            transform: translateY(20px);
+          }
+          .is-revealed .text-reveal {
+            animation: slideUpFade 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards;
+          }
+          @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.85); }
+            100% { opacity: 1; transform: scale(1); }
+          }
+          .expandable-pill {
+            opacity: 0;
+            transform: scale(0.85);
+            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), background 0.3s ease, box-shadow 0.3s ease !important;
+          }
+          .is-revealed .expandable-pill {
+            animation: popIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+          }
+          .expandable-pill:hover {
+            transform: scale(1.05) !important;
+            box-shadow: 0 0 20px rgba(118, 53, 218, 0.6) !important;
+            background: rgba(255, 255, 255, 0.15) !important;
+            z-index: 20;
+          }
+          .expandable-pill svg {
+            transition: transform 0.3s ease, filter 0.3s ease;
+          }
+          .expandable-pill:hover svg {
+            transform: scale(1.25);
+            filter: drop-shadow(0 0 5px rgba(0, 195, 255, 0.8)) brightness(1.2);
+          }
+          .expandable-text {
+            font-size: 0.9rem;
+            white-space: nowrap;
+            display: inline-block;
+            vertical-align: middle;
+          }
+          @media (max-width: 768px) {
+            .academy-content-text h2 {
+              font-size: 2rem !important;
+            }
+            .expandable-pill {
+              padding: 0.65rem 1rem !important;
+            }
+          }
+        `}
+      </style>
       
       {/* Premium Background Blobs */}
       <div className="premium-background">
@@ -714,19 +780,19 @@ export default function CourseDetail({ slug, onBack, onOpenEnrollModal }) {
         </div>
           
         {/* Academy Content Section */}
-        <div className="academy-content-section glass-card reveal-blur" style={{ background: 'linear-gradient(135deg, rgba(6, 11, 94, 0.9), rgba(74, 29, 115, 0.9))', color: 'white' }}>
+        <div className="academy-content-section glass-card reveal-blur fluid-mesh-bg" style={{ color: 'white' }}>
           <div className="academy-content-inner">
             <div className="academy-content-text pill-container-wrapper" style={{ textAlign: 'center', maxWidth: '100%', margin: '0 auto', padding: '0 1rem' }}>
-              <h2 className="section-title" style={{ color: 'white', marginBottom: '1.5rem', fontSize: '2.5rem' }}>Why Choose Nextal Academy?</h2>
-              <p style={{ color: 'rgba(255,255,255,0.85)', fontSize: '1.1rem', marginBottom: '3rem', lineHeight: '1.7', whiteSpace: 'nowrap' }}>
+              <h2 className="text-reveal" style={{ color: 'white', marginBottom: '1.5rem', fontSize: '2.5rem', fontWeight: 600, WebkitTextFillColor: 'initial', background: 'none' }}>Why Choose Nextal Academy?</h2>
+              <p className="text-reveal" style={{ color: 'lightgrey', fontSize: '1.1rem', marginBottom: '3rem', lineHeight: '1.7', whiteSpace: 'nowrap', animationDelay: '0.1s' }}>
                 We believe the best way to learn is through practical experience. <br/>
                 Our industry-focused curriculum helps you master professional techniques while working on real projects.
               </p>
               <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: '1rem', maxWidth: '1200px', margin: '0 auto' }}>
                 {academyFeatures.map((feature, idx) => (
-                  <div className="premium-pill premium-pill-fluid" key={idx} style={{ background: 'rgba(255,255,255,0.1)', color: 'white', borderColor: 'rgba(255,255,255,0.2)', padding: '0.85rem 1rem', justifyContent: 'center' }}>
+                  <div className="premium-pill expandable-pill" key={idx} style={{ background: 'rgba(255,255,255,0.1)', color: 'white', borderColor: 'rgba(255,255,255,0.2)', padding: '0.85rem 1rem', justifyContent: 'center', animationDelay: `${0.2 + idx * 0.1}s` }}>
                     <CheckCircle2 size={16} style={{ color: '#00C3FF', flexShrink: 0 }} /> 
-                    <span style={{ fontSize: '0.9rem', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>{feature}</span>
+                    <span className="expandable-text">{feature}</span>
                   </div>
                 ))}
               </div>

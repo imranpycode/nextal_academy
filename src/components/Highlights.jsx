@@ -226,7 +226,7 @@ export default function Highlights() {
         </div>
       </div>
 
-      <div className="spotlight-carousel-wrapper" ref={containerRef}>
+      <div className="spotlight-carousel-wrapper anim-image delay-3" ref={containerRef}>
         <div className="spotlight-container">
           <div className="spotlight-arc-track" ref={arcRef}></div>
           

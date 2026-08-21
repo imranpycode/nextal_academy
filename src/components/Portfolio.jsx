@@ -18,16 +18,16 @@ export default function Portfolio() {
     <section id="portfolio" className="section section-alt">
       <div className="container">
         <div className="text-center mx-auto">
-          <span className="section-tag cyan">Practical Showcase</span>
-          <h2 className="section-title">Live Projects & Portfolio Development</h2>
-          <p className="section-subtitle mx-auto">
+          <span className="section-tag cyan anim-text delay-1">Practical Showcase</span>
+          <h2 className="section-title anim-text delay-2">Live Projects & Portfolio Development</h2>
+          <p className="section-subtitle mx-auto anim-text delay-3">
             Work on real-world editing projects during your course to build a versatile portfolio that opens doors to exciting career opportunities.
           </p>
         </div>
 
         <div className="portfolio-grid">
           {projects.map((p, i) => (
-            <div className="portfolio-card" key={i}>
+            <div className={`portfolio-card anim-card delay-${(i % 3) + 1}`} key={i}>
               <div className="portfolio-thumb">
                 <div className="portfolio-thumb-bg" style={{ backgroundColor: p.bg }}></div>
                 <div className="portfolio-play-btn"><Play size={20} /></div>

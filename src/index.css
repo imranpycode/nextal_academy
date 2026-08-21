@@ -521,33 +521,33 @@ img {
 .anim-text, .anim-button, .anim-image, .anim-card, .anim-nav, .anim-badge {
   opacity: 0;
   will-change: opacity, transform, filter;
-  transition: opacity var(--anim-duration) var(--anim-ease), 
-              transform var(--anim-duration) var(--anim-ease),
-              filter var(--anim-duration) var(--anim-ease);
+  transition: opacity var(--reveal-duration, var(--anim-duration)) var(--anim-ease), 
+              transform var(--reveal-duration, var(--anim-duration)) var(--anim-ease),
+              filter var(--reveal-duration, var(--anim-duration)) var(--anim-ease);
 }
 
 .anim-nav {
-  transform: translateY(-20px);
+  transform: translateY(40px);
   filter: blur(5px);
 }
 
 .anim-text, .anim-badge {
-  transform: translateY(30px);
+  transform: translateY(40px);
   filter: blur(8px);
 }
 
 .anim-button {
-  transform: scale(0.95);
+  transform: translateY(40px);
   filter: blur(4px);
 }
 
 .anim-image {
-  transform: scale(1.05);
+  transform: translateY(40px);
   filter: blur(4px);
 }
 
 .anim-card {
-  transform: translateY(35px);
+  transform: translateY(40px);
   filter: blur(10px);
   transition-delay: calc(80ms * var(--card-index, 0));
 }
@@ -562,7 +562,7 @@ img {
 .premium-revealed .anim-nav
 {
   opacity: 1;
-  transform: translate(0) scale(1);
+  transform: translateY(0);
   filter: blur(0);
 }
 
@@ -575,6 +575,17 @@ img {
 .delay-5 { transition-delay: 420ms; }
 .delay-6 { transition-delay: 520ms; }
 .delay-7 { transition-delay: 700ms; }
+
+/* Fade-out has no stagger — elements exit simultaneously for clean reverse scroll */
+:not(.premium-revealed) > .delay-1,
+:not(.premium-revealed) > .delay-2,
+:not(.premium-revealed) > .delay-3,
+:not(.premium-revealed) > .delay-4,
+:not(.premium-revealed) > .delay-5,
+:not(.premium-revealed) > .delay-6,
+:not(.premium-revealed) > .delay-7 {
+  transition-delay: 0ms;
+}
 .features-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 270px), 1fr)); gap: 1.75rem; }
 .feature-card { display: flex; flex-direction: column; height: 100%; background-color: var(--bg-surface); border-radius: var(--radius-md); padding: 2rem; border: 1px solid var(--border-light); box-shadow: var(--shadow-sm); transition: all var(--transition-normal); position: relative; overflow: hidden; }
 .feature-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-md); border-color: rgba(246, 36, 119, 0.25); }
@@ -599,6 +610,12 @@ img {
   text-align: left;
   align-items: flex-start;
   transform: translateY(-20px);
+}
+
+@media (min-width: 1024px) {
+  .slider-content-area {
+    margin-left: -140px;
+  }
 }
 
 @media (min-width: 1024px) {
@@ -1485,6 +1502,7 @@ img {
   gap: var(--space-xl);
   align-items: center;
   margin-top: 1rem;
+  padding: 3.5rem;
 }
 
 .course-detail-title {
@@ -1567,10 +1585,14 @@ img {
   .course-detail-hero {
     grid-template-columns: 1fr;
     gap: 3rem;
+    padding: 2.5rem;
   }
 }
 
 @media (max-width: 768px) {
+  .course-detail-hero {
+    padding: 1.5rem;
+  }
   .course-detail-title {
     letter-spacing: -1px;
   }
@@ -1616,16 +1638,7 @@ img {
 }
 
 /* Reduced-motion: collapse shimmer to a static gradient instead of firing once */
-@media (prefers-reduced-motion: reduce) {
-  .animated-heading-shimmer {
-    animation: none;
-    background: linear-gradient(to right, #F62477, #5E086B);
-    background-size: 100% auto;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-  }
-}
+/* prefers-reduced-motion block #1 removed — consolidated below */
 
 
 @media (max-width: 991px) {
@@ -1992,14 +2005,7 @@ html[data-low-performance="true"] .center-card-energy-halo {
   /* removed fixed hero-stats grid */ /* Stack stats perfectly on tiny phones */
 }
 
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-}
+/* prefers-reduced-motion block #2 removed — consolidated below */
 
 /* Syllabus Premium Clean Layout */
 .syllabus-grid-wrapper {
@@ -2722,14 +2728,7 @@ html[data-low-performance="true"] .center-card-energy-halo {
 /* ========================================================================= */
 /* ?? ACCESSIBILITY & PREFERENCES                                            */
 /* ========================================================================= */
-@media (prefers-reduced-motion: reduce) {
-    *, *::before, *::after {
-        animation-duration: 0.01ms !important;
-        animation-iteration-count: 1 !important;
-        transition-duration: 0.01ms !important;
-        scroll-behavior: auto !important;
-    }
-}
+/* prefers-reduced-motion block #3 removed — consolidated below */
 
 @media (max-width: 767px) {
 
@@ -2961,18 +2960,7 @@ html[data-low-performance="true"] .center-card-energy-halo {
 /* ==========================================================================
    Accessibility: Reduced Motion, Touch Targets & Focus States
    ========================================================================== */
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
-    animation-duration: 0.01ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.01ms !important;
-    scroll-behavior: auto !important;
-  }
-  .timeline-card, .premium-feature-card, .module-premium-card, .anim-text, .anim-image, .anim-button {
-    transform: none !important;
-    opacity: 1 !important;
-  }
-}
+/* prefers-reduced-motion block #4 removed — consolidated below */
 
 @media (max-width: 768px) {
   .nav-link, .btn, .sub-dropdown-toggle, .dropdown-toggle {
@@ -3229,5 +3217,229 @@ a:focus-visible, button:focus-visible, .nav-link:focus-visible, .dropdown-item:f
     display: flex;
     justify-content: space-between;
     align-items: center;
+  }
+}
+
+/* Laptop specific tweaks per user request */
+@media (min-width: 1024px) {
+  .hero-title {
+    font-size: 3.5rem !important; /* Reduced from massive size */
+    font-weight: 600 !important; /* Reduced font weight */
+    max-width: 100% !important;
+  }
+  .hero-subtitle {
+    font-size: 1.1rem !important; /* Reduced font size so it fits 2.5 lines */
+    max-width: 85% !important; /* Gives it the 2.5 line look instead of spanning full width to 2 lines */
+    margin-left: 0 !important; /* Perfect left alignment */
+    padding-left: 0 !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .placement-hero-grid {
+    grid-template-columns: minmax(0, 1.4fr) minmax(400px, 1fr) !important;
+  }
+}
+
+/* Mobile Accordion Dropdowns */
+@media (max-width: 1023px) {
+  .nav-dropdown.mobile-open > .dropdown-menu {
+    display: flex !important;
+  }
+  .nav-sub-dropdown.mobile-open > .dropdown-menu {
+    display: flex !important;
+  }
+  /* Ensure chevrons rotate nicely */
+  .sub-dropdown-toggle {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+/* Placement page laptop tweaks */
+@media (min-width: 1024px) {
+  .placement-image-wrapper {
+    margin-left: 2.5rem !important;
+  }
+  .placement-body {
+    color: #9ca3af !important; /* light gray */
+  }
+  .placement-subheading {
+    color: #000000 !important; /* black */
+  }
+  .placement-bullet-icon {
+    color: #10b981 !important; /* green */
+  }
+  .placement-bullet-text {
+    color: #9ca3af !important; /* light gray */
+  }
+}
+
+/* Placement page global tweaks (applied to mobile as well) */
+.placement-image-wrapper {
+  display: flex !important; justify-content: flex-end !important; padding-right: 1rem !important;
+}
+.placement-body {
+  color: #9ca3af !important; /* light gray */
+}
+.placement-subheading {
+  color: #000000 !important; /* black */
+}
+.placement-bullet-icon {
+  color: #10b981 !important; /* green */
+}
+.placement-bullet-text {
+  color: #9ca3af !important; /* light gray */
+}
+
+/* Footer socials desktop & mobile */
+.footer-socials { display: flex; gap: 1.25rem; margin-top: 1.5rem; }
+@media (max-width: 992px) {
+  .footer-socials { justify-content: center; }
+}
+
+/* CTA Banner Glassmorphism Overrides */
+.cta-banner { 
+  background: url('/cta-bg.jpg') center/cover no-repeat !important; 
+  padding-block: 0 !important; 
+  padding-inline: 0 !important; 
+}
+
+.cta-banner::before {
+  content: '' !important;
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background: rgba(255, 255, 255, 0.45) !important;
+  backdrop-filter: blur(10px) !important;
+  -webkit-backdrop-filter: blur(10px) !important;
+  border-radius: 0 !important;
+  animation: none !important;
+  filter: none !important;
+  z-index: 1 !important;
+  opacity: 1 !important;
+}
+
+.cta-banner::after {
+  display: none !important;
+}
+
+.cta-content { 
+  max-width: 800px !important; 
+  margin: 0 auto !important; 
+  position: relative !important; 
+  z-index: 2 !important; 
+  padding: 5.5rem 2rem !important; 
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+}
+
+.cta-content h2 { 
+  color: #000000 !important; 
+  background: none !important;
+  -webkit-text-fill-color: #000000 !important;
+}
+
+.cta-content p { 
+  color: #4b5563 !important; 
+  font-weight: 600 !important;
+}
+
+/* Strict Hero Alignment overrides for Laptops */
+@media (min-width: 1024px) {
+  .hero-content {
+    display: flex !important;
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    text-align: left !important;
+  }
+  .hero-title, .hero-subtitle, .hero-evolution-steps {
+    text-align: left !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    align-self: flex-start !important;
+  }
+  .hero-evolution-steps {
+    justify-content: flex-start !important;
+  }
+  .hero-title {
+    max-width: 100% !important;
+    width: 100% !important;
+    display: block !important;
+  }
+  .laptop-break {
+    display: none !important;
+  }
+  .laptop-nowrap {
+    white-space: normal !important;
+  }
+}
+
+/* Latest User Feedback Overrides for Laptop Hero Alignment & Width */
+@media (min-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: minmax(0, 1.85fr) minmax(420px, 1fr) !important; /* Increase left column width */
+  }
+  .hero-title {
+    font-weight: 800 !important; /* Made bolder as requested */
+    font-size: 3.8rem !important; /* Slightly increased to fill new width */
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    text-align: left !important;
+    letter-spacing: -0.5px !important;
+  }
+  .hero-subtitle {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    text-align: left !important;
+    max-width: 100% !important;
+  }
+  .hero-evolution-steps {
+    margin-left: 0 !important;
+    padding-left: 0 !important;
+    justify-content: flex-start !important;
+  }
+  .hero-content {
+    align-items: flex-start !important;
+    padding-left: 0 !important;
+  }
+}
+
+
+/* ==========================================================================
+   Accessibility: Reduced Motion
+   Scoped correctly: kills keyframe animations only.
+   CSS transitions are preserved so scroll-reveal still works (instantly).
+   ========================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  /* Kill only keyframe animations — do NOT kill transitions */
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+  }
+  /* For reduced-motion users: scroll-reveal still toggles, but transitions are instant */
+  .anim-text, .anim-button, .anim-image, .anim-card, .anim-badge, .anim-nav {
+    transition-duration: 0.01ms !important;
+    transition-delay: 0ms !important;
+  }
+  /* Keep static card/timeline animations immediate too */
+  .timeline-card, .premium-feature-card, .module-premium-card {
+    transition-duration: 0.01ms !important;
+  }
+  /* Shimmer heading: show as static gradient instead of animated */
+  .animated-heading-shimmer {
+    animation: none;
+    background: linear-gradient(to right, #F62477, #5E086B);
+    background-size: 100% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
   }
 }

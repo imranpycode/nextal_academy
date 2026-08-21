@@ -493,22 +493,22 @@ export default function Syllabus() {
       <div className="stats-clean-wrapper">
         <div className="stats-clean-container">
           
-          <div className="stat-clean-item">
+          <div className="stat-clean-item anim-card delay-1">
             <AnimatedCounter target={100} suffix="%" delay={100} color="#000000" />
             <p>Practical Training</p>
           </div>
 
-          <div className="stat-clean-item">
+          <div className="stat-clean-item anim-card delay-2">
             <AnimatedCounter target={10} suffix="+" delay={250} color="#000000" />
             <p>Live Projects</p>
           </div>
 
-          <div className="stat-clean-item">
+          <div className="stat-clean-item anim-card delay-3">
             <AnimatedCounter target={6} suffix="+" delay={400} color="#000000" />
             <p>Editing Tools</p>
           </div>
 
-          <div className="stat-clean-item">
+          <div className="stat-clean-item anim-card delay-4">
             <AnimatedCounter target={100} suffix="%" delay={550} color="#000000" />
             <p>Placement Support</p>
           </div>

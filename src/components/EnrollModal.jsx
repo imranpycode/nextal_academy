@@ -8,6 +8,7 @@ export default function EnrollModal({ isOpen, onClose }) {
     fullName: '',
     phone: '',
     email: '',
+    course: '',
     batch: 'weekday'
   });
 
@@ -21,6 +22,7 @@ export default function EnrollModal({ isOpen, onClose }) {
 Name: ${formData.fullName}
 Phone: ${formData.phone}
 Email: ${formData.email}
+Course: ${formData.course}
 Preferred Batch: ${formData.batch === 'weekday' ? 'Weekday Batches (Mon - Fri)' : 'Weekend Batches (Sat & Sun)'}`;
 
     const whatsappUrl = `https://wa.me/919487167617?text=${encodeURIComponent(message)}`;
@@ -89,6 +91,39 @@ Preferred Batch: ${formData.batch === 'weekday' ? 'Weekday Batches (Mon - Fri)' 
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                 />
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="course">Course Interested In</label>
+                <select
+                  id="course"
+                  className="form-control"
+                  required
+                  value={formData.course}
+                  onChange={(e) => setFormData({ ...formData, course: e.target.value })}
+                >
+                  <option value="" disabled>Select a course</option>
+                  <optgroup label="Digital Marketing">
+                    <option value="AI Integrated Digital Marketing">AI Integrated Digital Marketing</option>
+                    <option value="Diploma in Digital Marketing">Diploma in Digital Marketing</option>
+                  </optgroup>
+                  <optgroup label="Design & Creative">
+                    <option value="UI/UX Design">UI/UX Design</option>
+                    <option value="Graphic Design">Graphic Design</option>
+                    <option value="Designer Pro">Designer Pro</option>
+                  </optgroup>
+                  <optgroup label="Software Development">
+                    <option value="Web Development">Web Development</option>
+                    <option value="App Development">App Development</option>
+                  </optgroup>
+                  <optgroup label="Video Editing">
+                    <option value="Basic Video Editing">Basic Video Editing</option>
+                    <option value="Motion Graphics">Motion Graphics</option>
+                  </optgroup>
+                  <optgroup label="Generative AI">
+                    <option value="Advanced Certification in Gen AI">Advanced Certification in Gen AI</option>
+                  </optgroup>
+                </select>
               </div>
 
               <div className="form-group">

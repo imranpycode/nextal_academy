@@ -7,7 +7,7 @@ export default function Placement({ onBack }) {
   }, []);
 
   return (
-    <div style={{ minHeight: 'calc(100vh - 400px)', paddingBlock: 'var(--section-spacing-md)', backgroundColor: '#ffffff' }}>
+    <div className="observe-root" style={{ minHeight: 'calc(100vh - 400px)', paddingBlock: 'var(--section-spacing-md)', backgroundColor: '#ffffff' }}>
       <div className="container-fluid">
         <div style={{ marginBottom: '1.5rem' }}>
           <button 

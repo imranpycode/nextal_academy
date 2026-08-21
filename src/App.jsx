@@ -17,6 +17,7 @@ const ServiceDetail = React.lazy(() => import('./components/ServiceDetail'));
 const CourseDetail  = React.lazy(() => import('./components/CourseDetail'));
 const Blogs         = React.lazy(() => import('./components/Blogs'));
 const Placement     = React.lazy(() => import('./components/Placement'));
+const ComingSoon    = React.lazy(() => import('./components/ComingSoon'));
 
 // Minimal inline fallback — no extra render cost
 // Premium Fallback
@@ -43,6 +44,14 @@ export default function App() {
       smoothTouch: false,
       touchMultiplier: 2,
       infinite: false,
+    });
+
+    // Add scroll velocity hook for dynamic animation durations
+    lenis.on('scroll', (e) => {
+      const velocity = Math.abs(e.velocity || 0);
+      let duration = 1.2 - (velocity * 0.2); 
+      duration = Math.max(0.3, Math.min(duration, 1.2)); // Clamp between 0.3s and 1.2s
+      document.documentElement.style.setProperty('--reveal-duration', `${duration.toFixed(2)}s`);
     });
 
     function raf(time) {
@@ -89,13 +98,16 @@ export default function App() {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           entry.target.classList.add('premium-revealed');
-          observer.unobserve(entry.target);
+        } else {
+          entry.target.classList.remove('premium-revealed');
         }
       });
-    }, { threshold: 0.12 });
+    }, { threshold: 0.12, rootMargin: "-5% 0px -5% 0px" });
 
     const observeNewElements = () => {
-      const sections = document.querySelectorAll('section:not(.reveal-observed), .hero-section:not(.reveal-observed), .site-footer:not(.reveal-observed)');
+      const sections = document.querySelectorAll(
+        'section:not(.reveal-observed), .hero-section:not(.reveal-observed), .site-footer:not(.reveal-observed), .observe-root:not(.reveal-observed)'
+      );
       sections.forEach(sec => {
         sec.classList.add('reveal-observed');
         observer.observe(sec);
@@ -126,7 +138,7 @@ export default function App() {
       const href = a.getAttribute('href');
       if (!href) return;
 
-      if (href.startsWith('/services/') || href.startsWith('/course/') || href === '/blogs' || href === '/placement') {
+      if (href.startsWith('/services/') || href.startsWith('/course/') || href === '/blogs' || href === '/placement' || href === '/terms' || href === '/privacy') {
         e.preventDefault();
         window.history.pushState({}, '', href);
         window.dispatchEvent(new Event('popstate'));
@@ -182,6 +194,8 @@ export default function App() {
   const courseSlug      = isCourseRoute ? normalizedPath.replace('/course/', '') : '';
   const isBlogsRoute    = normalizedPath === '/blogs';
   const isPlacementRoute = normalizedPath === '/placement';
+  const isTermsRoute     = normalizedPath === '/terms';
+  const isPrivacyRoute   = normalizedPath === '/privacy';
 
   return (
     <div className="app">
@@ -196,6 +210,10 @@ export default function App() {
           <Blogs onBack={handleBackToHome} />
         ) : isPlacementRoute ? (
           <Placement onBack={handleBackToHome} />
+        ) : isTermsRoute ? (
+          <ComingSoon title="Terms & Conditions" onBack={handleBackToHome} />
+        ) : isPrivacyRoute ? (
+          <ComingSoon title="Privacy Policy" onBack={handleBackToHome} />
         ) : (
           <main>
             <Hero onOpenEnrollModal={() => setModalOpen(true)} />

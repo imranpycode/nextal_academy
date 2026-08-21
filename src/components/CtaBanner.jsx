@@ -15,7 +15,7 @@ export default function CtaBanner({ onOpenEnrollModal }) {
               Transform your passion into professional skills with our expert-led training.
             </p>
             <div className="anim-button delay-4">
-              <button className="btn btn-primary" onClick={onOpenEnrollModal} style={{ fontSize: '1.1rem', padding: '1rem 2.5rem' }}>
+              <button className="btn btn-secondary" onClick={onOpenEnrollModal} style={{ fontSize: '1.1rem', padding: '1rem 2.5rem' }}>
                 <UserPlus size={20} /> Join Nextal Academy Today
               </button>
             </div>

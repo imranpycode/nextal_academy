@@ -19,7 +19,7 @@ export default function Careers() {
     <section id="careers" className="section">
       <div className="container">
         <div className="dual-grid">
-          <div className="info-box-card">
+          <div className="info-box-card anim-card delay-1">
             <h3><UserCheck size={24} style={{ color: 'var(--accent-coral)' }} /> Who Can Join This Course?</h3>
             <p style={{ marginBottom: '1.5rem' }}>Our Video Editing Classes are beginner-friendly with no prior editing experience required!</p>
             <div className="pill-list">
@@ -31,7 +31,7 @@ export default function Careers() {
             </div>
           </div>
 
-          <div className="info-box-card">
+          <div className="info-box-card anim-card delay-2">
             <h3><Briefcase size={24} style={{ color: 'var(--accent-coral)' }} /> Career Opportunities</h3>
             <p style={{ marginBottom: '1.5rem' }}>Video editors are in high demand across media, advertising, production houses, and remote freelancing.</p>
             <div className="pill-list">

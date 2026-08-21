@@ -153,20 +153,20 @@ export default function ServiceDetail({ slug, onBack, onOpenEnrollModal }) {
     <section key={slug} className="service-detail-section" style={{ paddingBlock: 'var(--section-spacing-md)', background: '#ffffff' }}>
       <div className="container">
         {/* Back Button */}
-        <button onClick={onBack} className="service-detail-back-btn" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'none', border: 'none', color: 'var(--accent-coral)', fontWeight: '600', cursor: 'pointer', marginBottom: '2.5rem', padding: '0', fontSize: '1rem' }}>
+        <button onClick={onBack} className="service-detail-back-btn anim-button delay-1" style={{ display: 'inline-flex', alignItems: 'center', gap: '0.5rem', background: 'none', border: 'none', color: 'var(--accent-coral)', fontWeight: '600', cursor: 'pointer', marginBottom: '2.5rem', padding: '0', fontSize: '1rem' }}>
           <ArrowLeft size={18} /> Back to Home
         </button>
 
         <div className="service-detail-grid" style={{ display: 'grid', gap: '2rem', alignItems: 'stretch' }}>
           {/* Main Info */}
           <div className="service-detail-main" style={{ display: 'flex', flexDirection: 'column' }}>
-            <h1 className="service-detail-title" style={{ fontSize: '3rem', color: 'var(--primary-dark)', fontWeight: '800', lineHeight: '1.1', marginBottom: '1rem' }}>
+            <h1 className="service-detail-title anim-text delay-2" style={{ fontSize: '3rem', color: 'var(--primary-dark)', fontWeight: '800', lineHeight: '1.1', marginBottom: '1rem' }}>
               {service.title}
             </h1>
-            <p className="service-detail-subtitle" style={{ fontSize: '1.25rem', color: 'var(--accent-coral)', fontWeight: '600', marginBottom: '1.5rem' }}>
+            <p className="service-detail-subtitle anim-text delay-3" style={{ fontSize: '1.25rem', color: 'var(--accent-coral)', fontWeight: '600', marginBottom: '1.5rem' }}>
               {service.subtitle}
             </p>
-            <p className="service-detail-desc" style={{ fontSize: '1.05rem', color: 'var(--text-body)', lineHeight: '1.75', marginBottom: '3rem' }}>
+            <p className="service-detail-desc anim-text delay-4" style={{ fontSize: '1.05rem', color: 'var(--text-body)', lineHeight: '1.75', marginBottom: '3rem' }}>
               {service.desc}
             </p>
 
@@ -192,7 +192,7 @@ export default function ServiceDetail({ slug, onBack, onOpenEnrollModal }) {
           </div>
 
           {/* Sidebar Info */}
-          <div className="service-detail-sidebar" style={{ display: 'flex', flexDirection: 'column', position: 'sticky', top: '100px', background: 'linear-gradient(135deg, #5E086B 0%, #220066 100%)', borderRadius: 'var(--radius-lg)', padding: '2.5rem', color: 'var(--text-white)', boxShadow: 'var(--shadow-lg)' }}>
+          <div className="service-detail-sidebar anim-card delay-3" style={{ display: 'flex', flexDirection: 'column', position: 'sticky', top: '100px', background: 'linear-gradient(135deg, #5E086B 0%, #220066 100%)', borderRadius: 'var(--radius-lg)', padding: '2.5rem', color: 'var(--text-white)', boxShadow: 'var(--shadow-lg)' }}>
             <h3 style={{ fontSize: '1.5rem', color: 'var(--text-white)', fontWeight: '700', marginBottom: '1.5rem', display: 'flex', alignItems: 'center', gap: '0.5rem' }}>
               <Sparkles size={20} className="text-accent" style={{ color: 'var(--accent-coral)' }} /> Course Details
             </h3>
